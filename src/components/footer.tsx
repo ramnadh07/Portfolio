@@ -36,20 +36,18 @@ const Footer: React.FC = () => {
             {/* Tip Section */}
             {randomTip && ( // Only render if a tip has been selected on the client
                 <AnimatedSection animationClass="animate-fade-in" delay="delay-0"> {/* Added fade-in animation */}
-                    <div className="py-4 border-b border-border/30">
-                        {/* Removed Card for transparency, applied centering directly */}
-                        <div className="container max-w-screen-md mx-auto text-center">
-                            {/* Adjusted flex alignment to items-start */}
-                            <div className="p-3 text-sm text-muted-foreground flex items-start justify-center gap-2">
-                                <Lightbulb className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> {/* Added margin-top for better alignment */}
-                                <span><strong>Quick Tip:</strong> {randomTip}</span>
-                            </div>
+                    {/* Removed outer div with border for full transparency */}
+                    <div className="container max-w-screen-md mx-auto text-center py-4"> {/* Added py-4 for spacing */}
+                        {/* Ensured flex items-start for top alignment */}
+                        <div className="p-3 text-sm text-muted-foreground flex items-start justify-center gap-2">
+                            <Lightbulb className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> {/* Keeps icon aligned with first line */}
+                            <span><strong>Quick Tip:</strong> {randomTip}</span>
                         </div>
                     </div>
                 </AnimatedSection>
             )}
 
-            <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4">
+            <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4 border-t border-border/30"> {/* Added border-t here */}
                 <p className="text-sm text-muted-foreground text-center sm:text-left">
                     &copy; {currentYear} Ramalingeswara Nadh | Business Analyst & Strategist. Built with Next.js & Tailwind CSS.
                 </p>
