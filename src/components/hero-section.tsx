@@ -30,7 +30,7 @@ const HeroSection: React.FC = () => {
 
       {/* Increased drop shadow for better readability */}
       <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-foreground animate-fade-in drop-shadow-xl">
-        Alex Chen {/* Updated Name */}
+        Ramalingeswara Nadh {/* Updated Name */}
       </h1>
       {/* Increased drop shadow and max-width for better wrapping on smaller screens */}
       <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-8 max-w-2xl lg:max-w-3xl animate-fade-in-up delay-100 drop-shadow-md">
@@ -48,7 +48,7 @@ const HeroSection: React.FC = () => {
           </Link>
         </Button>
         <Button variant="outline" size="lg" asChild className="bg-background/70 backdrop-blur-sm text-foreground hover:text-accent-foreground hover:bg-accent/80 hover:border-accent/80 transition-all duration-300 ease-out group border-border/70 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
-           <Link href="mailto:alex.chen.ba.strategy@example.com" aria-label="Contact Me"> {/* Updated email */}
+           <Link href="mailto:your.email@example.com" aria-label="Contact Me"> {/* Updated email */}
             <>
               Contact Me
               <ArrowDown className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5" />
@@ -61,4 +61,3 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
-

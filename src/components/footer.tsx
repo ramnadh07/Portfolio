@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
             <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4"> {/* Added padding */}
                 <p className="text-sm text-muted-foreground text-center sm:text-left">
                      {/* Updated Name and Title */}
-                    &copy; {currentYear} Alex Chen | Business Analyst & Strategist. Built with Next.js & Tailwind CSS.
+                    &copy; {currentYear} Ramalingeswara Nadh | Business Analyst & Strategist. Built with Next.js & Tailwind CSS.
                 </p>
                 <div className="flex space-x-2">
                     {/* Ensure Link is the single direct child for Buttons with asChild - Wrap Icon in Fragment */}
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
                         </Link>
                     </Button> */}
                      <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
-                        <Link href="https://linkedin.com/in/alexchenbastrategy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"> {/* Updated LinkedIn URL */}
+                        <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"> {/* Updated LinkedIn URL */}
                              <Linkedin className="h-5 w-5" />
                         </Link>
                     </Button>

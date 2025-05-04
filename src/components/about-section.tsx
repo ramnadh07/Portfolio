@@ -14,7 +14,7 @@ const AboutSection: React.FC = () => {
           <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
             <Image
               src="https://picsum.photos/seed/ba-strategy-consultant/600/800" // Changed seed
-              alt="Portrait of Alex Chen, Strategy Consultant" // Updated alt text
+              alt="Portrait of Ramalingeswara Nadh, Strategy Consultant" // Updated alt text
               layout="fill"
               objectFit="cover"
               className="transition-transform duration-500 ease-out group-hover:scale-105 filter group-hover:brightness-105"
@@ -33,7 +33,7 @@ const AboutSection: React.FC = () => {
             </CardHeader>
             <CardContent className="p-0 space-y-4 text-base md:text-lg text-foreground leading-relaxed">
               <p>
-                Hi, I'm Alex Chen, a multifaceted professional based in San Francisco, blending skills in Business Analysis, Functional Consulting, and Business Strategy. I thrive on dissecting complex challenges, translating them into actionable technology requirements, and shaping strategic initiatives that drive growth and operational efficiency. My passion is connecting the dots between business vision, market opportunity, and technical execution.
+                Hi, I'm Ramalingeswara Nadh, a multifaceted professional based in San Francisco, blending skills in Business Analysis, Functional Consulting, and Business Strategy. I thrive on dissecting complex challenges, translating them into actionable technology requirements, and shaping strategic initiatives that drive growth and operational efficiency. My passion is connecting the dots between business vision, market opportunity, and technical execution.
               </p>
               <p>
                 My career spans traditional business analysis, deep-diving into process optimization and requirements elicitation, to functional consulting roles where I've configured and implemented enterprise systems (like CRM/ERP). More recently, I've focused on business strategy, market analysis, competitive intelligence, and supporting Go-To-Market (GTM) efforts, including pursuits and proposal development. I leverage data (SQL, analytics tools) and frameworks to inform strategic decisions and ensure successful project and business outcomes.
