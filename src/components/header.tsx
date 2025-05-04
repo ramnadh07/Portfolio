@@ -14,56 +14,71 @@ const Header: React.FC = () => {
           </span>
         </Link>
         <nav className="flex items-center space-x-1"> {/* Adjusted spacing */}
-          {/* Navigation Buttons - Reordered & Updated */}
+          {/* Navigation Buttons - Wrap Link children in Fragment */}
           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#about">
-              <User className="h-4 w-4 sm:mr-1.5" />
-              <span className="hidden sm:inline">About</span>
+              <>
+                <User className="h-4 w-4 sm:mr-1.5" />
+                <span className="hidden sm:inline">About</span>
+              </>
             </Link>
           </Button>
           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#skills">
-              <Layers3 className="h-4 w-4 sm:mr-1.5" />
-              <span className="hidden sm:inline">Skills</span>
+              <>
+                <Layers3 className="h-4 w-4 sm:mr-1.5" />
+                <span className="hidden sm:inline">Skills</span>
+              </>
             </Link>
           </Button>
           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#domain-expertise">
-              <Shapes className="h-4 w-4 sm:mr-1.5" />
-              <span className="hidden sm:inline">Domains</span>
+              <>
+                <Shapes className="h-4 w-4 sm:mr-1.5" />
+                <span className="hidden sm:inline">Domains</span>
+              </>
             </Link>
           </Button>
            <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#experience">
-              <Briefcase className="h-4 w-4 sm:mr-1.5" />
-              <span className="hidden sm:inline">Experience</span>
+              <>
+                <Briefcase className="h-4 w-4 sm:mr-1.5" />
+                <span className="hidden sm:inline">Experience</span>
+              </>
             </Link>
           </Button>
            <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#education">
-              <GraduationCap className="h-4 w-4 sm:mr-1.5" />
-              <span className="hidden sm:inline">Education</span>
+              <>
+                <GraduationCap className="h-4 w-4 sm:mr-1.5" />
+                <span className="hidden sm:inline">Education</span>
+              </>
             </Link>
           </Button>
           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#projects">
-              {/* Keeping the grid icon for projects */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-grid sm:mr-1.5"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg>
-              <span className="hidden sm:inline">Projects</span>
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-grid sm:mr-1.5"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg>
+                <span className="hidden sm:inline">Projects</span>
+              </>
             </Link>
           </Button>
            <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#social-impact">
-              <HeartHandshake className="h-4 w-4 sm:mr-1.5" />
-              <span className="hidden sm:inline">Impact</span>
+              <>
+                <HeartHandshake className="h-4 w-4 sm:mr-1.5" />
+                <span className="hidden sm:inline">Impact</span>
+              </>
             </Link>
           </Button>
 
-          {/* Contact Button */}
+          {/* Contact Button - Wrap Link children in Fragment */}
           <Button variant="outline" size="sm" asChild className="ml-2 border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group">
             <Link href="mailto:your.email@example.com">
-              <Mail className="h-4 w-4 sm:mr-1.5 transition-transform duration-200 group-hover:scale-110" />
-              <span className="hidden sm:inline">Contact</span>
+              <>
+                <Mail className="h-4 w-4 sm:mr-1.5 transition-transform duration-200 group-hover:scale-110" />
+                <span className="hidden sm:inline">Contact</span>
+              </>
             </Link>
           </Button>
         </nav>

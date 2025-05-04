@@ -94,14 +94,18 @@ const ProjectsSection: React.FC = () => {
                     {project.repoUrl && project.repoUrl !== "#" && (
                         <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors group/btn">
                            <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> GitHub
+                             <>
+                               <Github className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> GitHub
+                             </>
                            </Link>
                          </Button>
                     )}
                     {project.liveUrl && project.liveUrl !== "#" && (
                          <Button variant="outline" size="sm" asChild className="text-accent border-accent hover:bg-accent/10 hover:text-accent transition-colors group/btn">
                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                             <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> Live Demo
+                             <>
+                               <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> Live Demo
+                             </>
                            </Link>
                          </Button>
                     )}
