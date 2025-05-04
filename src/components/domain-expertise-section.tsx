@@ -42,30 +42,27 @@ const domainData = [
 
 const DomainExpertiseSection: React.FC = () => {
   return (
-    <AnimatedSection id="domain-expertise" className="scroll-mt-16" delay="delay-300"> {/* Adjusted delay */}
+    <AnimatedSection id="domain-expertise" className="scroll-mt-20 md:scroll-mt-24" delay="delay-300"> {/* Adjusted delay */}
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
-        <CardHeader className="p-0 mb-6">
-          <CardTitle className="text-3xl md:text-4xl font-semibold text-primary text-center">
+        <CardHeader className="p-0 mb-8 text-center"> {/* Increased bottom margin and centered */}
+          {/* Enhanced Title Styling */}
+          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
             Domain Expertise
           </CardTitle>
+          <p className="text-muted-foreground mt-2 text-lg">Industry knowledge applied to technology.</p>
         </CardHeader>
         <CardContent className="p-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {domainData.map((domain, index) => (
               <AnimatedSection key={domain.name} delay={`delay-${index * 75}`}> {/* Adjusted delay step */}
-                 {/* Changed inner div to Card for consistency */}
                 <Card className="flex flex-col p-4 border border-border/30 rounded-md bg-background h-full transition-all duration-300 ease-out transform hover:-translate-y-1 hover:shadow-md hover:border-accent/50 group">
-                  <h3 className="flex items-center text-lg font-medium mb-2 text-foreground transition-colors duration-300 group-hover:text-accent"> {/* Added group hover effect */}
-                     {domain.icon}
+                  <h3 className="flex items-center text-lg font-medium mb-2 text-foreground transition-colors duration-300 group-hover:text-accent">
+                    {domain.icon}
                     {domain.name}
                   </h3>
                   <p className="text-sm text-muted-foreground flex-grow">
                     {domain.description}
                   </p>
-                   {/* Optional: Could add related tech/skills as badges here */}
-                   {/* <div className="flex flex-wrap gap-1 mt-3">
-                       <Badge variant="outline" className="text-xs">Related Skill</Badge>
-                   </div> */}
                 </Card>
               </AnimatedSection>
             ))}

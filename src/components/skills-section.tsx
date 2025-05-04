@@ -36,20 +36,21 @@ const skillsData = [
 
 const SkillsSection: React.FC = () => {
   return (
-    <AnimatedSection id="skills" className="scroll-mt-16" delay="delay-200">
+    <AnimatedSection id="skills" className="scroll-mt-20 md:scroll-mt-24" delay="delay-200"> {/* Increased scroll margin */}
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
-        <CardHeader className="p-0 mb-6">
-          <CardTitle className="text-3xl md:text-4xl font-semibold text-primary text-center">
+        <CardHeader className="p-0 mb-8 text-center"> {/* Increased bottom margin and centered */}
+          {/* Enhanced Title Styling */}
+          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
             Technical Toolkit
           </CardTitle>
+           <p className="text-muted-foreground mt-2 text-lg">Technologies I work with.</p>
         </CardHeader>
         <CardContent className="p-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Reduced gap slightly */}
             {skillsData.map((categoryData, index) => (
-              <AnimatedSection key={categoryData.category} delay={`delay-${index * 75}`}> {/* Slightly increased delay step */}
-                {/* Changed inner div to Card for consistency and potential future styling */}
+              <AnimatedSection key={categoryData.category} delay={`delay-${index * 75}`}>
                 <Card className="p-4 border border-border/30 rounded-md bg-background h-full transition-all duration-300 ease-out transform hover:-translate-y-1 hover:shadow-md hover:border-accent/50 group">
-                  <h3 className="flex items-center text-xl font-medium mb-4 text-foreground transition-colors duration-300 group-hover:text-accent"> {/* Added group hover effect */}
+                  <h3 className="flex items-center text-xl font-medium mb-4 text-foreground transition-colors duration-300 group-hover:text-accent">
                      {categoryData.icon}
                     {categoryData.category}
                   </h3>

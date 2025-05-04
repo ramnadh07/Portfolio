@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Calendar, TrendingUp } from "lucide-react"; // Added TrendingUp for impact
+import { Briefcase, Calendar, TrendingUp } from "lucide-react";
 
 const experienceData = [
   {
@@ -51,22 +51,24 @@ const experienceData = [
 
 const ExperienceSection: React.FC = () => {
   return (
-    <AnimatedSection id="experience" className="scroll-mt-16" delay="delay-350"> {/* Adjusted delay */}
+    <AnimatedSection id="experience" className="scroll-mt-20 md:scroll-mt-24" delay="delay-350"> {/* Increased scroll margin */}
        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
-         <CardHeader className="p-0 mb-6">
-          <CardTitle className="text-3xl md:text-4xl font-semibold text-primary text-center">
+         <CardHeader className="p-0 mb-8 text-center"> {/* Increased bottom margin and centered */}
+          {/* Enhanced Title Styling */}
+          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
             Professional Journey & Impact
           </CardTitle>
+          <p className="text-muted-foreground mt-2 text-lg">Highlights from my career path.</p>
         </CardHeader>
         <CardContent className="p-0">
-            <Accordion type="single" collapsible className="w-full space-y-2"> {/* Added space-y */}
+            <Accordion type="single" collapsible className="w-full space-y-4"> {/* Increased spacing */}
                 {experienceData.map((exp, index) => (
                  <AnimatedSection key={exp.id} delay={`delay-${index * 75}`}> {/* Adjusted delay step */}
                     <AccordionItem
                       value={exp.id}
-                      className="border border-border/50 rounded-md overflow-hidden transition-all duration-300 hover:border-accent/70 hover:bg-muted/30" // Added hover effects and border radius
+                      className="border border-border/50 rounded-md overflow-hidden transition-all duration-300 hover:border-accent/70 hover:bg-muted/30"
                       >
-                        <AccordionTrigger className="text-left hover:no-underline group py-4 px-4 md:px-6 hover:bg-muted/50 transition-colors duration-200"> {/* Added padding and hover bg */}
+                        <AccordionTrigger className="text-left hover:no-underline group py-4 px-4 md:px-6 hover:bg-muted/50 transition-colors duration-200">
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full mr-4">
                                 <div className="flex items-center mb-1 sm:mb-0">
                                     <Briefcase className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />
@@ -81,11 +83,11 @@ const ExperienceSection: React.FC = () => {
                                 </div>
                             </div>
                         </AccordionTrigger>
-                        <AccordionContent className="pb-4 pt-0 px-6 md:px-8"> {/* Added padding */}
-                            <ul className="list-none space-y-2.5 text-muted-foreground text-base leading-relaxed pt-2"> {/* Adjusted spacing and added padding-top */}
+                        <AccordionContent className="pb-4 pt-0 px-6 md:px-8">
+                            <ul className="list-none space-y-2.5 text-muted-foreground text-base leading-relaxed pt-2">
                                 {exp.description.map((item, idx) => (
                                     <li key={idx} className="flex items-start">
-                                        <TrendingUp className="h-4 w-4 mr-2.5 mt-1 text-accent/80 flex-shrink-0" /> {/* Adjusted spacing */}
+                                        <TrendingUp className="h-4 w-4 mr-2.5 mt-1 text-accent/80 flex-shrink-0" />
                                         <span>{item}</span>
                                     </li>
                                 ))}

@@ -1,0 +1,77 @@
+
+"use client";
+import React from "react";
+import AnimatedSection from "./animated-section";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { GraduationCap, Calendar } from "lucide-react"; // Icons for education
+
+// Replace with your actual education data
+const educationData = [
+  {
+    degree: "Master of Science in Computer Science",
+    institution: "University of Advanced Technology",
+    duration: "2019 - 2021",
+    details: [
+      "Specialized in Artificial Intelligence and Machine Learning.",
+      "Thesis: 'Developing Efficient Algorithms for Large-Scale Data Analysis'.",
+      "Achieved Dean's List for academic excellence.",
+    ],
+  },
+  {
+    degree: "Bachelor of Science in Software Engineering",
+    institution: "State Technical College",
+    duration: "2015 - 2019",
+    details: [
+      "Capstone Project: 'E-commerce Platform Development'.",
+      "Active member of the Coding Club and Tech Society.",
+      "Graduated with Honors.",
+    ],
+  },
+  // Add more degrees or certifications
+];
+
+const EducationSection: React.FC = () => {
+  return (
+    <AnimatedSection id="education" className="scroll-mt-20 md:scroll-mt-24" delay="delay-400"> {/* Ensure consistent scroll margin */}
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
+        <CardHeader className="p-0 mb-8 text-center">
+          {/* Enhanced Title Styling */}
+          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
+            Academic Background
+          </CardTitle>
+          <p className="text-muted-foreground mt-2 text-lg">My educational qualifications.</p>
+        </CardHeader>
+        <CardContent className="p-0">
+          <div className="space-y-6">
+            {educationData.map((edu, index) => (
+              <AnimatedSection key={index} delay={`delay-${index * 100}`}>
+                <div className="flex flex-col sm:flex-row items-start gap-4 p-4 border border-border/30 rounded-md bg-background hover:border-accent/50 hover:bg-muted/20 transition-all duration-300 ease-out">
+                  <div className="flex-shrink-0 mt-1 text-accent">
+                    <GraduationCap className="h-6 w-6" />
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="text-xl font-semibold text-foreground mb-1">{edu.degree}</h3>
+                    <p className="text-lg text-muted-foreground mb-1">{edu.institution}</p>
+                    <div className="flex items-center text-sm text-muted-foreground mb-3">
+                      <Calendar className="h-4 w-4 mr-1.5" />
+                      {edu.duration}
+                    </div>
+                    <ul className="list-disc list-inside space-y-1 text-muted-foreground text-base">
+                      {edu.details.map((detail, idx) => (
+                        <li key={idx}>{detail}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </AnimatedSection>
+  );
+};
+
+export default EducationSection;
+
+    

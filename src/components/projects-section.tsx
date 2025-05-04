@@ -50,10 +50,10 @@ const projectsData = [
 
 const ProjectsSection: React.FC = () => {
   return (
-    <AnimatedSection id="projects" className="scroll-mt-16" delay="delay-400">
-       {/* Removed outer Card to make section title stand alone */}
+    <AnimatedSection id="projects" className="scroll-mt-20 md:scroll-mt-24" delay="delay-400"> {/* Increased scroll margin */}
          <div className="text-center mb-10 md:mb-12">
-             <h2 className="text-3xl md:text-4xl font-semibold text-primary">
+             {/* Enhanced Title Styling */}
+             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
                 Featured Projects
              </h2>
              <p className="text-muted-foreground mt-2 text-lg">A selection of my recent work.</p>
@@ -62,7 +62,7 @@ const ProjectsSection: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> {/* Adjusted grid cols for better spacing */}
             {projectsData.map((project, index) => (
               <AnimatedSection key={project.title} delay={`delay-${index * 100}`}>
-                <Card className="group flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-card"> {/* Added group */}
+                <Card className="group flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-card">
                    <div className="relative h-48 md:h-56 w-full overflow-hidden"> {/* Image container */}
                      <Image
                         src={project.imageUrl}
@@ -72,15 +72,11 @@ const ProjectsSection: React.FC = () => {
                         className="transition-transform duration-500 ease-out group-hover:scale-105" // Image zoom on hover
                          data-ai-hint={project.aiHint}
                       />
-                      {/* Optional overlay for text contrast */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
-                      {/* Project Title on Image */}
                        <CardTitle className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-colors duration-300 group-hover:text-accent-foreground/90">{project.title}</CardTitle>
                    </div>
 
-                  {/* Card Body */}
                   <CardHeader className="pt-4 px-4">
-                     {/* Title moved to image overlay */}
                      <div className="flex flex-wrap gap-1.5 mt-1">
                       {project.tags.map((tag) => (
                         <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
@@ -94,7 +90,7 @@ const ProjectsSection: React.FC = () => {
                       {project.description}
                     </CardDescription>
                   </CardContent>
-                  <CardFooter className="px-4 pb-4 pt-2 flex justify-end space-x-3 mt-auto bg-muted/20 border-t border-border/30"> {/* Added subtle footer bg and border */}
+                  <CardFooter className="px-4 pb-4 pt-2 flex justify-end space-x-3 mt-auto bg-muted/20 border-t border-border/30">
                     {project.repoUrl && project.repoUrl !== "#" && (
                         <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors group/btn">
                            <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer">

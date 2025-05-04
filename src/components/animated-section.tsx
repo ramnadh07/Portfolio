@@ -26,11 +26,8 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Keep observing in case element scrolls out and back in
-          // observer.unobserve(entry.target);
         } else {
            // Optional: Reset animation if element scrolls completely out of view
-           // Useful if you want animations to re-trigger on scroll up/down
            // setIsVisible(false);
         }
       },
@@ -54,9 +51,10 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
     <section // Changed div to section for semantic meaning
       ref={ref}
       className={cn(
-        'opacity-0 transition-all duration-700 ease-out', // Start hidden, slightly faster duration
-        isVisible ? `${animationClass} opacity-100 ${delay}` : 'translate-y-5', // Apply animation, slightly larger initial Y offset
-        className
+        'opacity-0 transition-all duration-700 ease-out', // Start hidden
+        'scroll-mt-20 md:scroll-mt-24', // Add default scroll margin top
+        isVisible ? `${animationClass} opacity-100 ${delay}` : 'translate-y-5', // Apply animation
+        className // Allow overriding scroll margin via className prop
       )}
       {...props}
     >
