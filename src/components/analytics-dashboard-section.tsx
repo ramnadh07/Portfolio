@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from "react";
@@ -122,9 +121,9 @@ const AnalyticsDashboardSection: React.FC = () => {
             Insights based on simulated visitor interactions and feedback.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6 md:p-8">
+        <CardContent className="p-6 md:p-8 space-y-8"> {/* Added space-y for vertical spacing */}
            {/* KPI Cards Row */}
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {/* Total Viewers */}
                 <AnimatedSection animationClass="animate-fade-in-up" delay={cardAnimationDelay(0)} className="col-span-1">
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70 flex flex-col">
@@ -211,36 +210,39 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </Tooltip>
                         </TooltipProvider>
                         </CardHeader>
-                        <CardContent className="flex-grow flex flex-col"> {/* Use flex-grow */}
-                        {!isClient || simulatedViewersData === null ? (
-                            <Skeleton className="h-6 w-16 mb-1" />
-                        ) : (
-                            <div className="text-lg font-bold text-foreground">{simulatedViewersData[simulatedViewersData.length - 1].viewers} <span className="text-xs text-muted-foreground">in Jun</span></div>
-                        )}
-                        <div className="flex-grow mt-2 h-[100px]"> {/* Allow chart to grow */}
-                            {!isClient || simulatedViewersData === null ? (
-                                <div className="flex items-center justify-center h-full">
-                                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-                                </div>
-                            ) : (
-                                <ChartContainer config={{ viewers: { label: "Viewers", color: "hsl(var(--chart-1))" } }}>
-                                <LineChart data={simulatedViewersData} margin={{ top: 5, right: 10, left: -25, bottom: 0 }}>
-                                    <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border)/0.5)" />
-                                    <XAxis dataKey="month" tickLine={false} axisLine={false} dy={10} fontSize={10} />
-                                    <YAxis tickLine={false} axisLine={false} tickMargin={8} fontSize={10} />
-                                    <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" hideLabel />} />
-                                    <Line dataKey="viewers" type="monotone" stroke="hsl(var(--chart-1))" strokeWidth={2} dot={false} />
-                                </LineChart>
-                                </ChartContainer>
-                            )}
-                        </div>
+                        <CardContent className="flex-grow flex flex-col pt-4"> {/* Adjusted padding */}
+                            <div className="flex items-baseline gap-1">
+                                {!isClient || simulatedViewersData === null ? (
+                                    <Skeleton className="h-6 w-16" />
+                                ) : (
+                                    <div className="text-2xl font-bold text-foreground">{simulatedViewersData[simulatedViewersData.length - 1].viewers}</div>
+                                )}
+                                <span className="text-xs text-muted-foreground">in Jun</span>
+                            </div>
+                            <div className="flex-grow h-[100px] w-full mt-2"> {/* Ensure full width */}
+                                {!isClient || simulatedViewersData === null ? (
+                                    <div className="flex items-center justify-center h-full">
+                                        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                                    </div>
+                                ) : (
+                                    <ChartContainer config={{ viewers: { label: "Viewers", color: "hsl(var(--chart-1))" } }} className="w-full h-full">
+                                        <LineChart data={simulatedViewersData} margin={{ top: 5, right: 5, left: -30, bottom: 0 }}> {/* Adjusted margins */}
+                                            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border)/0.5)" />
+                                            <XAxis dataKey="month" tickLine={false} axisLine={false} dy={10} fontSize={10} />
+                                            <YAxis tickLine={false} axisLine={false} tickMargin={8} fontSize={10} />
+                                            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" hideLabel />} />
+                                            <Line dataKey="viewers" type="monotone" stroke="hsl(var(--chart-1))" strokeWidth={2} dot={false} />
+                                        </LineChart>
+                                    </ChartContainer>
+                                )}
+                            </div>
                         </CardContent>
                     </Card>
                 </AnimatedSection>
            </div>
 
             {/* Interest/Needs Row */}
-           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
+           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                 {/* Skills Interest */}
                 <AnimatedSection animationClass="animate-fade-in-up" delay={cardAnimationDelay(4)} className="col-span-1 lg:col-span-2">
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70 flex flex-col">
@@ -257,23 +259,23 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </Tooltip>
                         </TooltipProvider>
                         </CardHeader>
-                        <CardContent className="flex-grow pt-2">
-                        <div className="text-lg font-bold text-foreground">{skillsInterestData[0].skill}</div>
-                        <p className="text-xs text-muted-foreground mb-2">Most frequently mentioned</p>
-                        <div className="flex-grow h-[160px]"> {/* Adjusted height */}
-                            <ChartContainer config={skillsInterestData.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})}>
-                            <BarChart data={skillsInterestData} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
-                                <XAxis type="number" hide />
-                                <YAxis dataKey="skill" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} width={90} interval={0} />
-                                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                <Bar dataKey="value" radius={4} barSize={12} >
-                                {skillsInterestData.map((entry) => (
-                                    <Cell key={`cell-${entry.skill}`} fill={entry.fill} />
-                                ))}
-                                </Bar>
-                            </BarChart>
-                            </ChartContainer>
-                        </div>
+                        <CardContent className="flex-grow pt-4 space-y-2"> {/* Added spacing */}
+                            <div className="text-lg font-bold text-foreground">{skillsInterestData[0].skill}</div>
+                            <p className="text-xs text-muted-foreground">Most frequently mentioned</p>
+                            <div className="flex-grow h-[200px] w-full"> {/* Increased height and ensured full width */}
+                                <ChartContainer config={skillsInterestData.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
+                                    <BarChart data={skillsInterestData} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
+                                        <XAxis type="number" hide />
+                                        <YAxis dataKey="skill" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} width={90} interval={0} />
+                                        <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                                        <Bar dataKey="value" radius={4} barSize={16} > {/* Increased bar size */}
+                                        {skillsInterestData.map((entry) => (
+                                            <Cell key={`cell-${entry.skill}`} fill={entry.fill} />
+                                        ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ChartContainer>
+                            </div>
                         </CardContent>
                     </Card>
                 </AnimatedSection>
@@ -294,14 +296,14 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </Tooltip>
                         </TooltipProvider>
                         </CardHeader>
-                        <CardContent className="flex-grow flex flex-col items-center justify-center pt-2">
-                            <div className="text-xl font-bold text-foreground" style={{ color: topDomain.fill }}>{topDomain.name}</div>
-                            <p className="text-xs text-muted-foreground mb-2">Highest interest area</p>
-                            <div className="h-[120px] w-[120px]"> {/* Adjusted size */}
-                                <ChartContainer config={domainInterestData.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
-                                    <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                        <CardContent className="flex-grow flex flex-col items-center justify-center pt-4 space-y-2"> {/* Added spacing */}
+                            <div className="text-2xl font-bold text-foreground" style={{ color: topDomain.fill }}>{topDomain.name}</div>
+                            <p className="text-xs text-muted-foreground">Highest interest area</p>
+                            <div className="h-[160px] w-[160px]"> {/* Increased size */}
+                                <ChartContainer config={domainInterestData.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                    <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}> {/* Added margin */}
                                     <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
-                                    <Pie data={domainInterestData} dataKey="value" nameKey="name" innerRadius={30} outerRadius={55} strokeWidth={1} >
+                                    <Pie data={domainInterestData} dataKey="value" nameKey="name" innerRadius={40} outerRadius={70} strokeWidth={2} > {/* Increased radius */}
                                         {domainInterestData.map((entry) => (
                                         <Cell key={`cell-${entry.name}`} fill={entry.fill} />
                                         ))}
@@ -317,7 +319,7 @@ const AnalyticsDashboardSection: React.FC = () => {
            {/* Visitor Needs Summary Section */}
             <AnimatedSection animationClass="animate-fade-in-up" delay={cardAnimationDelay(6)} className="col-span-1 sm:col-span-2 lg:col-span-4">
                 <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4"> {/* Adjusted padding */}
                         <CardTitle className="text-lg font-medium">Visitor Needs Summary</CardTitle>
                         <TooltipProvider>
                             <Tooltip>
@@ -330,20 +332,20 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </Tooltip>
                         </TooltipProvider>
                     </CardHeader>
-                    <CardContent className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <CardContent className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10"> {/* Increased gap */}
 
                          {/* Company Size */}
-                         <div className="col-span-1">
-                            <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
+                         <div className="col-span-1 flex flex-col">
+                            <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center"> {/* Increased margin */}
                                 <Building2 className="h-4 w-4 mr-1.5"/> Company Size
                             </h4>
-                            <div className="h-[150px]">
-                                <ChartContainer config={needsSummaryData.companySize.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
+                            <div className="flex-grow h-[200px] w-full"> {/* Increased height */}
+                                <ChartContainer config={needsSummaryData.companySize.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
                                     <BarChart data={needsSummaryData.companySize} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
                                         <XAxis type="number" hide />
-                                        <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} width={60} interval={0} />
+                                        <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={11} width={60} interval={0} /> {/* Increased font size */}
                                         <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                        <Bar dataKey="value" radius={4} barSize={10}>
+                                        <Bar dataKey="value" radius={4} barSize={14}> {/* Increased bar size */}
                                         {needsSummaryData.companySize.map((entry) => (
                                             <Cell key={`cell-comp-${entry.name}`} fill={entry.fill} />
                                         ))}
@@ -354,15 +356,15 @@ const AnalyticsDashboardSection: React.FC = () => {
                          </div>
 
                          {/* Role */}
-                          <div className="col-span-1">
-                             <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
+                          <div className="col-span-1 flex flex-col items-center"> {/* Centered items */}
+                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center"> {/* Increased margin */}
                                  <Briefcase className="h-4 w-4 mr-1.5"/> Visitor Role
                              </h4>
-                             <div className="h-[150px]">
-                                <ChartContainer config={needsSummaryData.roles.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
-                                    <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                             <div className="flex-grow h-[180px] w-[180px]"> {/* Increased size */}
+                                <ChartContainer config={needsSummaryData.roles.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                    <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}> {/* Added margin */}
                                         <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
-                                        <Pie data={needsSummaryData.roles} dataKey="value" nameKey="name" innerRadius={30} outerRadius={50} strokeWidth={1}>
+                                        <Pie data={needsSummaryData.roles} dataKey="value" nameKey="name" innerRadius={40} outerRadius={70} strokeWidth={2}> {/* Increased radius */}
                                             {needsSummaryData.roles.map((entry) => (
                                             <Cell key={`cell-role-${entry.name}`} fill={entry.fill} />
                                             ))}
@@ -373,17 +375,17 @@ const AnalyticsDashboardSection: React.FC = () => {
                           </div>
 
                          {/* Industry */}
-                          <div className="col-span-1">
-                             <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
+                          <div className="col-span-1 flex flex-col">
+                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center"> {/* Increased margin */}
                                  <Factory className="h-4 w-4 mr-1.5"/> Visitor Industry
                              </h4>
-                             <div className="h-[150px]">
-                                 <ChartContainer config={needsSummaryData.industries.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
-                                     <BarChart data={needsSummaryData.industries} layout="horizontal" margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
-                                         <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={9} interval={0} angle={-30} dx={-5} dy={10} height={40}/>
+                             <div className="flex-grow h-[200px] w-full"> {/* Increased height */}
+                                 <ChartContainer config={needsSummaryData.industries.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                     <BarChart data={needsSummaryData.industries} layout="horizontal" margin={{ top: 5, right: 0, left: 0, bottom: 30 }}> {/* Increased bottom margin */}
+                                         <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-40} dx={-10} dy={15} height={50}/> {/* Adjusted angle/margins */}
                                          <YAxis type="number" hide/>
                                          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                         <Bar dataKey="value" radius={4} barSize={15}>
+                                         <Bar dataKey="value" radius={4} barSize={18}> {/* Increased bar size */}
                                             {needsSummaryData.industries.map((entry) => (
                                              <Cell key={`cell-ind-${entry.name}`} fill={entry.fill} />
                                              ))}
@@ -394,17 +396,17 @@ const AnalyticsDashboardSection: React.FC = () => {
                           </div>
 
                          {/* Looking For */}
-                         <div className="col-span-1 md:col-span-2"> {/* Span 2 cols on medium */}
-                            <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
+                         <div className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col"> {/* Span full width */}
+                            <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center"> {/* Increased margin */}
                                 <Handshake className="h-4 w-4 mr-1.5"/> Primary Need / Reason for Connecting
                             </h4>
-                            <div className="h-[150px]">
-                                 <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
-                                     <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 0 }}>
-                                         <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0}/>
+                            <div className="flex-grow h-[180px] w-full"> {/* Increased height */}
+                                 <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                     <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 20 }}> {/* Increased bottom margin */}
+                                         <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-30} dx={-5} dy={10} height={40}/> {/* Adjusted ticks */}
                                          <YAxis type="number" hide/>
                                          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                         <Bar dataKey="value" radius={5}>
+                                         <Bar dataKey="value" radius={5} barSize={20}> {/* Increased bar size */}
                                             {needsSummaryData.lookingFor.map((entry) => (
                                              <Cell key={`cell-needs-${entry.name}`} fill={entry.fill} />
                                              ))}
@@ -415,17 +417,17 @@ const AnalyticsDashboardSection: React.FC = () => {
                          </div>
 
                          {/* Skills Mentioned */}
-                         <div className="col-span-1 md:col-span-1"> {/* Span 1 col on medium */}
-                            <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
+                         <div className="col-span-1 md:col-span-1 lg:col-span-3 flex flex-col"> {/* Span full width */}
+                            <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center"> {/* Increased margin */}
                                 <Target className="h-4 w-4 mr-1.5"/> Specific Skills Mentioned
                             </h4>
-                            <div className="h-[150px]">
-                                <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})}>
+                            <div className="flex-grow h-[200px] w-full"> {/* Increased height */}
+                                <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
                                     <BarChart data={needsSummaryData.skillsMentioned} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
                                         <XAxis type="number" hide />
-                                        <YAxis dataKey="skill" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} width={85} interval={0} />
+                                        <YAxis dataKey="skill" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={11} width={95} interval={0} /> {/* Increased font size/width */}
                                         <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                        <Bar dataKey="value" radius={4} barSize={10}>
+                                        <Bar dataKey="value" radius={4} barSize={14}> {/* Increased bar size */}
                                         {needsSummaryData.skillsMentioned.map((entry) => (
                                             <Cell key={`cell-skill-mention-${entry.skill}`} fill={entry.fill} />
                                         ))}
@@ -446,4 +448,3 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
-
