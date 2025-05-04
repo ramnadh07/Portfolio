@@ -35,13 +35,13 @@ const Footer: React.FC = () => {
         <footer className="border-t border-border/40 bg-background/95 mt-16">
             {/* Tip Section */}
             {randomTip && ( // Only render if a tip has been selected on the client
-                <AnimatedSection animationClass="animate-fade-in" delay="delay-0"> {/* Added fade-in animation */}
-                    {/* Removed outer div with border for full transparency */}
-                    <div className="container max-w-screen-md mx-auto text-center py-4"> {/* Added py-4 for spacing */}
+                <AnimatedSection animationClass="animate-fade-in" delay="delay-0">
+                    {/* Container for the tip, ensuring transparent background and no borders */}
+                    <div className="container max-w-screen-md mx-auto text-center py-4 bg-transparent"> {/* Ensured transparent background */}
                         {/* Ensured flex items-start for top alignment */}
                         <div className="p-3 text-sm text-muted-foreground flex items-start justify-center gap-2">
                             <Lightbulb className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> {/* Keeps icon aligned with first line */}
-                            <span><strong>Quick Tip:</strong> {randomTip}</span>
+                            <span><strong>Tip of the Hour:</strong> {randomTip}</span> {/* Renamed from "Quick Tip" */}
                         </div>
                     </div>
                 </AnimatedSection>
