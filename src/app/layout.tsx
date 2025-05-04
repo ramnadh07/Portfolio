@@ -34,6 +34,7 @@ export default function RootLayout({
           {children}
           {/* Removed Chatbot component */}
         </main>
+        {/* Removed AnimatedSection wrapper from Footer */}
         <Footer />
         <Toaster />
       </body>

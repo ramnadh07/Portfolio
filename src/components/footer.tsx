@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
 
     return (
         <footer className="border-t border-border/40 bg-background/95 mt-16">
-            {/* Tip Section */}
+            {/* Tip Section - Moved above main footer content */}
             {randomTip && ( // Only render if a tip has been selected on the client
                 <AnimatedSection animationClass="animate-fade-in" delay="delay-0">
                     {/* Container for the tip, ensuring transparent background and no borders */}
@@ -47,7 +47,8 @@ const Footer: React.FC = () => {
                 </AnimatedSection>
             )}
 
-            <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4 border-t border-border/30"> {/* Added border-t here */}
+            {/* Main Footer Content - Added top border */}
+            <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4 border-t border-border/30">
                 <p className="text-sm text-muted-foreground text-center sm:text-left">
                     &copy; {currentYear} Ramalingeswara Nadh | Business Analyst & Strategist. Built with Next.js & Tailwind CSS.
                 </p>
@@ -71,4 +72,3 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
-
