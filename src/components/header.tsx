@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'; // Import Dropdown components
-import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond } from 'lucide-react';
+import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond, ThumbsDown, ThumbsUp, TrendingDown, TrendingUp } from 'lucide-react'; // Added ThumbsDown, ThumbsUp icons
 
 const Header: React.FC = () => {
   const [rating, setRating] = useState<string | null>(null); // Add state for rating
@@ -28,14 +28,18 @@ const Header: React.FC = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-7 w-7 rounded-full focus-visible:ring-1 focus-visible:ring-ring hover:bg-accent/10" // Adjusted hover and size
+                className="h-8 w-8 rounded-full focus-visible:ring-1 focus-visible:ring-ring hover:bg-accent/10 p-0 border border-transparent hover:border-accent/30 transition-all duration-300" // Adjusted size and added padding 0
                 aria-label="Rate Portfolio"
               >
-                <Diamond className="h-6 w-6 text-primary transition-all duration-300 hover:text-accent group-hover:scale-110 group-hover:rotate-[15deg]" />
+                {/* Blue Circle Outline */}
+                <div className="h-7 w-7 rounded-full border-2 border-accent/50 group-hover:border-accent flex items-center justify-center transition-colors">
+                    <Diamond className="h-4 w-4 text-primary transition-all duration-300 group-hover:text-accent group-hover:scale-110 group-hover:rotate-[10deg]" />
+                </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-48">
-              <DropdownMenuLabel>Rate this Portfolio</DropdownMenuLabel>
+            {/* Adjusted Dropdown Width and Transparency */}
+            <DropdownMenuContent align="start" className="w-40 bg-popover/90 backdrop-blur-sm"> {/* Reduced width, added transparency */}
+              <DropdownMenuLabel className="text-sm font-medium">Rate this Portfolio</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {/* Radio group for rating */}
               <DropdownMenuRadioGroup value={rating ?? ""} onValueChange={setRating} className="px-1 py-1">
@@ -43,11 +47,15 @@ const Header: React.FC = () => {
                   <DropdownMenuRadioItem
                     key={value}
                     value={String(value)}
-                    className="flex justify-between items-center cursor-pointer text-sm py-1.5 px-2" // Adjusted padding/text size
+                    className={
+                        `flex justify-between items-center cursor-pointer text-xs py-1 px-2 rounded-sm
+                         ${rating === String(value) ? 'bg-accent/20 text-accent-foreground' : 'hover:bg-accent/10'}` // Highlight selected, adjusted padding/text size
+                    }
                   >
                     <span>{value}</span>
-                    {value === 1 && <span className="text-xs text-muted-foreground ml-2">(Low)</span>}
-                    {value === 10 && <span className="text-xs text-muted-foreground ml-2">(High)</span>}
+                    {/* Icons for Low/High */}
+                    {value === 1 && <TrendingDown className="h-3 w-3 text-muted-foreground ml-2" />}
+                    {value === 10 && <TrendingUp className="h-3 w-3 text-muted-foreground ml-2" />}
                   </DropdownMenuRadioItem>
                 ))}
               </DropdownMenuRadioGroup>
