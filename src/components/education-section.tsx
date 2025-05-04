@@ -17,8 +17,8 @@ const educationData = [
       "Thesis: 'Developing Efficient Algorithms for Large-Scale Data Analysis'.",
       "Achieved Dean's List for academic excellence.",
     ],
-    imageUrl: "https://picsum.photos/seed/uni/400/300",
-    aiHint: "university campus graduation", // Updated hint
+    imageUrl: "https://picsum.photos/seed/mastersarch/600/400", // New image URL
+    aiHint: "elegant university architecture campus", // Updated hint
   },
   {
     degree: "Bachelor of Science in Software Engineering",
@@ -29,8 +29,8 @@ const educationData = [
       "Active member of the Coding Club and Tech Society.",
       "Graduated with Honors.",
     ],
-    imageUrl: "https://picsum.photos/seed/college/400/300",
-    aiHint: "college building students", // Updated hint
+    imageUrl: "https://picsum.photos/seed/bachelorcampus/600/400", // New image URL
+    aiHint: "optimistic enthusiastic college campus view students", // Updated hint
   },
   // Add more degrees or certifications
 ];
