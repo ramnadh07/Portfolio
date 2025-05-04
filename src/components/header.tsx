@@ -13,20 +13,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'; // Import Dropdown components
-import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond, TrendingDown, TrendingUp, Calendar, Clock } from 'lucide-react'; // Added Calendar, Clock icons
-import { format } from 'date-fns'; // Import date-fns for formatting
+import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond, TrendingDown, TrendingUp } from 'lucide-react'; // Removed Calendar, Clock icons
+
 
 const Header: React.FC = () => {
   const [rating, setRating] = useState<string | null>(null); // Add state for rating
-  const [currentDateTime, setCurrentDateTime] = useState<Date | null>(null);
+  // Removed date/time state
 
-  useEffect(() => {
-    // Update date/time only on the client after mount
-    setCurrentDateTime(new Date());
-    // Optional: Set an interval to update time every second/minute
-    const timerId = setInterval(() => setCurrentDateTime(new Date()), 60000); // Update every minute
-    return () => clearInterval(timerId); // Cleanup interval on unmount
-  }, []); // Empty dependency array ensures this runs once on mount
+  // Removed useEffect for date/time updates
 
 
   return (
@@ -82,8 +76,8 @@ const Header: React.FC = () => {
           </Link>
         </div>
 
-        {/* Navigation Links & Date/Time */}
-        <div className="flex items-center space-x-4"> {/* Wrapper for nav and date/time */}
+        {/* Navigation Links */}
+        <div className="flex items-center space-x-4"> {/* Wrapper for nav */}
             <nav className="flex items-center space-x-1">
             <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
                 <Link href="#about">
@@ -153,20 +147,7 @@ const Header: React.FC = () => {
             </Button>
             </nav>
 
-             {/* Date and Time Display */}
-             <div className="hidden md:flex items-center space-x-2 text-xs text-muted-foreground">
-                {currentDateTime ? (
-                    <>
-                        <Calendar className="h-3.5 w-3.5" />
-                        <span>{format(currentDateTime, 'PP')}</span>
-                        <Clock className="h-3.5 w-3.5" />
-                        <span>{format(currentDateTime, 'p')}</span>
-                    </>
-                ) : (
-                    // Optional: Show loading state or placeholder
-                    <span>Loading date...</span>
-                )}
-            </div>
+             {/* Removed Date and Time Display */}
         </div>
       </div>
     </header>
