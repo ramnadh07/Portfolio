@@ -62,7 +62,7 @@ const ProjectsSection: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> {/* Adjusted grid cols for better spacing */}
             {projectsData.map((project, index) => (
               <AnimatedSection key={project.title} delay={`delay-${index * 100}`}>
-                <Card className="group flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-card">
+                <Card className="group flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-background"> {/* Changed to bg-background */}
                    <div className="relative h-48 md:h-56 w-full overflow-hidden"> {/* Image container */}
                      <Image
                         src={project.imageUrl}

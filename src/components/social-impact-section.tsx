@@ -48,7 +48,7 @@ const impactData = [
 const SocialImpactSection: React.FC = () => {
   return (
     <AnimatedSection id="social-impact" className="scroll-mt-20 md:scroll-mt-24" delay="delay-450"> {/* Ensure consistent scroll margin */}
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10"> {/* Kept bg-card for main container */}
         <CardHeader className="p-0 mb-8 text-center">
           {/* Enhanced Title Styling */}
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
@@ -60,7 +60,7 @@ const SocialImpactSection: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {impactData.map((item, index) => (
               <AnimatedSection key={item.title} delay={`delay-${index * 100}`}>
-                <Card className="group flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-background">
+                <Card className="group flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-background"> {/* Inner cards remain bg-background */}
                   <div className="relative h-48 w-full overflow-hidden">
                     <Image
                       src={item.imageUrl}

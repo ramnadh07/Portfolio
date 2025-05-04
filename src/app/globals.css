@@ -4,12 +4,16 @@
 
 body {
   /* font-family set in layout.tsx */
+  /* Apply subtle gradient background */
+  background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background-alt)) 100%);
+  @apply text-foreground; /* Keep text color */
 }
 
 @layer base {
   :root {
     /* Light Theme - Increased Contrast, Subtler Accent */
-    --background: 0 0% 100%; /* White */
+    --background: 0 0% 98%; /* Slightly off-white */
+    --background-alt: 0 0% 100%; /* White for gradient end */
     --foreground: 0 0% 10%; /* Near Black */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 10%;
@@ -48,7 +52,8 @@ body {
 
   .dark {
     /* Dark Theme - Adjusted Contrast */
-    --background: 240 10% 3.9%; /* Very Dark Blue/Gray */
+    --background: 240 10% 5%; /* Slightly darker */
+    --background-alt: 240 10% 3.9%; /* Original dark for gradient end */
     --foreground: 0 0% 95%; /* Light Gray/Off-white */
     --card: 240 10% 7%; /* Slightly Lighter Dark */
     --card-foreground: 0 0% 95%;
@@ -91,7 +96,8 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    /* Background is handled by the gradient definition above */
+    /* @apply bg-background text-foreground; */
     font-feature-settings: "rlig" 1, "calt" 1; /* Enable ligatures and contextual alternates */
   }
 }

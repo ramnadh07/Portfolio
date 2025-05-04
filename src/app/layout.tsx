@@ -22,7 +22,7 @@ export default function RootLayout({
     // Removed Geist font variables from html class
     <html lang="en" className={cn("scroll-smooth")}>
       <body
-        className="antialiased min-h-screen flex flex-col bg-background font-sans" // Added fallback font-sans
+        className="antialiased min-h-screen flex flex-col font-sans" // Removed bg-background
       >
         <Header />
         {/* Removed container from here, apply padding directly */}
