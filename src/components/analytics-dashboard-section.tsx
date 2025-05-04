@@ -1,24 +1,15 @@
 
 "use client"
 
-import React from "react";
+import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Cell, RadialBar, RadialBarChart } from "recharts";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity } from "lucide-react"; // Added new icons
+import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2 } from "lucide-react"; // Added Loader2 for loading state
+import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton
 
-// Mock Data for Charts (Expanded)
-const viewersData = [
-  { month: "Jan", viewers: Math.floor(Math.random() * 50) + 10 },
-  { month: "Feb", viewers: Math.floor(Math.random() * 60) + 15 },
-  { month: "Mar", viewers: Math.floor(Math.random() * 70) + 20 },
-  { month: "Apr", viewers: Math.floor(Math.random() * 80) + 25 },
-  { month: "May", viewers: Math.floor(Math.random() * 90) + 30 },
-  { month: "Jun", viewers: Math.floor(Math.random() * 100) + 35 },
-];
-const totalSimulatedViewers = viewersData.reduce((sum, item) => sum + item.viewers, 0) * 3 + 150; // More realistic total
-
+// Static Mock Data (moved random generation to useEffect)
 const skillsInterestData = [
   { skill: "Bus. Analysis", value: 120, fill: "hsl(var(--chart-1))" },
   { skill: "Func. Consulting", value: 95, fill: "hsl(var(--chart-2))" },
@@ -46,7 +37,7 @@ const ratingsData = [
   { rating: 5, count: 2, fill: "hsl(var(--chart-1) / 0.6)" },
 ];
 
-// Calculate average rating
+// Calculate average rating (can be done statically if ratingsData is static)
 const totalRatingSum = ratingsData.reduce((sum, item) => sum + item.rating * item.count, 0);
 const totalRatingsCount = ratingsData.reduce((sum, item) => sum + item.count, 0);
 const averageRating = totalRatingsCount > 0 ? (totalRatingSum / totalRatingsCount).toFixed(1) : "N/A";
@@ -70,6 +61,31 @@ const needsData = Object.entries(needsSummary).map(([name, value], i) => ({
 }));
 
 const AnalyticsDashboardSection: React.FC = () => {
+  const [isClient, setIsClient] = useState(false); // State to track client-side mount
+  const [simulatedViewersData, setSimulatedViewersData] = useState<null | Array<{ month: string; viewers: number }>>(null);
+  const [totalSimulatedViewers, setTotalSimulatedViewers] = useState<null | number>(null);
+
+  useEffect(() => {
+    // This code runs only on the client, after hydration
+    setIsClient(true);
+
+    // Generate viewers data with Math.random()
+    const viewers = [
+      { month: "Jan", viewers: Math.floor(Math.random() * 50) + 10 },
+      { month: "Feb", viewers: Math.floor(Math.random() * 60) + 15 },
+      { month: "Mar", viewers: Math.floor(Math.random() * 70) + 20 },
+      { month: "Apr", viewers: Math.floor(Math.random() * 80) + 25 },
+      { month: "May", viewers: Math.floor(Math.random() * 90) + 30 },
+      { month: "Jun", viewers: Math.floor(Math.random() * 100) + 35 },
+    ];
+    setSimulatedViewersData(viewers);
+
+    // Calculate total viewers based on the generated data
+    const total = viewers.reduce((sum, item) => sum + item.viewers, 0) * 3 + 150; // More realistic total
+    setTotalSimulatedViewers(total);
+
+  }, []); // Empty dependency array ensures this runs once on mount
+
   return (
     <AnimatedSection id="analytics" className="scroll-mt-20 md:scroll-mt-24" delay="delay-550">
       <Card className="shadow-xl border border-border/50 rounded-lg overflow-hidden bg-gradient-to-br from-card via-card/95 to-card">
@@ -90,7 +106,11 @@ const AnalyticsDashboardSection: React.FC = () => {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">{totalSimulatedViewers.toLocaleString()}</div>
+              {!isClient || totalSimulatedViewers === null ? (
+                 <Skeleton className="h-7 w-24" />
+              ) : (
+                <div className="text-2xl font-bold text-foreground">{totalSimulatedViewers.toLocaleString()}</div>
+              )}
               <p className="text-xs text-muted-foreground">(Simulated)</p>
             </CardContent>
           </Card>
@@ -100,6 +120,7 @@ const AnalyticsDashboardSection: React.FC = () => {
               <Star className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
+              {/* Average rating is static based on static data, so no loading needed unless ratingsData were dynamic */}
               <div className="text-2xl font-bold text-foreground">{averageRating}/10</div>
               <p className="text-xs text-muted-foreground">from {totalRatingsCount} ratings</p>
             </CardContent>
@@ -110,6 +131,7 @@ const AnalyticsDashboardSection: React.FC = () => {
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
+               {/* Static data, no loading needed */}
                <div className="text-2xl font-bold text-foreground">{engagementRate}%</div>
                <p className="text-xs text-muted-foreground">Feedback form interaction</p>
             </CardContent>
@@ -122,17 +144,27 @@ const AnalyticsDashboardSection: React.FC = () => {
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-               <div className="text-lg font-bold text-foreground">{viewersData[viewersData.length - 1].viewers} <span className="text-xs text-muted-foreground">in Jun</span></div>
+               {!isClient || simulatedViewersData === null ? (
+                 <Skeleton className="h-6 w-16 mb-1" />
+               ) : (
+                 <div className="text-lg font-bold text-foreground">{simulatedViewersData[simulatedViewersData.length - 1].viewers} <span className="text-xs text-muted-foreground">in Jun</span></div>
+               )}
                <div className="h-[100px] mt-2">
-                 <ChartContainer config={{ viewers: { label: "Viewers", color: "hsl(var(--chart-1))" } }}>
-                  <LineChart data={viewersData} margin={{ top: 5, right: 10, left: -25, bottom: 0 }}>
-                    <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border)/0.5)" />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} dy={10} fontSize={10} />
-                    <YAxis tickLine={false} axisLine={false} tickMargin={8} fontSize={10} />
-                    <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" hideLabel />} />
-                    <Line dataKey="viewers" type="monotone" stroke="hsl(var(--chart-1))" strokeWidth={2} dot={false} />
-                  </LineChart>
-                </ChartContainer>
+                 {!isClient || simulatedViewersData === null ? (
+                    <div className="flex items-center justify-center h-full">
+                        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                    </div>
+                 ) : (
+                     <ChartContainer config={{ viewers: { label: "Viewers", color: "hsl(var(--chart-1))" } }}>
+                      <LineChart data={simulatedViewersData} margin={{ top: 5, right: 10, left: -25, bottom: 0 }}>
+                        <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border)/0.5)" />
+                        <XAxis dataKey="month" tickLine={false} axisLine={false} dy={10} fontSize={10} />
+                        <YAxis tickLine={false} axisLine={false} tickMargin={8} fontSize={10} />
+                        <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" hideLabel />} />
+                        <Line dataKey="viewers" type="monotone" stroke="hsl(var(--chart-1))" strokeWidth={2} dot={false} />
+                      </LineChart>
+                    </ChartContainer>
+                 )}
               </div>
             </CardContent>
           </Card>
@@ -144,6 +176,7 @@ const AnalyticsDashboardSection: React.FC = () => {
               <Target className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
+               {/* Static data */}
                <div className="text-lg font-bold text-foreground">{skillsInterestData[0].skill}</div>
               <p className="text-xs text-muted-foreground">Most frequently mentioned</p>
                <div className="h-[100px] mt-2">
@@ -171,6 +204,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                <Zap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-center h-[140px]">
+                {/* Static data */}
                 <div className="text-lg font-bold text-foreground" style={{ color: topDomain.fill }}>{topDomain.name}</div>
                 <p className="text-xs text-muted-foreground mb-2">Highest interest area</p>
                 <ChartContainer config={domainInterestData.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
@@ -193,6 +227,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                <UsersRound className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="h-[150px] pt-4">
+                {/* Static data */}
                 <ChartContainer config={needsData.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
                     <BarChart data={needsData} layout="horizontal" margin={{ top: 0, right: 10, left: 10, bottom: 0 }}>
                         <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0}/>
@@ -215,3 +250,4 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
+
