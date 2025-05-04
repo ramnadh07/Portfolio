@@ -182,10 +182,10 @@ const Chatbot: React.FC = () => {
            />
         </Button>
       </SheetTrigger>
-      {/* Make SheetContent slide from bottom and style as pop-up */}
+      {/* Make SheetContent slide from bottom right */}
       <SheetContent
-         side="bottom"
-         className="fixed bottom-0 right-0 mb-24 mr-6 h-[65vh] max-h-[600px] w-[90vw] max-w-[420px] flex flex-col p-0 rounded-lg shadow-xl border border-border/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-bottom-[2rem] data-[state=closed]:slide-out-to-right-[0rem] data-[state=open]:slide-in-from-bottom-[2rem] data-[state=open]:slide-in-from-right-[0rem]"
+         side="right" // Changed side, although positioning is manually handled below
+         className="fixed bottom-24 right-6 h-[65vh] max-h-[600px] w-[90vw] max-w-[420px] flex flex-col p-0 rounded-lg shadow-xl border border-border/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-bottom-[2rem] data-[state=closed]:slide-out-to-right-[0rem] data-[state=open]:slide-in-from-bottom-[2rem] data-[state=open]:slide-in-from-right-[0rem]" // Updated position: bottom-24, right-6. Kept animation classes.
          onOpenAutoFocus={(e) => e.preventDefault()} // Prevent default focus stealing
       >
         <SheetHeader className="p-4 border-b bg-muted/30 flex-shrink-0">
