@@ -7,8 +7,10 @@ import SkillsSection from "@/components/skills-section";
 import ExperienceSection from "@/components/experience-section";
 import DomainExpertiseSection from "@/components/domain-expertise-section";
 import ProjectsSection from "@/components/projects-section";
-import EducationSection from "@/components/education-section"; // Import EducationSection
-import SocialImpactSection from "@/components/social-impact-section"; // Import SocialImpactSection
+import EducationSection from "@/components/education-section";
+import SocialImpactSection from "@/components/social-impact-section";
+import FeedbackSection from "@/components/feedback-section"; // Import FeedbackSection
+import AnalyticsDashboardSection from "@/components/analytics-dashboard-section"; // Import AnalyticsDashboardSection
 
 export default function Home() {
   return (
@@ -18,9 +20,11 @@ export default function Home() {
       <SkillsSection />
       <DomainExpertiseSection />
       <ExperienceSection />
-      <EducationSection /> {/* Add EducationSection */}
+      <EducationSection />
       <ProjectsSection />
-      <SocialImpactSection /> {/* Add SocialImpactSection */}
+      <SocialImpactSection />
+      <FeedbackSection /> {/* Add FeedbackSection */}
+      <AnalyticsDashboardSection /> {/* Add AnalyticsDashboardSection */}
     </div>
   );
 }
