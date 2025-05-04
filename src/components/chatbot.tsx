@@ -61,7 +61,8 @@ const Chatbot: React.FC = () => {
         {
           id: 'bot-welcome',
           role: 'model',
-          content: [{ text: "Hello! I'm Aura, Ram's Portfolio Assistant. ✨ I'm here to help answer your questions about his skills, projects, or experience. How can I assist you today?" }],
+          // Updated welcome message to fit the "Donna-like" persona
+          content: [{ text: "Aura here, Ram's Portfolio Assistant. I have the information you need regarding his skills, projects, and experience. What can I get for you?" }],
         }
         // Predefined prompts are now rendered as buttons, not messages
       ]);
@@ -107,14 +108,19 @@ const Chatbot: React.FC = () => {
     inputRef.current?.focus(); // Keep focus on input
 
     try {
+      // Map only necessary fields, ensuring 'content' is always an array of MessagePartSchema
       const historyForApi = currentMessages
         .filter(msg => msg.id !== 'bot-welcome') // Filter out welcome message
-        .map(({ role, content }) => ({ role, content }));
+        .map(({ role, content }) => ({
+           role,
+           content: content.map(part => MessagePartSchema.parse({ text: part.text ?? '' }))
+         }));
 
       const chatInput: PortfolioChatInput = PortfolioChatInputSchema.parse({
         history: historyForApi,
         message: trimmedMessage,
       });
+
 
       const result: PortfolioChatOutput = await portfolioChat(chatInput);
 
@@ -131,7 +137,7 @@ const Chatbot: React.FC = () => {
              const errorMessage: Message = {
                id: `error-${Date.now()}`,
                role: 'model',
-               content: [{ text: 'There was an issue with the message format.' }],
+               content: [{ text: 'There was an issue processing the message format.' }], // Adjusted error message
              };
              setMessages((prev) => [...prev, errorMessage]);
         } else {
@@ -139,7 +145,7 @@ const Chatbot: React.FC = () => {
             const errorMessage: Message = {
                 id: `error-${Date.now()}`,
                 role: 'model',
-                content: [{ text: 'Sorry, I encountered an error. Please try again.' }],
+                content: [{ text: 'Sorry, I encountered an error processing your request. Please try again.' }], // Adjusted error message
             };
             setMessages((prev) => [...prev, errorMessage]);
         }
@@ -173,26 +179,26 @@ const Chatbot: React.FC = () => {
         >
           {/* AI Character Image */}
           <Image
-             src="https://picsum.photos/seed/ai-face2/100/100" // Placeholder image URL
+             src="https://picsum.photos/seed/ai-assistant-donna/100/100" // New seed for a potentially different image
              alt="Aura AI Assistant Face"
              width={64} // Match button size
              height={64} // Match button size
              className="object-cover" // Ensure image covers the button area
-             data-ai-hint="female friendly ai assistant face illustration" // Hint for image generation
+             data-ai-hint="female professional efficient ai assistant face illustration brunette" // Updated hint
            />
         </Button>
       </SheetTrigger>
       {/* Make SheetContent slide from bottom right */}
       <SheetContent
-         side="right" // Changed side, although positioning is manually handled below
-         className="fixed bottom-24 right-6 h-[65vh] max-h-[600px] w-[90vw] max-w-[420px] flex flex-col p-0 rounded-lg shadow-xl border border-border/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-bottom-[2rem] data-[state=closed]:slide-out-to-right-[0rem] data-[state=open]:slide-in-from-bottom-[2rem] data-[state=open]:slide-in-from-right-[0rem]" // Updated position: bottom-24, right-6. Kept animation classes.
+         side="right" // Kept side setting
+         className="fixed bottom-24 right-6 h-[65vh] max-h-[600px] w-[90vw] max-w-[420px] flex flex-col p-0 rounded-lg shadow-xl border border-border/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-bottom-[2rem] data-[state=closed]:slide-out-to-right-[0rem] data-[state=open]:slide-in-from-bottom-[2rem] data-[state=open]:slide-in-from-right-[0rem]" // Kept updated positioning and animation classes
          onOpenAutoFocus={(e) => e.preventDefault()} // Prevent default focus stealing
       >
         <SheetHeader className="p-4 border-b bg-muted/30 flex-shrink-0">
           <SheetTitle className="flex items-center gap-2 text-lg font-semibold text-foreground">
-             {/* You can use a smaller version of the image or an icon here */}
+             {/* Avatar in Header */}
              <Avatar className="h-6 w-6 border">
-                <AvatarImage src="https://picsum.photos/seed/ai-face2/40/40" alt="Aura Avatar" data-ai-hint="female ai assistant face illustration small"/>
+                <AvatarImage src="https://picsum.photos/seed/ai-assistant-donna/40/40" alt="Aura Avatar" data-ai-hint="female professional ai assistant face illustration small brunette"/>
                  <AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback>
              </Avatar>
              Aura - Portfolio Assistant
@@ -213,7 +219,7 @@ const Chatbot: React.FC = () => {
                     >
                     {message.role === 'model' && (
                         <Avatar className="h-8 w-8 border border-border flex-shrink-0">
-                         <AvatarImage src="https://picsum.photos/seed/ai-face2/40/40" alt="Aura Avatar" data-ai-hint="female ai assistant face illustration small"/>
+                         <AvatarImage src="https://picsum.photos/seed/ai-assistant-donna/40/40" alt="Aura Avatar" data-ai-hint="female professional ai assistant face illustration small brunette"/>
                          <AvatarFallback><Bot className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
                         </Avatar>
                     )}
@@ -239,12 +245,12 @@ const Chatbot: React.FC = () => {
                 {isLoading && (
                     <div className="flex items-start gap-3 justify-start">
                         <Avatar className="h-8 w-8 border border-border flex-shrink-0">
-                            <AvatarImage src="https://picsum.photos/seed/ai-face2/40/40" alt="Aura Avatar" data-ai-hint="female ai assistant face illustration small"/>
+                            <AvatarImage src="https://picsum.photos/seed/ai-assistant-donna/40/40" alt="Aura Avatar" data-ai-hint="female professional ai assistant face illustration small brunette"/>
                             <AvatarFallback><Bot className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
                         </Avatar>
                          <div className="rounded-xl rounded-bl-none p-3 bg-muted text-muted-foreground flex items-center space-x-2 shadow-sm">
                             <Loader2 className="h-4 w-4 animate-spin" />
-                            <span>Aura is thinking...</span>
+                            <span>Aura is processing...</span>
                         </div>
                     </div>
                 )}
@@ -254,7 +260,7 @@ const Chatbot: React.FC = () => {
          {/* Predefined Prompts Area */}
          {messages.length <= 1 && !isLoading && ( // Show only initially or if no messages sent yet
              <div className="px-4 pt-2 pb-1 border-t border-border/30 flex-shrink-0">
-                 <p className="text-xs text-muted-foreground mb-2 text-center">Or start with a suggestion:</p>
+                 <p className="text-xs text-muted-foreground mb-2 text-center">Or select a common query:</p> {/* Updated text */}
                  <div className="flex flex-wrap justify-center gap-2">
                  {predefinedPrompts.map((prompt) => (
                      <Button
@@ -281,7 +287,7 @@ const Chatbot: React.FC = () => {
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask Aura about skills, projects..." // Updated placeholder
+              placeholder="Ask Aura about Ram's portfolio..." // Updated placeholder
               className="flex-1"
               disabled={isLoading}
               aria-label="Chat input"
@@ -297,3 +303,5 @@ const Chatbot: React.FC = () => {
 };
 
 export default Chatbot;
+
+    
