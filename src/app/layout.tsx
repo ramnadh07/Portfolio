@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { cn } from "@/lib/utils"; // Import cn utility
+import Chatbot from "@/components/chatbot"; // Import Chatbot
 
 export const metadata: Metadata = {
   title: "Elegant Folio",
@@ -26,8 +27,9 @@ export default function RootLayout({
       >
         <Header />
         {/* Removed container from here, apply padding directly */}
-        <main className="flex-grow w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <main className="flex-grow w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative"> {/* Added relative positioning */}
           {children}
+          <Chatbot /> {/* Add Chatbot component */}
         </main>
         <Footer />
         <Toaster />
