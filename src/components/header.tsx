@@ -1,45 +1,18 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake } from "lucide-react"; // Added GraduationCap, HeartHandshake
-
-// Custom RN Logo Component
-const RNLogo = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 100 100"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110" // Applied similar styling as CodeXml
-  >
-    {/* Simple text-based logo */}
-    <text
-      x="50"
-      y="55" // Adjust y for vertical centering
-      fontFamily="Arial, sans-serif" // Choose a suitable font
-      fontSize="60" // Adjust font size
-      fontWeight="bold"
-      textAnchor="middle"
-      dominantBaseline="middle" // Better vertical alignment
-      fill="currentColor" // Use the primary color from theme
-    >
-      RN
-    </text>
-  </svg>
-);
-
+import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond } from "lucide-react"; // Added GraduationCap, HeartHandshake, Diamond
 
 const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/85"> {/* Increased opacity */}
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2 group transition-transform duration-300 ease-out hover:scale-105">
-          {/* Replace CodeXml with RNLogo */}
-          <RNLogo />
+          {/* Replace RNLogo with Diamond Icon */}
+          <Diamond className="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[5deg]" />
           <span className="font-bold text-foreground hidden sm:inline-block">
-            {/* Change text to Portfolio */}
-            Portfolio
+            {/* Change text to Ram Nadh */}
+            Ram Nadh
           </span>
         </Link>
         <nav className="flex items-center space-x-1"> {/* Adjusted spacing */}
