@@ -7,44 +7,44 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
-import { FileText, BarChart3, ExternalLink } from "lucide-react"; // Using FileText, BarChart3 instead of GitHub
+import { FileText, BarChart3, ExternalLink, Settings, Target } from "lucide-react"; // Added Settings, Target icons
 
 const projectsData = [
   {
-    title: "CRM Implementation Analysis",
-    description: "Analyzed existing sales processes, gathered requirements from stakeholders, and documented user stories for a new CRM system, leading to streamlined workflows.",
-    imageUrl: "https://picsum.photos/seed/crm-analysis/600/400",
-    tags: ["Requirements Analysis", "Process Mapping", "CRM", "Stakeholder Management", "User Stories"],
-    liveUrl: "#", // Link to a case study or presentation if available
-    // repoUrl removed
-    aiHint: "business process flowchart crm",
+    title: "CRM Implementation & Optimization",
+    description: "Led functional design and configuration for a Salesforce CRM rollout, followed by optimizing workflows and reporting, boosting sales team productivity by 25%.",
+    imageUrl: "https://picsum.photos/seed/crm-config/600/400",
+    tags: ["Functional Consulting", "Salesforce", "CRM", "Process Improvement", "Configuration", "User Adoption"],
+    liveUrl: "#", // Link to a case study or presentation
+    aiHint: "salesforce dashboard crm configuration",
+    icon: <Settings className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
   },
   {
-    title: "E-commerce Checkout Optimization",
-    description: "Identified friction points in the online checkout process through data analysis and user feedback. Proposed solutions that contributed to a 10% decrease in cart abandonment.",
-    imageUrl: "https://picsum.photos/seed/checkout-opt/600/400",
-    tags: ["Data Analysis", "Process Improvement", "E-commerce", "A/B Testing Concepts", "User Experience"],
+    title: "Market Entry Strategy Analysis",
+    description: "Conducted comprehensive market research and competitive analysis for a new SaaS product launch, informing the GTM strategy and pricing model.",
+    imageUrl: "https://picsum.photos/seed/market-strategy/600/400",
+    tags: ["Business Strategy", "Market Research", "Competitive Analysis", "GTM Strategy", "SaaS", "Data Analysis"],
     liveUrl: "#",
-    // repoUrl removed
-     aiHint: "website checkout conversion rate graph",
+    aiHint: "market analysis chart strategy planning",
+     icon: <Target className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
   },
   {
-    title: "Reporting Dashboard Requirements",
-    description: "Defined requirements and data sources for a new executive dashboard, enabling better visibility into key performance indicators (KPIs).",
-    imageUrl: "https://picsum.photos/seed/dashboard-req/600/400",
-    tags: ["Requirements Gathering", "Data Modeling (Conceptual)", "KPIs", "Reporting", "Stakeholder Interviews"],
+    title: "E-commerce Feature Prioritization",
+    description: "Developed and implemented a data-driven framework for prioritizing new e-commerce features based on ROI, strategic alignment, and customer impact.",
+    imageUrl: "https://picsum.photos/seed/feature-prio-ecom/600/400",
+    tags: ["Business Analysis", "Prioritization Framework", "E-commerce", "ROI Analysis", "Product Roadmap", "Decision Making"],
     liveUrl: "#",
-    // repoUrl removed
-     aiHint: "business dashboard kpi charts",
+     aiHint: "decision matrix chart business value effort",
+     icon: <FileText className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
   },
    {
-    title: "Feature Prioritization Framework",
-    description: "Developed a framework to objectively score and prioritize new feature requests based on business value, effort, and strategic alignment.",
-    imageUrl: "https://picsum.photos/seed/feature-prio/600/400",
-    tags: ["Business Strategy", "Prioritization", "Product Management Support", "Decision Making", "Framework Development"],
+    title: "Sales Pursuit Support - Tech Solutions",
+    description: "Supported key sales pursuits by translating client needs into functional solution outlines, contributing to proposal content, and assisting with demo preparation.",
+    imageUrl: "https://picsum.photos/seed/sales-pursuit/600/400",
+    tags: ["Pursuits", "GTM Support", "Solutioning", "Proposal Writing", "Sales Enablement", "Client Needs Analysis"],
     liveUrl: "#",
-    // repoUrl removed
-     aiHint: "decision matrix chart strategy",
+     aiHint: "business proposal presentation team",
+     icon: <BarChart3 className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />, // Using BarChart as proxy for pursuit/sales
   },
 ];
 
@@ -54,9 +54,9 @@ const ProjectsSection: React.FC = () => {
          <div className="text-center mb-10 md:mb-12">
              {/* Enhanced Title Styling */}
              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-                Key Analysis Projects
+                Key Initiatives & Projects
              </h2>
-             <p className="text-muted-foreground mt-2 text-lg">Examples of my analytical contributions.</p>
+             <p className="text-muted-foreground mt-2 text-lg">Demonstrating impact across analysis, consulting, and strategy.</p>
          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> {/* Adjusted grid cols for better spacing */}
@@ -73,7 +73,9 @@ const ProjectsSection: React.FC = () => {
                          data-ai-hint={project.aiHint}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
-                       <CardTitle className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-colors duration-300 group-hover:text-accent-foreground/90">{project.title}</CardTitle>
+                       <CardTitle className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-colors duration-300 group-hover:text-accent-foreground/90 flex items-center">
+                         {project.icon} {project.title}
+                        </CardTitle>
                    </div>
 
                   <CardHeader className="pt-4 px-4">
@@ -105,7 +107,7 @@ const ProjectsSection: React.FC = () => {
                          <Button variant="outline" size="sm" asChild className="text-accent border-accent hover:bg-accent/10 hover:text-accent transition-colors group/btn">
                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                              <>
-                               <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> View Case Study
+                               <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> View Details
                              </>
                            </Link>
                          </Button>

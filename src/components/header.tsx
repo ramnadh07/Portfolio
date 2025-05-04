@@ -74,7 +74,7 @@ const Header: React.FC = () => {
 
           {/* Contact Button - Wrap Link children in Fragment */}
           <Button variant="outline" size="sm" asChild className="ml-2 border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group">
-            <Link href="mailto:your.email@example.com">
+            <Link href="mailto:alex.chen.ba.strategy@example.com"> {/* Updated email */}
               <>
                 <Mail className="h-4 w-4 sm:mr-1.5 transition-transform duration-200 group-hover:scale-110" />
                 <span className="hidden sm:inline">Contact</span>

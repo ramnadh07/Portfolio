@@ -4,38 +4,38 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ClipboardList, BrainCircuit, DatabaseZap, Wrench, Users, MessageSquare } from "lucide-react"; // Relevant BA icons
+import { ClipboardList, BrainCircuit, DatabaseZap, Wrench, Users, MessageSquare, Target, Settings, BriefcaseBusiness } from "lucide-react"; // Added Target, Settings, BriefcaseBusiness icons
 
 const skillsData = [
   {
     category: "Business Analysis Core",
     icon: <ClipboardList className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Requirements Elicitation", "Stakeholder Analysis", "Process Modeling (BPMN)", "Use Case Development", "User Stories", "Gap Analysis", "Business Case Development"],
+    skills: ["Requirements Elicitation & Management", "Stakeholder Analysis", "Process Modeling (BPMN)", "Use Case Development", "User Stories", "Gap Analysis", "Feasibility Studies"],
   },
   {
-    category: "Technical Skills",
+    category: "Functional Consulting",
+    icon: <Settings className="h-5 w-5 mr-2 text-accent" />,
+    skills: ["System Configuration (CRM/ERP)", "Solution Design", "Fit-Gap Analysis", "User Acceptance Testing (UAT)", "Data Migration Concepts", "Integration Understanding"],
+  },
+  {
+    category: "Business Strategy & GTM",
+    icon: <Target className="h-5 w-5 mr-2 text-accent" />,
+    skills: ["Market Analysis", "Competitive Intelligence", "Business Case Development", "Financial Modeling Basics", "Go-To-Market Strategy", "Proposal Development", "Pursuits Support", "Sales Enablement"],
+  },
+  {
+    category: "Technical & Data Skills",
     icon: <BrainCircuit className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Data Analysis (SQL)", "System Analysis", "API Understanding", "Data Warehousing Concepts", "Reporting & Visualization (Tableau/Power BI Basics)", "Agile/Scrum Methodologies"],
+    skills: ["Data Analysis (SQL, Excel)", "System Analysis", "API Understanding", "Reporting & Visualization (Tableau/Power BI)", "Agile/Scrum Methodologies", "SDLC"],
   },
   {
     category: "Tools & Platforms",
      icon: <Wrench className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["JIRA", "Confluence", "Microsoft Visio", "Lucidchart", "SQL Server / PostgreSQL", "Excel (Advanced)", "Microsoft Office Suite"],
+    skills: ["JIRA", "Confluence", "Salesforce (Admin Basics)", "MS Dynamics (Conceptual)", "Visio/Lucidchart", "SQL Server / PostgreSQL", "Microsoft Office Suite"],
   },
   {
-    category: "Domain Knowledge", // Kept Domain Expertise section separate, added a basic one here
-     icon: <DatabaseZap className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["E-commerce", "FinTech", "Healthcare (Basic)", "SaaS"], // Link to Domain Expertise section for more detail
-  },
-   {
-    category: "Soft Skills",
+    category: "Soft Skills & Leadership",
      icon: <Users className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Communication", "Problem-Solving", "Critical Thinking", "Stakeholder Management", "Facilitation", "Presentation Skills", "Negotiation"],
-  },
-   {
-    category: "Methodologies",
-     icon: <MessageSquare className="h-5 w-5 mr-2 text-accent" />, // Using MessageSquare as a generic process icon
-    skills: ["Agile", "Scrum", "Waterfall (Understanding)", "SDLC"],
+    skills: ["Communication", "Problem-Solving", "Critical Thinking", "Stakeholder Management", "Facilitation", "Presentation Skills", "Negotiation", "Mentorship"],
   },
 ];
 
@@ -46,9 +46,9 @@ const SkillsSection: React.FC = () => {
         <CardHeader className="p-0 mb-8 text-center"> {/* Increased bottom margin and centered */}
           {/* Enhanced Title Styling */}
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Analytical Toolkit
+            Strategic & Analytical Toolkit
           </CardTitle>
-           <p className="text-muted-foreground mt-2 text-lg">My Business Analysis skills and competencies.</p>
+           <p className="text-muted-foreground mt-2 text-lg">My core competencies across analysis, consulting, and strategy.</p>
         </CardHeader>
         <CardContent className="p-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Reduced gap slightly */}

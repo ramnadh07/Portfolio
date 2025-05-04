@@ -34,7 +34,8 @@ const HeroSection: React.FC = () => {
       </h1>
       {/* Increased drop shadow and max-width for better wrapping on smaller screens */}
       <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-8 max-w-2xl lg:max-w-3xl animate-fade-in-up delay-100 drop-shadow-md">
-        Analytical Business Analyst bridging the gap between business needs and technology solutions. {/* Updated Tagline */}
+         {/* Updated Tagline */}
+        Business Analyst | Functional Consultant | Strategy & GTM Specialist driving growth through technology and market insights.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up delay-200">
          {/* Adjusted button styles slightly for visual hierarchy - Wrap Link contents in Fragment */}
@@ -47,7 +48,7 @@ const HeroSection: React.FC = () => {
           </Link>
         </Button>
         <Button variant="outline" size="lg" asChild className="bg-background/70 backdrop-blur-sm text-foreground hover:text-accent-foreground hover:bg-accent/80 hover:border-accent/80 transition-all duration-300 ease-out group border-border/70 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
-           <Link href="mailto:alex.chen.ba@example.com" aria-label="Contact Me"> {/* Updated email */}
+           <Link href="mailto:alex.chen.ba.strategy@example.com" aria-label="Contact Me"> {/* Updated email */}
             <>
               Contact Me
               <ArrowDown className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5" />

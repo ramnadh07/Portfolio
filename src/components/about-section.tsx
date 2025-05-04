@@ -13,12 +13,12 @@ const AboutSection: React.FC = () => {
           {/* Image Column */}
           <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
             <Image
-              src="https://picsum.photos/seed/ba-portrait/600/800" // Changed seed
-              alt="Portrait of Alex Chen" // Updated alt text
+              src="https://picsum.photos/seed/ba-strategy-consultant/600/800" // Changed seed
+              alt="Portrait of Alex Chen, Strategy Consultant" // Updated alt text
               layout="fill"
               objectFit="cover"
               className="transition-transform duration-500 ease-out group-hover:scale-105 filter group-hover:brightness-105"
-              data-ai-hint="professional business analyst portrait" // Updated hint
+              data-ai-hint="professional business strategy consultant portrait" // Updated hint
             />
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent md:bg-gradient-to-r md:from-card md:via-card/30 md:to-transparent"></div>
@@ -33,13 +33,13 @@ const AboutSection: React.FC = () => {
             </CardHeader>
             <CardContent className="p-0 space-y-4 text-base md:text-lg text-foreground leading-relaxed">
               <p>
-                Hi, I'm Alex Chen, a results-oriented Business Analyst based in San Francisco. I excel at understanding complex business challenges and translating them into actionable requirements for technology teams. My passion lies in optimizing processes, leveraging data insights, and facilitating clear communication between stakeholders to drive successful project outcomes.
+                Hi, I'm Alex Chen, a multifaceted professional based in San Francisco, blending skills in Business Analysis, Functional Consulting, and Business Strategy. I thrive on dissecting complex challenges, translating them into actionable technology requirements, and shaping strategic initiatives that drive growth and operational efficiency. My passion is connecting the dots between business vision, market opportunity, and technical execution.
               </p>
               <p>
-                My journey into business analysis began with a fascination for how systems and processes work. Since then, I've honed my skills in requirements elicitation, process modeling (BPMN), data analysis, and stakeholder management across various projects. I'm adept at using tools like JIRA, Confluence, and SQL to manage workflows and extract valuable insights.
+                My career spans traditional business analysis, deep-diving into process optimization and requirements elicitation, to functional consulting roles where I've configured and implemented enterprise systems (like CRM/ERP). More recently, I've focused on business strategy, market analysis, competitive intelligence, and supporting Go-To-Market (GTM) efforts, including pursuits and proposal development. I leverage data (SQL, analytics tools) and frameworks to inform strategic decisions and ensure successful project and business outcomes.
               </p>
               <p>
-                Outside of work, I enjoy analyzing market trends, volunteering for data literacy programs, and exploring the scenic trails around the Bay Area.
+                Beyond my core roles, I'm deeply interested in market dynamics, contribute to strategic planning discussions, and volunteer my analytical skills for social impact projects. Exploring the Bay Area's innovation landscape keeps me inspired.
               </p>
             </CardContent>
           </div>
