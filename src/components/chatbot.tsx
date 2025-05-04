@@ -1,13 +1,12 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect, type FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetTrigger } from '@/components/ui/sheet'; // Added SheetTrigger
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MessageSquare, Send, X, Loader2, Bot, User } from 'lucide-react';
+import { MessageSquare, Send, X, Loader2, Bot, User } from 'lucide-react'; // Keeping Bot icon for clarity
 import { cn } from '@/lib/utils';
 import { portfolioChat } from '@/ai/flows/portfolio-chatbot-flow'; // Import only the flow function
 import { z } from 'zod'; // Import Zod
@@ -58,7 +57,8 @@ const Chatbot: React.FC = () => {
         {
           id: 'bot-welcome',
           role: 'model',
-          content: [{ text: "Hi there! 👋 I'm Ram's Portfolio Assistant. Ask me about his skills, projects, or experience!" }],
+          // Updated welcome message reflecting "Aura" personality
+          content: [{ text: "Hello! I'm Aura, Ram's Portfolio Assistant. ✨ I'm here to help answer your questions about his skills, projects, or experience. How can I assist you today?" }],
         }
       ]);
     }
@@ -68,12 +68,20 @@ const Chatbot: React.FC = () => {
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (scrollAreaRef.current) {
-        const scrollElement = scrollAreaRef.current.querySelector('div'); // Get the viewport element
-        if (scrollElement) {
-            scrollElement.scrollTop = scrollElement.scrollHeight;
+        // Find the viewport element more reliably
+        const viewport = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+        if (viewport) {
+            viewport.scrollTop = viewport.scrollHeight;
+        } else {
+             // Fallback for older structure (less reliable)
+             const scrollElement = scrollAreaRef.current.querySelector('div');
+             if (scrollElement) {
+                 scrollElement.scrollTop = scrollElement.scrollHeight;
+             }
         }
     }
   }, [messages]);
+
 
   // Focus input when sheet opens
   useEffect(() => {
@@ -162,16 +170,16 @@ const Chatbot: React.FC = () => {
           variant="outline" // Changed to outline for less visual weight
           size="icon"
           className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all hover:scale-105 z-50 border-2 border-background" // Added border, changed bg
-          aria-label="Open Chatbot"
+          aria-label="Open Chat Assistant" // Updated aria-label
         >
-           {/* Using Bot icon */}
+           {/* Keeping Bot icon for clarity, as a visual AI representation is difficult without images */}
            <Bot className="h-6 w-6" />
         </Button>
       </SheetTrigger>
       <SheetContent className="flex flex-col p-0 w-[400px] sm:w-[500px] md:w-[600px] lg:max-w-lg"> {/* Adjusted width */}
         <SheetHeader className="p-4 border-b bg-muted/30"> {/* Added subtle background */}
           <SheetTitle className="flex items-center gap-2 text-lg font-semibold text-foreground"> {/* Adjusted styling */}
-             <Bot className="h-5 w-5 text-primary"/> Ram's Portfolio Assistant
+             <Bot className="h-5 w-5 text-primary"/> Aura - Portfolio Assistant {/* Updated name */}
           </SheetTitle>
           {/* Optional: Add description if needed */}
           {/* <SheetDescription>Ask me anything about Ram's portfolio.</SheetDescription> */}
@@ -201,7 +209,10 @@ const Chatbot: React.FC = () => {
                             : 'bg-card text-card-foreground border border-border/50' // Changed bot message bg
                         )}
                     >
-                        {message.content[0].text} {/* Assuming single text part */}
+                        {/* Render message content safely, handling potential multiple parts or non-text content */}
+                        {message.content.map((part, index) =>
+                        part.text ? <span key={index}>{part.text}</span> : null
+                        )}
                     </div>
                     {message.role === 'user' && (
                         <Avatar className="h-8 w-8 border border-border">
@@ -246,4 +257,3 @@ const Chatbot: React.FC = () => {
 };
 
 export default Chatbot;
-

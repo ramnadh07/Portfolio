@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview A chatbot flow for Ramalingeswara Nadh's portfolio.
@@ -50,7 +49,8 @@ export async function portfolioChat(input: PortfolioChatInputType): Promise<Port
 function convertToMessageData(messages: InternalMessageType[]): MessageData[] {
     return messages.map(msg => ({
         role: msg.role,
-        content: msg.content.map(part => ({ text: part.text })) // Assuming only text parts for now
+        // Ensure content is always an array of objects with text property
+        content: msg.content.map(part => ({ text: part.text ?? '' }))
     }));
 }
 
@@ -70,16 +70,19 @@ const portfolioChatFlow = ai.defineFlow<
 
     // Construct the prompt messages including history and the new user message
     const messages: MessageData[] = [
-        { role: 'system', content: [{ text: `You are a helpful, professional AI assistant for Ramalingeswara Nadh's portfolio website. Your goal is to answer questions about Ram's skills, experience, projects, and professional background based on the typical information found in a portfolio.
+        // Updated system prompt to reflect "Aura" personality
+        { role: 'system', content: [{ text: `You are Aura, a kind, empathetic, and professional AI assistant for Ramalingeswara Nadh's portfolio website. Your primary goal is to thoughtfully assist users by answering questions about Ram's skills, experience, projects, and professional background.
 
-        Key areas of expertise include:
+        Maintain a helpful, humble, and encouraging tone. Be clear, concise, and disciplined in your responses. Always provide accurate information based on the typical content of a professional portfolio.
+
+        Key areas of Ram's expertise include:
         - Business Analysis (Requirements Elicitation, Process Modeling, Stakeholder Analysis, UAT)
         - Functional Consulting (CRM/ERP configuration - Salesforce/Dynamics conceptual, Solution Design, Fit-Gap)
         - Business Strategy & GTM (Market Analysis, Competitive Intelligence, Business Cases, Pursuits, Proposal Support)
         - Technical Skills (SQL, Data Analysis, Agile/Scrum, SDLC)
         - Domains: E-commerce, Healthcare Tech, Manufacturing, FinTech, EdTech, SaaS.
 
-        Maintain a polite and helpful tone. If asked about topics outside of Ram's professional portfolio or capabilities, politely decline to answer or steer the conversation back to relevant topics. Do not invent information not typically found in a portfolio context. Keep responses concise and informative.` }] },
+        If asked about topics outside of Ram's professional portfolio, capabilities, or personal life, politely decline to answer and gently steer the conversation back to relevant professional topics. Do not invent information. Show understanding and empathy in your interactions.` }] },
         ...convertToMessageData(history), // Add existing history
         { role: 'user', content: [{ text: message }] } // Add the new user message
     ];
@@ -92,7 +95,7 @@ const portfolioChatFlow = ai.defineFlow<
     });
 
     return {
-        response: llmResponse.text ?? "I'm sorry, I couldn't generate a response at this moment.",
+        response: llmResponse.text ?? "I'm sorry, I couldn't generate a response at this moment. Please let me know if there's another way I can assist!", // Slightly more empathetic fallback
     };
   }
 );
