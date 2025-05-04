@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -18,14 +19,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Send, Mail, Building, User, Briefcase } from "lucide-react"; // Added User, Briefcase icons
+import { Send, Mail, Building, User, Briefcase, Factory } from "lucide-react"; // Added Factory icon
 
 // Define the form schema using Zod - updated required fields
 const feedbackFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required." }),
   email: z.string().email({ message: "Please enter a valid email." }),
   company: z.string().min(1, { message: "Company name is required." }),
-  role: z.string().min(1, { message: "Your role or industry is required." }),
+  role: z.string().min(1, { message: "Your role is required." }), // Changed from Role/Industry
+  industry: z.string().min(1, { message: "Your industry is required." }), // Added Industry
   lookingFor: z.string().min(10, {
     message: "Please describe what you're looking for in at least 10 characters.",
   }),
@@ -44,6 +46,7 @@ const FeedbackSection: React.FC = () => {
       email: "",
       company: "",
       role: "",
+      industry: "", // Added industry default
       lookingFor: "",
       skillsInterest: "",
       generalFeedback: "",
@@ -125,12 +128,12 @@ const FeedbackSection: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                <FormField
+                 <FormField
                   control={form.control}
-                  name="role"
+                  name="role" // Updated name from role/industry
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Your Role/Industry*</FormLabel> {/* Added asterisk */}
+                      <FormLabel>Your Role*</FormLabel> {/* Updated Label */}
                       <FormControl>
                        <div className="relative flex items-center">
                          <Briefcase className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -141,25 +144,42 @@ const FeedbackSection: React.FC = () => {
                     </FormItem>
                   )}
                 />
-              </div>
+                <FormField
+                  control={form.control}
+                  name="industry" // Added new field for industry
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Your Industry*</FormLabel> {/* Added asterisk */}
+                      <FormControl>
+                       <div className="relative flex items-center">
+                         <Factory className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input placeholder="e.g., FinTech, Healthcare, SaaS" className="pl-10" {...field} />
+                       </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {/* This field might be better placed spanning full width, adjust grid if needed */}
+                 <FormField
+                    control={form.control}
+                    name="lookingFor"
+                    render={({ field }) => (
+                    <FormItem className="md:col-span-2"> {/* Span full width on medium screens */}
+                        <FormLabel>What are you primarily looking for?*</FormLabel> {/* Added asterisk */}
+                        <FormControl>
+                        <Textarea
+                            placeholder="e.g., A Senior BA for a CRM project, collaboration opportunities, specific strategic insights..."
+                            className="resize-y min-h-[100px]"
+                            {...field}
+                        />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                    )}
+                />
+              </div> {/* Close md:grid-cols-2 */}
 
-              <FormField
-                control={form.control}
-                name="lookingFor"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>What are you primarily looking for?*</FormLabel> {/* Added asterisk */}
-                    <FormControl>
-                      <Textarea
-                        placeholder="e.g., A Senior BA for a CRM project, collaboration opportunities, specific strategic insights..."
-                        className="resize-y min-h-[100px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <FormField
                 control={form.control}
@@ -212,3 +232,4 @@ const FeedbackSection: React.FC = () => {
 };
 
 export default FeedbackSection;
+
