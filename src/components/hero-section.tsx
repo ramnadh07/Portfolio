@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -30,12 +29,11 @@ const HeroSection: React.FC = () => {
 
       {/* Increased drop shadow for better readability */}
       <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-foreground animate-fade-in drop-shadow-xl">
-        Ramalingeswara Nadh {/* Updated Name */}
+        Ramalingeswara Nadh
       </h1>
       {/* Increased drop shadow and max-width for better wrapping on smaller screens */}
       <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-8 max-w-2xl lg:max-w-3xl animate-fade-in-up delay-100 drop-shadow-md">
-         {/* Updated Tagline */}
-        Business Analyst | Functional Consultant | Strategy & GTM Specialist driving growth through technology and market insights.
+         Business Analyst | Functional Consultant | Strategy & GTM Specialist driving growth through technology and market insights.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up delay-200">
          {/* Adjusted button styles slightly for visual hierarchy - Wrap Link contents in Fragment */}
@@ -47,11 +45,11 @@ const HeroSection: React.FC = () => {
             </>
           </Link>
         </Button>
-         {/* Share Feedback Button */}
-         <Button variant="outline" size="lg" asChild className="bg-background/70 backdrop-blur-sm text-foreground hover:text-accent-foreground hover:bg-accent/80 hover:border-accent/80 transition-all duration-300 ease-out group border-border/70 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
-          <Link href="#feedback" aria-label="Share Feedback">
+         {/* Connect Button */}
+         <Button variant="outline" size="lg" asChild className="border-accent text-accent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-out group backdrop-blur-sm transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+          <Link href="#connect" aria-label="Connect"> {/* Updated href and text */}
             <>
-              Share Feedback
+              Connect
               <MessageSquareQuote className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5" />
             </>
           </Link>
@@ -70,4 +68,3 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
-

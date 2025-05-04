@@ -1,38 +1,70 @@
+"use client"; // Needed for useState and useEffect
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Github, Linkedin, Twitter } from "lucide-react"; // Example social icons
+import { Github, Linkedin, Twitter, Lightbulb } from "lucide-react"; // Example social icons + Lightbulb for tip
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card"; // Import Card components
+
+const interestingTips = [
+  "Continuous learning is key: dedicate time each week to explore new tools, techniques, or industry trends.",
+  "Effective communication bridges the gap between business needs and technical solutions. Practice active listening.",
+  "Understanding the 'why' behind a requirement is often more important than the 'what'.",
+  "Don't underestimate the power of visualization. Process maps and diagrams clarify complexity.",
+  "Stakeholder analysis isn't a one-time task; revisit it as the project evolves.",
+  "Embrace ambiguity; it's often where the most valuable analysis begins.",
+  "Prioritization is crucial. Focus on delivering the highest value features first.",
+  "Seek feedback early and often. It's cheaper to fix a misunderstanding on paper than in code.",
+  "Document decisions, not just requirements. This provides context for future changes.",
+  "Build strong relationships with your technical team; collaboration is essential for success.",
+];
 
 const Footer: React.FC = () => {
     const currentYear = new Date().getFullYear();
+    const [randomTip, setRandomTip] = useState<string | null>(null);
+
+     useEffect(() => {
+        // Select a random tip only on the client-side after hydration
+        const randomIndex = Math.floor(Math.random() * interestingTips.length);
+        setRandomTip(interestingTips[randomIndex]);
+    }, []); // Empty dependency array ensures this runs once on mount
+
 
     return (
-        <footer className="border-t border-border/40 bg-background/95 mt-16"> {/* Added margin-top */}
-            <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4"> {/* Added padding */}
+        <footer className="border-t border-border/40 bg-background/95 mt-16">
+            {/* Tip Section */}
+            {randomTip && ( // Only render if a tip has been selected on the client
+                <div className="py-4 border-b border-border/30">
+                    <Card className="container max-w-screen-md mx-auto bg-muted/30 border-none shadow-none p-0">
+                        <CardContent className="p-3 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+                            <Lightbulb className="h-4 w-4 text-accent flex-shrink-0" />
+                            <span><strong>Quick Tip:</strong> {randomTip}</span>
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
+
+            <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4">
                 <p className="text-sm text-muted-foreground text-center sm:text-left">
-                     {/* Updated Name and Title */}
                     &copy; {currentYear} Ramalingeswara Nadh | Business Analyst & Strategist. Built with Next.js & Tailwind CSS.
                 </p>
                 <div className="flex space-x-2">
-                    {/* Ensure Link is the single direct child for Buttons with asChild - Wrap Icon in Fragment */}
-                     {/* <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
+                     <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
+                        <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                             <Linkedin className="h-5 w-5" />
+                        </Link>
+                    </Button>
+                     {/* Optionally add GitHub or other relevant links */}
+                    {/* <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
                         <Link href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                             <Github className="h-5 w-5" />
                         </Link>
                     </Button> */}
-                     <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
-                        <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"> {/* Updated LinkedIn URL */}
-                             <Linkedin className="h-5 w-5" />
-                        </Link>
-                    </Button>
-                    {/* Optionally keep Twitter or remove if not relevant */}
                      {/* <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
                         <Link href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                            <Twitter className="h-5 w-5" />
                         </Link>
                     </Button> */}
-                    {/* Consider adding a link to a BA blog or portfolio if applicable */}
                 </div>
             </div>
         </footer>

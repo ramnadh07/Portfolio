@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -19,14 +18,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Send, Mail, Building } from "lucide-react"; // Added Mail, Building icons
+import { Send, Mail, Building, User, Briefcase } from "lucide-react"; // Added User, Briefcase icons
 
-// Define the form schema using Zod
+// Define the form schema using Zod - updated required fields
 const feedbackFormSchema = z.object({
-  name: z.string().optional(),
-  email: z.string().email({ message: "Please enter a valid email." }).optional().or(z.literal('')), // Optional email
-  company: z.string().optional(), // Optional company
-  role: z.string().optional(),
+  name: z.string().min(1, { message: "Name is required." }),
+  email: z.string().email({ message: "Please enter a valid email." }),
+  company: z.string().min(1, { message: "Company name is required." }),
+  role: z.string().min(1, { message: "Your role or industry is required." }),
   lookingFor: z.string().min(10, {
     message: "Please describe what you're looking for in at least 10 characters.",
   }),
@@ -40,7 +39,7 @@ const FeedbackSection: React.FC = () => {
   const { toast } = useToast();
   const form = useForm<FeedbackFormValues>({
     resolver: zodResolver(feedbackFormSchema),
-    defaultValues: {
+    defaultValues: { // Keep default values empty
       name: "",
       email: "",
       company: "",
@@ -54,29 +53,21 @@ const FeedbackSection: React.FC = () => {
 
   function onSubmit(data: FeedbackFormValues) {
     // In a real application, you would send this data to your backend/API
-    // Remove empty optional fields before submission if desired
-    const submissionData = Object.entries(data).reduce((acc, [key, value]) => {
-        if (value !== "" && value !== undefined && value !== null) {
-            acc[key as keyof FeedbackFormValues] = value;
-        }
-        return acc;
-    }, {} as Partial<FeedbackFormValues>);
-
-    console.log("Feedback submitted:", submissionData);
+    console.log("Connection request submitted:", data);
 
     toast({
-      title: "Feedback Submitted!",
-      description: "Thank you for your valuable input.",
+      title: "Message Sent!",
+      description: "Thank you for connecting. I'll be in touch soon.", // Updated toast message
     });
     form.reset(); // Reset form after successful submission
   }
 
   return (
-    <AnimatedSection id="feedback" className="scroll-mt-20 md:scroll-mt-24" delay="delay-500">
+    <AnimatedSection id="connect" className="scroll-mt-20 md:scroll-mt-24" delay="delay-500"> {/* Updated ID */}
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
         <CardHeader className="p-0 mb-8 text-center">
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Connect & Share Needs {/* Updated Title */}
+            Connect & Share Needs
           </CardTitle>
           <CardDescription className="text-muted-foreground mt-2 text-lg">
             Let's connect! Tell me what you're looking for or share your feedback.
@@ -91,9 +82,12 @@ const FeedbackSection: React.FC = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name (Optional)</FormLabel>
+                      <FormLabel>Name*</FormLabel> {/* Added asterisk */}
                       <FormControl>
-                        <Input placeholder="Your Name" {...field} />
+                        <div className="relative flex items-center">
+                          <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                          <Input placeholder="Your Name" className="pl-10" {...field} />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -104,7 +98,7 @@ const FeedbackSection: React.FC = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email (Optional)</FormLabel>
+                      <FormLabel>Email*</FormLabel> {/* Added asterisk */}
                       <FormControl>
                         <div className="relative flex items-center">
                           <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -120,7 +114,7 @@ const FeedbackSection: React.FC = () => {
                   name="company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company (Optional)</FormLabel>
+                      <FormLabel>Company*</FormLabel> {/* Added asterisk */}
                       <FormControl>
                        <div className="relative flex items-center">
                            <Building className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -136,9 +130,12 @@ const FeedbackSection: React.FC = () => {
                   name="role"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Your Role/Industry (Optional)</FormLabel>
+                      <FormLabel>Your Role/Industry*</FormLabel> {/* Added asterisk */}
                       <FormControl>
-                        <Input placeholder="e.g., Hiring Manager, Recruiter, Collaborator" {...field} />
+                       <div className="relative flex items-center">
+                         <Briefcase className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input placeholder="e.g., Hiring Manager, Recruiter, Collaborator" className="pl-10" {...field} />
+                       </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -151,7 +148,7 @@ const FeedbackSection: React.FC = () => {
                 name="lookingFor"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>What are you primarily looking for?*</FormLabel>
+                    <FormLabel>What are you primarily looking for?*</FormLabel> {/* Added asterisk */}
                     <FormControl>
                       <Textarea
                         placeholder="e.g., A Senior BA for a CRM project, collaboration opportunities, specific strategic insights..."
@@ -202,7 +199,7 @@ const FeedbackSection: React.FC = () => {
 
               <div className="flex justify-end">
                 <Button type="submit" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors duration-300 group" disabled={form.formState.isSubmitting}>
-                   {form.formState.isSubmitting ? "Submitting..." : "Send Feedback"}
+                   {form.formState.isSubmitting ? "Sending..." : "Connect"} {/* Updated button text */}
                   <Send className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
               </div>
@@ -215,4 +212,3 @@ const FeedbackSection: React.FC = () => {
 };
 
 export default FeedbackSection;
-
