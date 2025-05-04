@@ -1,9 +1,10 @@
-
 "use client";
 import React from "react";
+import Image from "next/image"; // Import Image
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, Calendar } from "lucide-react"; // Icons for education
+import { cn } from "@/lib/utils"; // Import cn
 
 // Replace with your actual education data
 const educationData = [
@@ -16,6 +17,8 @@ const educationData = [
       "Thesis: 'Developing Efficient Algorithms for Large-Scale Data Analysis'.",
       "Achieved Dean's List for academic excellence.",
     ],
+    imageUrl: "https://picsum.photos/seed/uni/400/300",
+    aiHint: "university campus graduation",
   },
   {
     degree: "Bachelor of Science in Software Engineering",
@@ -26,6 +29,8 @@ const educationData = [
       "Active member of the Coding Club and Tech Society.",
       "Graduated with Honors.",
     ],
+    imageUrl: "https://picsum.photos/seed/college/400/300",
+    aiHint: "college building students",
   },
   // Add more degrees or certifications
 ];
@@ -33,7 +38,7 @@ const educationData = [
 const EducationSection: React.FC = () => {
   return (
     <AnimatedSection id="education" className="scroll-mt-20 md:scroll-mt-24" delay="delay-400"> {/* Ensure consistent scroll margin */}
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10 overflow-hidden"> {/* Added overflow-hidden */}
         <CardHeader className="p-0 mb-8 text-center">
           {/* Enhanced Title Styling */}
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
@@ -45,11 +50,26 @@ const EducationSection: React.FC = () => {
           <div className="space-y-6">
             {educationData.map((edu, index) => (
               <AnimatedSection key={index} delay={`delay-${index * 100}`}>
-                <div className="flex flex-col sm:flex-row items-start gap-4 p-4 border border-border/30 rounded-md bg-background hover:border-accent/50 hover:bg-muted/20 transition-all duration-300 ease-out">
-                  <div className="flex-shrink-0 mt-1 text-accent">
+                <div className="relative flex flex-col sm:flex-row items-start gap-4 p-4 border border-border/30 rounded-md bg-background hover:border-accent/50 hover:bg-muted/20 transition-all duration-300 ease-out overflow-hidden group"> {/* Added relative, overflow-hidden, group */}
+                   {/* Image with Fade */}
+                   <div className="absolute top-0 right-0 h-full w-1/3 md:w-1/4 opacity-5 group-hover:opacity-15 transition-opacity duration-500 ease-out pointer-events-none">
+                     <Image
+                       src={edu.imageUrl}
+                       alt={`Image related to ${edu.institution}`}
+                       layout="fill"
+                       objectFit="cover"
+                       className="filter grayscale"
+                       data-ai-hint={edu.aiHint}
+                     />
+                     {/* Right-to-left fade */}
+                     <div className="absolute inset-0 bg-gradient-to-l from-background via-background/80 to-transparent"></div>
+                   </div>
+
+                   {/* Content */}
+                  <div className="flex-shrink-0 mt-1 text-accent z-10"> {/* Added z-10 */}
                     <GraduationCap className="h-6 w-6" />
                   </div>
-                  <div className="flex-grow">
+                  <div className="flex-grow z-10"> {/* Added z-10 */}
                     <h3 className="text-xl font-semibold text-foreground mb-1">{edu.degree}</h3>
                     <p className="text-lg text-muted-foreground mb-1">{edu.institution}</p>
                     <div className="flex items-center text-sm text-muted-foreground mb-3">
@@ -73,5 +93,3 @@ const EducationSection: React.FC = () => {
 };
 
 export default EducationSection;
-
-    
