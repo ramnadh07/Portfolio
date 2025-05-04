@@ -1,22 +1,69 @@
-import React from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond } from "lucide-react"; // Added GraduationCap, HeartHandshake, Diamond
+'use client'; // Required for useState and DropdownMenu interaction
+
+import React, { useState } from 'react'; // Import useState
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'; // Import Dropdown components
+import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond } from 'lucide-react';
 
 const Header: React.FC = () => {
+  const [rating, setRating] = useState<string | null>(null); // Add state for rating
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/85"> {/* Increased opacity */}
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/85">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center space-x-2 group transition-transform duration-300 ease-out hover:scale-105">
-          {/* Replace RNLogo with Diamond Icon */}
-          <Diamond className="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[5deg]" />
-          <span className="font-bold text-foreground hidden sm:inline-block">
-            {/* Change text to Ram Nadh */}
-            Ram Nadh
-          </span>
-        </Link>
-        <nav className="flex items-center space-x-1"> {/* Adjusted spacing */}
-          {/* Navigation Buttons - Wrap Link children in Fragment */}
+        {/* Logo and Name Section */}
+        <div className="flex items-center space-x-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              {/* Using a button as the trigger area around the icon */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 rounded-full focus-visible:ring-1 focus-visible:ring-ring hover:bg-accent/10" // Adjusted hover and size
+                aria-label="Rate Portfolio"
+              >
+                <Diamond className="h-6 w-6 text-primary transition-all duration-300 hover:text-accent group-hover:scale-110 group-hover:rotate-[15deg]" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-48">
+              <DropdownMenuLabel>Rate this Portfolio</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {/* Radio group for rating */}
+              <DropdownMenuRadioGroup value={rating ?? ""} onValueChange={setRating} className="px-1 py-1">
+                {Array.from({ length: 10 }, (_, i) => i + 1).map((value) => (
+                  <DropdownMenuRadioItem
+                    key={value}
+                    value={String(value)}
+                    className="flex justify-between items-center cursor-pointer text-sm py-1.5 px-2" // Adjusted padding/text size
+                  >
+                    <span>{value}</span>
+                    {value === 1 && <span className="text-xs text-muted-foreground ml-2">(Low)</span>}
+                    {value === 10 && <span className="text-xs text-muted-foreground ml-2">(High)</span>}
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+              {/* Optional: Add a submit button or handle rating state */}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {/* Name - Not part of the dropdown */}
+          <Link href="/" className="group">
+            <span className="font-bold text-foreground hidden sm:inline-block transition-colors duration-300 group-hover:text-accent">
+              Ram Nadh
+            </span>
+          </Link>
+        </div>
+
+        {/* Navigation Links */}
+        <nav className="flex items-center space-x-1">
           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#about">
               <>
@@ -41,7 +88,7 @@ const Header: React.FC = () => {
               </>
             </Link>
           </Button>
-           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
+          <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#experience">
               <>
                 <Briefcase className="h-4 w-4 sm:mr-1.5" />
@@ -49,7 +96,7 @@ const Header: React.FC = () => {
               </>
             </Link>
           </Button>
-           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
+          <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#education">
               <>
                 <GraduationCap className="h-4 w-4 sm:mr-1.5" />
@@ -65,7 +112,7 @@ const Header: React.FC = () => {
               </>
             </Link>
           </Button>
-           <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
+          <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
             <Link href="#social-impact">
               <>
                 <HeartHandshake className="h-4 w-4 sm:mr-1.5" />
@@ -74,9 +121,9 @@ const Header: React.FC = () => {
             </Link>
           </Button>
 
-          {/* Contact Button - Wrap Link children in Fragment */}
+          {/* Contact Button */}
           <Button variant="outline" size="sm" asChild className="ml-2 border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group">
-            <Link href="mailto:your.email@example.com"> {/* Updated email */}
+            <Link href="mailto:your.email@example.com">
               <>
                 <Mail className="h-4 w-4 sm:mr-1.5 transition-transform duration-200 group-hover:scale-110" />
                 <span className="hidden sm:inline">Contact</span>
