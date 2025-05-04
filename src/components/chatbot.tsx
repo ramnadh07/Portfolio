@@ -1,45 +1,48 @@
 'use client';
 
 import React, { useState, useRef, useEffect, type FormEvent } from 'react';
+import Image from 'next/image'; // Import Image component
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetTrigger } from '@/components/ui/sheet'; // Added SheetTrigger
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MessageSquare, Send, X, Loader2, Bot, User } from 'lucide-react'; // Keeping Bot icon for clarity
+import { Send, X, Loader2, Bot, User, Sparkles, HelpCircle, Briefcase, Layers3 } from 'lucide-react'; // Added more icons
 import { cn } from '@/lib/utils';
-import { portfolioChat } from '@/ai/flows/portfolio-chatbot-flow'; // Import only the flow function
-import { z } from 'zod'; // Import Zod
+import { portfolioChat } from '@/ai/flows/portfolio-chatbot-flow';
+import { z } from 'zod';
 
 // --- Define Schemas and Types locally ---
-// Define the input schema for a single message part
 const MessagePartSchema = z.object({
   text: z.string(),
-  // Add other parts if needed, e.g., media: z.object({ url: z.string() })
 });
 
-// Define the input schema for a full message (user or model)
 const MessageSchema = z.object({
-  role: z.enum(['user', 'model', 'system', 'tool']), // Added 'system', 'tool'
+  role: z.enum(['user', 'model', 'system', 'tool']),
   content: z.array(MessagePartSchema),
 });
 
-// Define the input type for the chat flow
 const PortfolioChatInputSchema = z.object({
     history: z.array(MessageSchema).describe('The conversation history.'),
     message: z.string().describe('The latest user message.'),
 });
 type PortfolioChatInput = z.infer<typeof PortfolioChatInputSchema>;
 
-// Define the output type for the chat flow
 const PortfolioChatOutputSchema = z.object({
   response: z.string().describe('The chatbot response message.'),
 });
 type PortfolioChatOutput = z.infer<typeof PortfolioChatOutputSchema>;
 
-// Define component message type based on Zod schema, adding an ID
 type Message = z.infer<typeof MessageSchema> & { id: string };
 // --- End Local Schema/Type Definitions ---
+
+// Predefined prompts
+const predefinedPrompts = [
+  { text: "What are Ram's key skills?", icon: <Layers3 className="h-4 w-4 mr-1.5" /> },
+  { text: "Tell me about Ram's experience.", icon: <Briefcase className="h-4 w-4 mr-1.5" /> },
+  { text: "What kind of projects has Ram worked on?", icon: <Sparkles className="h-4 w-4 mr-1.5" /> },
+  { text: "How can I contact Ram?", icon: <HelpCircle className="h-4 w-4 mr-1.5" /> },
+];
 
 
 const Chatbot: React.FC = () => {
@@ -49,98 +52,82 @@ const Chatbot: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null); // Ref for the viewport div
 
-  // Add initial welcome message when chat opens and there are no messages
+   // Add initial welcome message and predefined prompts when chat opens
    useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
         {
           id: 'bot-welcome',
           role: 'model',
-          // Updated welcome message reflecting "Aura" personality
           content: [{ text: "Hello! I'm Aura, Ram's Portfolio Assistant. ✨ I'm here to help answer your questions about his skills, projects, or experience. How can I assist you today?" }],
         }
+        // Predefined prompts are now rendered as buttons, not messages
       ]);
     }
-   }, [isOpen, messages.length]); // Depend on isOpen and message length
+   }, [isOpen]); // Only depends on isOpen now
 
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    if (scrollAreaRef.current) {
-        // Find the viewport element more reliably
-        const viewport = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
-        if (viewport) {
-            viewport.scrollTop = viewport.scrollHeight;
-        } else {
-             // Fallback for older structure (less reliable)
-             const scrollElement = scrollAreaRef.current.querySelector('div');
-             if (scrollElement) {
-                 scrollElement.scrollTop = scrollElement.scrollHeight;
-             }
-        }
+    if (viewportRef.current) {
+        viewportRef.current.scrollTop = viewportRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages]); // Depend on messages
 
 
   // Focus input when sheet opens
   useEffect(() => {
     if (isOpen) {
-        // Timeout needed to allow sheet animation to complete
         const timer = setTimeout(() => {
             inputRef.current?.focus();
-        }, 100);
+        }, 150); // Slightly longer timeout for bottom sheet animation
         return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-
-  const handleSendMessage = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const userMessageContent = input.trim();
-    if (!userMessageContent || isLoading) return;
+  // Function to handle sending a message (used by form and buttons)
+  const sendMessage = async (messageContent: string) => {
+    const trimmedMessage = messageContent.trim();
+    if (!trimmedMessage || isLoading) return;
 
     const newUserMessage: Message = {
-      id: `user-${Date.now()}`, // Simple unique ID
+      id: `user-${Date.now()}`,
       role: 'user',
-      content: [{ text: userMessageContent }],
+      content: [{ text: trimmedMessage }],
     };
 
     // Exclude welcome message from history sent to AI
     const currentMessages = [...messages, newUserMessage];
     setMessages(currentMessages);
 
-    setInput('');
+    setInput(''); // Clear input field
     setIsLoading(true);
+    inputRef.current?.focus(); // Keep focus on input
 
     try {
-      // Prepare history for the API call (use locally defined schema), excluding the initial welcome message
       const historyForApi = currentMessages
         .filter(msg => msg.id !== 'bot-welcome') // Filter out welcome message
         .map(({ role, content }) => ({ role, content }));
 
-
-      // Validate input against the locally defined schema before calling the flow
       const chatInput: PortfolioChatInput = PortfolioChatInputSchema.parse({
-        history: historyForApi, // Send filtered history
-        message: userMessageContent,
+        history: historyForApi,
+        message: trimmedMessage,
       });
-
 
       const result: PortfolioChatOutput = await portfolioChat(chatInput);
 
       const botMessage: Message = {
-        id: `bot-${Date.now()}`, // Simple unique ID
+        id: `bot-${Date.now()}`,
         role: 'model',
         content: [{ text: result.response }],
       };
       setMessages((prev) => [...prev, botMessage]);
 
     } catch (error) {
-        // Handle potential Zod validation errors or API errors
         if (error instanceof z.ZodError) {
              console.error("Chatbot input validation error:", error.errors);
-             // Optionally display a user-friendly validation message
              const errorMessage: Message = {
                id: `error-${Date.now()}`,
                role: 'model',
@@ -158,36 +145,65 @@ const Chatbot: React.FC = () => {
         }
     } finally {
       setIsLoading(false);
-       // Refocus input after response
-       inputRef.current?.focus();
+      inputRef.current?.focus(); // Refocus input after response/error
     }
   };
+
+  // Handle form submission
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    sendMessage(input);
+  };
+
+  // Handle predefined prompt button click
+  const handlePromptClick = (promptText: string) => {
+    setInput(promptText); // Set input field for user confirmation
+    sendMessage(promptText); // Immediately send the message
+  };
+
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button
-          variant="outline" // Changed to outline for less visual weight
+          variant="outline"
           size="icon"
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all hover:scale-105 z-50 border-2 border-background" // Added border, changed bg
-          aria-label="Open Chat Assistant" // Updated aria-label
+          className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all hover:scale-105 z-50 border-2 border-background p-0 overflow-hidden" // Added p-0 and overflow-hidden
+          aria-label="Open Aura Assistant"
         >
-           {/* Keeping Bot icon for clarity, as a visual AI representation is difficult without images */}
-           <Bot className="h-6 w-6" />
+          {/* AI Character Image */}
+          <Image
+             src="https://picsum.photos/seed/ai-face2/100/100" // Placeholder image URL
+             alt="Aura AI Assistant Face"
+             width={64} // Match button size
+             height={64} // Match button size
+             className="object-cover" // Ensure image covers the button area
+             data-ai-hint="female friendly ai assistant face illustration" // Hint for image generation
+           />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col p-0 w-[400px] sm:w-[500px] md:w-[600px] lg:max-w-lg"> {/* Adjusted width */}
-        <SheetHeader className="p-4 border-b bg-muted/30"> {/* Added subtle background */}
-          <SheetTitle className="flex items-center gap-2 text-lg font-semibold text-foreground"> {/* Adjusted styling */}
-             <Bot className="h-5 w-5 text-primary"/> Aura - Portfolio Assistant {/* Updated name */}
+      {/* Make SheetContent slide from bottom and style as pop-up */}
+      <SheetContent
+         side="bottom"
+         className="fixed bottom-0 right-0 mb-24 mr-6 h-[65vh] max-h-[600px] w-[90vw] max-w-[420px] flex flex-col p-0 rounded-lg shadow-xl border border-border/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-bottom-[2rem] data-[state=closed]:slide-out-to-right-[0rem] data-[state=open]:slide-in-from-bottom-[2rem] data-[state=open]:slide-in-from-right-[0rem]"
+         onOpenAutoFocus={(e) => e.preventDefault()} // Prevent default focus stealing
+      >
+        <SheetHeader className="p-4 border-b bg-muted/30 flex-shrink-0">
+          <SheetTitle className="flex items-center gap-2 text-lg font-semibold text-foreground">
+             {/* You can use a smaller version of the image or an icon here */}
+             <Avatar className="h-6 w-6 border">
+                <AvatarImage src="https://picsum.photos/seed/ai-face2/40/40" alt="Aura Avatar" data-ai-hint="female ai assistant face illustration small"/>
+                 <AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback>
+             </Avatar>
+             Aura - Portfolio Assistant
           </SheetTitle>
-          {/* Optional: Add description if needed */}
-          {/* <SheetDescription>Ask me anything about Ram's portfolio.</SheetDescription> */}
         </SheetHeader>
 
-        <ScrollArea className="flex-1 overflow-y-auto" ref={scrollAreaRef}>
-           <div className="p-4 space-y-4">
-                {messages.map((message) => (
+        {/* Scrollable chat area */}
+         <ScrollArea className="flex-1 overflow-y-auto" ref={scrollAreaRef}>
+             {/* Viewport needed for direct reference */}
+             <div className="h-full p-4 space-y-4" ref={viewportRef}>
+                 {messages.map((message) => (
                     <div
                         key={message.id}
                         className={cn(
@@ -196,26 +212,25 @@ const Chatbot: React.FC = () => {
                         )}
                     >
                     {message.role === 'model' && (
-                        <Avatar className="h-8 w-8 border border-border">
-                         {/* Use Bot icon as fallback */}
+                        <Avatar className="h-8 w-8 border border-border flex-shrink-0">
+                         <AvatarImage src="https://picsum.photos/seed/ai-face2/40/40" alt="Aura Avatar" data-ai-hint="female ai assistant face illustration small"/>
                          <AvatarFallback><Bot className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
                         </Avatar>
                     )}
                     <div
                         className={cn(
-                        'rounded-lg p-3 max-w-[80%] break-words text-sm shadow-sm', // Added shadow
+                        'rounded-xl p-3 max-w-[85%] break-words text-sm shadow-sm', // Rounded-xl
                         message.role === 'user'
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-card text-card-foreground border border-border/50' // Changed bot message bg
+                            ? 'bg-primary text-primary-foreground rounded-br-none' // User bubble style
+                            : 'bg-card text-card-foreground border border-border/50 rounded-bl-none' // Bot bubble style
                         )}
                     >
-                        {/* Render message content safely, handling potential multiple parts or non-text content */}
                         {message.content.map((part, index) =>
                         part.text ? <span key={index}>{part.text}</span> : null
                         )}
                     </div>
                     {message.role === 'user' && (
-                        <Avatar className="h-8 w-8 border border-border">
+                        <Avatar className="h-8 w-8 border border-border flex-shrink-0">
                          <AvatarFallback><User className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
                         </Avatar>
                     )}
@@ -223,30 +238,55 @@ const Chatbot: React.FC = () => {
                 ))}
                 {isLoading && (
                     <div className="flex items-start gap-3 justify-start">
-                        <Avatar className="h-8 w-8 border border-border">
-                        <AvatarFallback><Bot className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
+                        <Avatar className="h-8 w-8 border border-border flex-shrink-0">
+                            <AvatarImage src="https://picsum.photos/seed/ai-face2/40/40" alt="Aura Avatar" data-ai-hint="female ai assistant face illustration small"/>
+                            <AvatarFallback><Bot className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
                         </Avatar>
-                         <div className="rounded-lg p-3 bg-muted text-muted-foreground flex items-center space-x-2">
+                         <div className="rounded-xl rounded-bl-none p-3 bg-muted text-muted-foreground flex items-center space-x-2 shadow-sm">
                             <Loader2 className="h-4 w-4 animate-spin" />
-                            <span>Thinking...</span>
+                            <span>Aura is thinking...</span>
                         </div>
                     </div>
                 )}
-           </div>
+             </div>
         </ScrollArea>
 
-        <SheetFooter className="p-4 border-t bg-background">
-          <form onSubmit={handleSendMessage} className="flex w-full items-center space-x-2">
+         {/* Predefined Prompts Area */}
+         {messages.length <= 1 && !isLoading && ( // Show only initially or if no messages sent yet
+             <div className="px-4 pt-2 pb-1 border-t border-border/30 flex-shrink-0">
+                 <p className="text-xs text-muted-foreground mb-2 text-center">Or start with a suggestion:</p>
+                 <div className="flex flex-wrap justify-center gap-2">
+                 {predefinedPrompts.map((prompt) => (
+                     <Button
+                         key={prompt.text}
+                         variant="outline"
+                         size="sm"
+                         className="text-xs h-auto py-1 px-2.5"
+                         onClick={() => handlePromptClick(prompt.text)}
+                         disabled={isLoading}
+                     >
+                         {prompt.icon}
+                         {prompt.text}
+                     </Button>
+                 ))}
+                 </div>
+             </div>
+         )}
+
+
+        {/* Input area */}
+        <SheetFooter className="p-4 border-t bg-background flex-shrink-0">
+          <form onSubmit={handleFormSubmit} className="flex w-full items-center space-x-2">
             <Input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about skills, projects, etc..."
+              placeholder="Ask Aura about skills, projects..." // Updated placeholder
               className="flex-1"
               disabled={isLoading}
               aria-label="Chat input"
             />
-            <Button type="submit" size="icon" variant="secondary" disabled={isLoading || !input.trim()} aria-label="Send message"> {/* Changed variant */}
+            <Button type="submit" size="icon" variant="secondary" disabled={isLoading || !input.trim()} aria-label="Send message">
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
           </form>
