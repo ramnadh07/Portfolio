@@ -2,14 +2,13 @@
 "use client"
 
 import React from "react";
-import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip as RechartsTooltip, XAxis, YAxis, Cell } from "recharts";
+import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Cell, RadialBar, RadialBarChart } from "recharts";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Badge } from "@/components/ui/badge";
-import { Users, BarChart3, Star, TrendingUp, Target } from "lucide-react";
+import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity } from "lucide-react"; // Added new icons
 
-// Mock Data for Charts
+// Mock Data for Charts (Expanded)
 const viewersData = [
   { month: "Jan", viewers: Math.floor(Math.random() * 50) + 10 },
   { month: "Feb", viewers: Math.floor(Math.random() * 60) + 15 },
@@ -18,6 +17,7 @@ const viewersData = [
   { month: "May", viewers: Math.floor(Math.random() * 90) + 30 },
   { month: "Jun", viewers: Math.floor(Math.random() * 100) + 35 },
 ];
+const totalSimulatedViewers = viewersData.reduce((sum, item) => sum + item.viewers, 0) * 3 + 150; // More realistic total
 
 const skillsInterestData = [
   { skill: "Bus. Analysis", value: 120, fill: "hsl(var(--chart-1))" },
@@ -35,6 +35,7 @@ const domainInterestData = [
   { name: "SaaS", value: 45, fill: "hsl(var(--chart-4))" },
   { name: "Other", value: 30, fill: "hsl(var(--chart-5))" },
 ];
+const topDomain = domainInterestData.reduce((max, current) => (current.value > max.value ? current : max), domainInterestData[0]);
 
 const ratingsData = [
   { rating: 10, count: 15, fill: "hsl(var(--chart-1))" },
@@ -50,6 +51,23 @@ const totalRatingSum = ratingsData.reduce((sum, item) => sum + item.rating * ite
 const totalRatingsCount = ratingsData.reduce((sum, item) => sum + item.count, 0);
 const averageRating = totalRatingsCount > 0 ? (totalRatingSum / totalRatingsCount).toFixed(1) : "N/A";
 
+// Engagement Rate Data (Simulated)
+const engagementRate = 68; // Example percentage
+const engagementData = [
+    { name: 'engagement', value: engagementRate, fill: 'hsl(var(--chart-1))' },
+    { name: 'remainder', value: 100 - engagementRate, fill: 'hsl(var(--muted) / 0.3)' },
+];
+
+// Needs Summary (Simulated from feedback)
+const needsSummary = {
+    "Project Roles": 45,
+    "Collaboration": 30,
+    "Strategic Insights": 20,
+    "General Inquiry": 5,
+};
+const needsData = Object.entries(needsSummary).map(([name, value], i) => ({
+    name, value, fill: `hsl(var(--chart-${(i % 5) + 1}))`
+}));
 
 const AnalyticsDashboardSection: React.FC = () => {
   return (
@@ -63,17 +81,49 @@ const AnalyticsDashboardSection: React.FC = () => {
             Insights based on simulated visitor interactions and feedback.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <CardContent className="p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 
-          {/* Viewers Over Time */}
-          <Card className="col-span-1 md:col-span-2 lg:col-span-1 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
+          {/* KPI Cards Row */}
+          <Card className="col-span-1 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Viewers This Year</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Total Viewers</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">{viewersData[viewersData.length - 1].viewers * 6 + 100} <span className="text-xs text-muted-foreground"> (Simulated Total)</span></div>
-              <div className="h-[120px] mt-4">
+              <div className="text-2xl font-bold text-foreground">{totalSimulatedViewers.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">(Simulated)</p>
+            </CardContent>
+          </Card>
+          <Card className="col-span-1 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">Average Rating</CardTitle>
+              <Star className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-foreground">{averageRating}/10</div>
+              <p className="text-xs text-muted-foreground">from {totalRatingsCount} ratings</p>
+            </CardContent>
+          </Card>
+          <Card className="col-span-1 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">Engagement Rate</CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+               <div className="text-2xl font-bold text-foreground">{engagementRate}%</div>
+               <p className="text-xs text-muted-foreground">Feedback form interaction</p>
+            </CardContent>
+          </Card>
+
+           {/* Viewers Over Time */}
+          <Card className="col-span-1 sm:col-span-2 lg:col-span-1 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">Viewers Trend</CardTitle>
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+               <div className="text-lg font-bold text-foreground">{viewersData[viewersData.length - 1].viewers} <span className="text-xs text-muted-foreground">in Jun</span></div>
+               <div className="h-[100px] mt-2">
                  <ChartContainer config={{ viewers: { label: "Viewers", color: "hsl(var(--chart-1))" } }}>
                   <LineChart data={viewersData} margin={{ top: 5, right: 10, left: -25, bottom: 0 }}>
                     <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border)/0.5)" />
@@ -94,9 +144,9 @@ const AnalyticsDashboardSection: React.FC = () => {
               <Target className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-               <div className="text-2xl font-bold text-foreground">{skillsInterestData[0].skill}</div>
-              <p className="text-xs text-muted-foreground">Most frequently mentioned skill</p>
-               <div className="h-[120px] mt-4">
+               <div className="text-lg font-bold text-foreground">{skillsInterestData[0].skill}</div>
+              <p className="text-xs text-muted-foreground">Most frequently mentioned</p>
+               <div className="h-[100px] mt-2">
                   <ChartContainer config={skillsInterestData.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})}>
                   <BarChart data={skillsInterestData} layout="vertical" margin={{ top: 0, right: 0, left: -10, bottom: 0 }}>
                      <XAxis type="number" hide />
@@ -114,70 +164,47 @@ const AnalyticsDashboardSection: React.FC = () => {
           </Card>
 
 
-          {/* Average Rating */}
+         {/* Top Domain Interest */}
           <Card className="col-span-1 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Average Rating</CardTitle>
-              <Star className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-muted-foreground">Top Domain Interest</CardTitle>
+               <Zap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">{averageRating}/10</div>
-              <p className="text-xs text-muted-foreground">Based on {totalRatingsCount} simulated ratings</p>
-               <div className="h-[120px] mt-4 flex items-center justify-center">
-                <ChartContainer config={ratingsData.reduce((acc, cur) => ({ ...acc, [cur.rating]: { label: `${cur.rating} Stars`, color: cur.fill } }), {})}>
-                   <BarChart data={ratingsData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                     {/* Minimalist bar chart showing distribution */}
-                     <XAxis dataKey="rating" hide />
-                     <YAxis hide/>
-                     <ChartTooltip cursor={false} content={<ChartTooltipContent formatter={(value, name) => `${value} votes`} />} />
-                     <Bar dataKey="count" radius={2}>
-                      {ratingsData.map((entry) => (
-                          <Cell key={`cell-${entry.rating}`} fill={entry.fill} />
-                       ))}
-                     </Bar>
-                   </BarChart>
-                 </ChartContainer>
-               </div>
+            <CardContent className="flex flex-col items-center justify-center h-[140px]">
+                <div className="text-lg font-bold text-foreground" style={{ color: topDomain.fill }}>{topDomain.name}</div>
+                <p className="text-xs text-muted-foreground mb-2">Highest interest area</p>
+                <ChartContainer config={domainInterestData.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
+                    <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                    <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
+                    <Pie data={domainInterestData} dataKey="value" nameKey="name" innerRadius={25} outerRadius={35} strokeWidth={1} >
+                        {domainInterestData.map((entry) => (
+                        <Cell key={`cell-${entry.name}`} fill={entry.fill} />
+                        ))}
+                    </Pie>
+                    </PieChart>
+                </ChartContainer>
             </CardContent>
           </Card>
 
-
-         {/* Domain Interest - Pie Chart */}
-          <Card className="col-span-1 md:col-span-2 lg:col-span-3 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
+           {/* Needs Summary */}
+          <Card className="col-span-1 sm:col-span-2 lg:col-span-3 shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Domain Interest Distribution</CardTitle>
-               <BarChart3 className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-muted-foreground">Visitor Needs Summary</CardTitle>
+               <UsersRound className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent className="flex flex-col items-center justify-center h-[250px] md:h-[200px]">
-              <ChartContainer config={domainInterestData.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
-                <PieChart>
-                  <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
-                  <Pie
-                    data={domainInterestData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={60}
-                    innerRadius={40}
-                    strokeWidth={2}
-                    labelLine={false}
-                   // label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                  >
-                     {domainInterestData.map((entry) => (
-                       <Cell key={`cell-${entry.name}`} fill={entry.fill} />
-                     ))}
-                  </Pie>
-                </PieChart>
-              </ChartContainer>
-              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs mt-4">
-                 {domainInterestData.map((entry) => (
-                   <div key={entry.name} className="flex items-center gap-1.5">
-                     <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.fill }} />
-                     {entry.name}
-                   </div>
-                 ))}
-               </div>
+            <CardContent className="h-[150px] pt-4">
+                <ChartContainer config={needsData.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})}>
+                    <BarChart data={needsData} layout="horizontal" margin={{ top: 0, right: 10, left: 10, bottom: 0 }}>
+                        <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0}/>
+                        <YAxis type="number" hide/>
+                        <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                        <Bar dataKey="value" radius={5}>
+                           {needsData.map((entry) => (
+                            <Cell key={`cell-${entry.name}`} fill={entry.fill} />
+                            ))}
+                        </Bar>
+                    </BarChart>
+                </ChartContainer>
             </CardContent>
           </Card>
 

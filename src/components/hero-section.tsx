@@ -2,7 +2,7 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, MessageSquareQuote } from "lucide-react"; // Added MessageSquareQuote
 import AnimatedSection from "./animated-section";
 import Link from "next/link";
 // Removed Image import as it's no longer used for background
@@ -47,6 +47,15 @@ const HeroSection: React.FC = () => {
             </>
           </Link>
         </Button>
+         {/* Share Feedback Button */}
+         <Button variant="outline" size="lg" asChild className="bg-background/70 backdrop-blur-sm text-foreground hover:text-accent-foreground hover:bg-accent/80 hover:border-accent/80 transition-all duration-300 ease-out group border-border/70 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+          <Link href="#feedback" aria-label="Share Feedback">
+            <>
+              Share Feedback
+              <MessageSquareQuote className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5" />
+            </>
+          </Link>
+        </Button>
         <Button variant="outline" size="lg" asChild className="bg-background/70 backdrop-blur-sm text-foreground hover:text-accent-foreground hover:bg-accent/80 hover:border-accent/80 transition-all duration-300 ease-out group border-border/70 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
            <Link href="mailto:your.email@example.com" aria-label="Contact Me"> {/* Updated email */}
             <>
@@ -61,3 +70,4 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
+

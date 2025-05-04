@@ -19,11 +19,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Send } from "lucide-react";
+import { Send, Mail, Building } from "lucide-react"; // Added Mail, Building icons
 
 // Define the form schema using Zod
 const feedbackFormSchema = z.object({
   name: z.string().optional(),
+  email: z.string().email({ message: "Please enter a valid email." }).optional().or(z.literal('')), // Optional email
+  company: z.string().optional(), // Optional company
   role: z.string().optional(),
   lookingFor: z.string().min(10, {
     message: "Please describe what you're looking for in at least 10 characters.",
@@ -40,6 +42,8 @@ const FeedbackSection: React.FC = () => {
     resolver: zodResolver(feedbackFormSchema),
     defaultValues: {
       name: "",
+      email: "",
+      company: "",
       role: "",
       lookingFor: "",
       skillsInterest: "",
@@ -50,7 +54,15 @@ const FeedbackSection: React.FC = () => {
 
   function onSubmit(data: FeedbackFormValues) {
     // In a real application, you would send this data to your backend/API
-    console.log("Feedback submitted:", data);
+    // Remove empty optional fields before submission if desired
+    const submissionData = Object.entries(data).reduce((acc, [key, value]) => {
+        if (value !== "" && value !== undefined && value !== null) {
+            acc[key as keyof FeedbackFormValues] = value;
+        }
+        return acc;
+    }, {} as Partial<FeedbackFormValues>);
+
+    console.log("Feedback submitted:", submissionData);
 
     toast({
       title: "Feedback Submitted!",
@@ -64,10 +76,10 @@ const FeedbackSection: React.FC = () => {
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
         <CardHeader className="p-0 mb-8 text-center">
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Share Your Needs
+            Connect & Share Needs {/* Updated Title */}
           </CardTitle>
           <CardDescription className="text-muted-foreground mt-2 text-lg">
-            Help me understand what you're looking for. Your feedback drives improvement.
+            Let's connect! Tell me what you're looking for or share your feedback.
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
@@ -82,6 +94,38 @@ const FeedbackSection: React.FC = () => {
                       <FormLabel>Name (Optional)</FormLabel>
                       <FormControl>
                         <Input placeholder="Your Name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email (Optional)</FormLabel>
+                      <FormControl>
+                        <div className="relative flex items-center">
+                          <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                          <Input type="email" placeholder="your.email@example.com" className="pl-10" {...field} />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Company (Optional)</FormLabel>
+                      <FormControl>
+                       <div className="relative flex items-center">
+                           <Building className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                          <Input placeholder="Your Company Name" className="pl-10" {...field} />
+                         </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -107,7 +151,7 @@ const FeedbackSection: React.FC = () => {
                 name="lookingFor"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>What are you primarily looking for?</FormLabel>
+                    <FormLabel>What are you primarily looking for?*</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="e.g., A Senior BA for a CRM project, collaboration opportunities, specific strategic insights..."
@@ -171,3 +215,4 @@ const FeedbackSection: React.FC = () => {
 };
 
 export default FeedbackSection;
+
