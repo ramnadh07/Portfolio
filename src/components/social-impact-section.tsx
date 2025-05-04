@@ -3,46 +3,45 @@
 import React from "react";
 import Image from "next/image";
 import AnimatedSection from "./animated-section";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"; // Added CardFooter import
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, Leaf, HeartHandshake } from "lucide-react"; // Icons for social impact
+import { BarChartBig, Handshake, Wrench } from "lucide-react"; // More relevant icons for BA impact
 
-// Replace with your actual social impact/CSR activities
+// Replace with your actual social impact/CSR activities - BA specific examples
 const impactData = [
   {
-    title: "Coding Bootcamp for Underprivileged Youth",
-    organization: "Tech Forward Initiative",
-    role: "Lead Mentor & Curriculum Developer",
-    duration: "2022 - Present",
-    description: "Mentored aspiring developers, designed course modules focusing on web fundamentals, and helped graduates secure internships.",
-    imageUrl: "https://picsum.photos/seed/impact1/600/400",
-    tags: ["Education", "Mentorship", "Community", "Technology"],
-    icon: <Users className="h-5 w-5 mr-2 text-accent" />,
-    aiHint: "people learning coding computers",
+    title: "Pro Bono Analysis for Local Food Bank",
+    organization: "Community Harvest",
+    role: "Volunteer Analyst",
+    duration: "Summer 2023",
+    description: "Analyzed donation patterns and distribution logistics to identify opportunities for improving efficiency, helping reach 15% more families.",
+    imageUrl: "https://picsum.photos/seed/impact-ba1/600/400",
+    tags: ["Data Analysis", "Process Improvement", "Non-Profit", "Logistics"],
+    icon: <BarChartBig className="h-5 w-5 mr-2 text-accent" />,
+    aiHint: "food bank logistics charts",
   },
   {
-    title: "Environmental Cleanup Drive",
-    organization: "Green Earth Volunteers",
-    role: "Volunteer Coordinator",
-    duration: "Annual Event (2021, 2022, 2023)",
-    description: "Organized and led teams for local park and river cleanup events, promoting environmental awareness and community participation.",
-    imageUrl: "https://picsum.photos/seed/impact2/600/400",
-    tags: ["Environment", "Volunteering", "Community Organizing"],
-    icon: <Leaf className="h-5 w-5 mr-2 text-accent" />,
-    aiHint: "people cleaning park environment",
+    title: "Mentoring Aspiring Analysts",
+    organization: "Future Leaders Initiative",
+    role: "Mentor",
+    duration: "Ongoing (2022 - Present)",
+    description: "Provide guidance and career advice to university students interested in business analysis, helping them prepare for interviews and understand industry expectations.",
+    imageUrl: "https://picsum.photos/seed/impact-ba2/600/400",
+    tags: ["Mentorship", "Community", "Career Development", "Education"],
+    icon: <Handshake className="h-5 w-5 mr-2 text-accent" />,
+    aiHint: "professional mentorship meeting students",
   },
   {
-    title: "Pro Bono Web Development for Non-Profit",
-    organization: "Helping Hands Charity",
-    role: "Volunteer Web Developer",
-    duration: "Q3 2021",
-    description: "Developed and deployed a responsive website to improve the charity's online presence and streamline donation processes.",
-    imageUrl: "https://picsum.photos/seed/impact3/600/400",
-    tags: ["Web Development", "Non-Profit", "Pro Bono", "Accessibility"],
-    icon: <HeartHandshake className="h-5 w-5 mr-2 text-accent" />,
-    aiHint: "charity website non-profit",
+    title: "Workshop Facilitation: Intro to Agile",
+    organization: "Tech For Good Network",
+    role: "Volunteer Facilitator",
+    duration: "Q1 2022",
+    description: "Facilitated an introductory workshop on Agile principles and practices for staff at several small non-profit organizations.",
+    imageUrl: "https://picsum.photos/seed/impact-ba3/600/400",
+    tags: ["Agile", "Workshop Facilitation", "Training", "Non-Profit Support"],
+    icon: <Wrench className="h-5 w-5 mr-2 text-accent" />, // Using Wrench as a tool/methodology icon
+    aiHint: "agile workshop presentation group",
   },
-  // Add more activities
 ];
 
 const SocialImpactSection: React.FC = () => {
@@ -52,9 +51,9 @@ const SocialImpactSection: React.FC = () => {
         <CardHeader className="p-0 mb-8 text-center">
           {/* Enhanced Title Styling */}
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Beyond the Code: Social Impact
+            Applying Skills for Good
           </CardTitle>
-          <p className="text-muted-foreground mt-2 text-lg">Contributing to causes I believe in.</p>
+          <p className="text-muted-foreground mt-2 text-lg">Using analytical skills to support community initiatives.</p> {/* Updated subtitle */}
         </CardHeader>
         <CardContent className="p-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

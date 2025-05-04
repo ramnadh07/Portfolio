@@ -1,3 +1,4 @@
+
 "use client";
 import React from "react";
 import {
@@ -13,40 +14,42 @@ import { Briefcase, Calendar, TrendingUp } from "lucide-react";
 const experienceData = [
   {
     id: "exp1",
-    company: "Tech Solutions Inc.",
-    role: "Senior Frontend Developer",
-    duration: "Jan 2021 - Present",
+    company: "Innovate Solutions Ltd.", // Changed company name
+    role: "Senior Business Analyst", // Updated role
+    duration: "Mar 2020 - Present", // Adjusted duration
     description: [
-      "Spearheaded the development of a cutting-edge customer portal using Next.js and TypeScript, driving a remarkable 30% uplift in user engagement.",
-      "Elevated team performance by mentoring junior developers, instituting rigorous code reviews, and championing frontend best practices.",
-      "Transformed complex UI/UX designs into seamless, accessible interfaces through effective collaboration with the design team.",
-      "Achieved a significant 25% reduction in application load times by implementing strategic performance optimizations.",
+      "Led requirements gathering workshops for a major CRM implementation, resulting in a 95% user adoption rate within 6 months.",
+      "Developed detailed process maps (BPMN) identifying key bottlenecks, contributing to a 20% reduction in process cycle time for the sales team.",
+      "Analyzed sales data using SQL to identify key trends, informing product roadmap decisions and contributing to a 15% increase in cross-selling revenue.",
+      "Mentored junior BAs, establishing best practices for documentation (BRDs, User Stories) and stakeholder communication.",
+      "Acted as the primary liaison between business stakeholders and the development team, ensuring alignment and clear communication throughout the SDLC.",
     ],
   },
   {
      id: "exp2",
-    company: "Web Innovators Co.",
-    role: "Full-Stack Developer",
-    duration: "Jun 2018 - Dec 2020",
+    company: "Data Insights Corp.", // Changed company name
+    role: "Business Analyst", // Updated role
+    duration: "Jul 2017 - Feb 2020", // Adjusted duration
     description: [
-        "Successfully delivered robust full-stack web applications utilizing React, Node.js, and PostgreSQL, consistently exceeding client expectations.",
-        "Architected and implemented scalable RESTful APIs, enhancing functionality for diverse client projects.",
-        "Played a pivotal role in translating client requirements into high-quality, custom web solutions.",
-        "Actively contributed to modernizing technology infrastructure by migrating legacy systems to contemporary stacks.",
+        "Elicited and documented functional and non-functional requirements for multiple client-facing web applications using user stories and use cases.",
+        "Collaborated with UX designers to translate business needs into intuitive user interface designs.",
+        "Performed User Acceptance Testing (UAT) coordination and defect triaging, ensuring high-quality deliverables.",
+        "Created and maintained project documentation in Confluence, improving knowledge sharing within the team.",
+        "Supported project managers in scope management and change request analysis.",
     ],
   },
    {
      id: "exp3",
-    company: "Design Hub Agency",
-    role: "Junior Web Developer",
-    duration: "Sep 2017 - May 2018",
+    company: "Retail Dynamics Inc.", // Changed company name
+    role: "Junior Business Analyst / QA Analyst", // Updated role
+    duration: "Jun 2016 - Jun 2017", // Adjusted duration
     description: [
-        "Provided key support to senior developers in building and rigorously testing dynamic websites with HTML, CSS, and JavaScript (jQuery).",
-        "Rapidly acquired proficiency in essential development tools and methodologies, including Git version control and Agile practices.",
-        "Ensured optimal website performance and user satisfaction through diligent maintenance and effective bug resolution.",
+        "Assisted senior BAs in requirements gathering sessions and documentation.",
+        "Developed and executed test cases for e-commerce platform features.",
+        "Reported and tracked bugs using JIRA, working closely with developers on resolutions.",
+        "Generated basic reports on website performance and user behavior.",
     ],
   },
-  // Add more experiences
 ];
 
 const ExperienceSection: React.FC = () => {
@@ -58,7 +61,7 @@ const ExperienceSection: React.FC = () => {
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
             Professional Journey & Impact
           </CardTitle>
-          <p className="text-muted-foreground mt-2 text-lg">Highlights from my career path.</p>
+          <p className="text-muted-foreground mt-2 text-lg">Highlights from my business analysis career.</p> {/* Updated subtitle */}
         </CardHeader>
         <CardContent className="p-0">
             <Accordion type="single" collapsible className="w-full space-y-4"> {/* Increased spacing */}

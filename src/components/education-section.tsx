@@ -6,31 +6,38 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, Calendar } from "lucide-react"; // Icons for education
 import { cn } from "@/lib/utils"; // Import cn
 
-// Replace with your actual education data
+// Replace with your actual education data - BA specific examples
 const educationData = [
   {
-    degree: "Master of Science in Computer Science",
-    institution: "University of Advanced Technology",
-    duration: "2019 - 2021",
+    degree: "Master of Business Administration (MBA)",
+    institution: "Stanford Graduate School of Business", // Example prestigious school
+    duration: "2018 - 2020",
     details: [
-      "Specialized in Artificial Intelligence and Machine Learning.",
-      "Thesis: 'Developing Efficient Algorithms for Large-Scale Data Analysis'.",
-      "Achieved Dean's List for academic excellence.",
+      "Concentration in Strategy and Operations.",
+      "Case Competition Winner - Solved complex market entry problem.",
+      "Member of the Consulting Club and Data Analytics Group.",
     ],
-    // imageUrl and aiHint removed
   },
   {
-    degree: "Bachelor of Science in Software Engineering",
-    institution: "State Technical College",
-    duration: "2015 - 2019",
+    degree: "Bachelor of Science in Economics",
+    institution: "University of California, Berkeley", // Example strong undergrad
+    duration: "2012 - 2016",
     details: [
-      "Capstone Project: 'E-commerce Platform Development'.",
-      "Active member of the Coding Club and Tech Society.",
-      "Graduated with Honors.",
+      "Minor in Statistics.",
+      "Thesis: 'Impact of Pricing Strategies on Consumer Behavior'.",
+      "Graduated with Honors (Cum Laude).",
+      "Relevant Coursework: Econometrics, Micro/Macroeconomics, Data Analysis.",
     ],
-     // imageUrl and aiHint removed
   },
-  // Add more degrees or certifications
+  {
+    degree: "Certified Business Analysis Professional (CBAP)", // Example certification
+    institution: "IIBA",
+    duration: "Issued 2021",
+    details: [
+      "Demonstrated expertise in business analysis principles and practices.",
+      "Covered core knowledge areas including Elicitation, Requirements Life Cycle Management, and Solution Evaluation.",
+    ],
+  },
 ];
 
 const EducationSection: React.FC = () => {
@@ -40,9 +47,9 @@ const EducationSection: React.FC = () => {
         <CardHeader className="p-0 mb-8 text-center">
           {/* Enhanced Title Styling */}
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Academic Background
+            Academic & Professional Qualifications
           </CardTitle>
-          <p className="text-muted-foreground mt-2 text-lg">My educational qualifications.</p>
+          <p className="text-muted-foreground mt-2 text-lg">My educational background and certifications.</p> {/* Updated subtitle */}
         </CardHeader>
         <CardContent className="p-0">
           <div className="space-y-6">

@@ -1,3 +1,4 @@
+
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -6,46 +7,45 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
-import { Github, ExternalLink } from "lucide-react";
+import { FileText, BarChart3, ExternalLink } from "lucide-react"; // Using FileText, BarChart3 instead of GitHub
 
 const projectsData = [
   {
-    title: "Project Alpha",
-    description: "A modern e-commerce platform built with Next.js, Stripe, and Tailwind CSS. Features product browsing, cart management, and secure checkout.",
-    imageUrl: "https://picsum.photos/seed/alpha/600/400",
-    tags: ["Next.js", "React", "TypeScript", "Stripe", "Tailwind CSS"],
-    liveUrl: "#", // Replace with actual live URL
-    repoUrl: "#", // Replace with actual repo URL
-    aiHint: "e-commerce website interface",
+    title: "CRM Implementation Analysis",
+    description: "Analyzed existing sales processes, gathered requirements from stakeholders, and documented user stories for a new CRM system, leading to streamlined workflows.",
+    imageUrl: "https://picsum.photos/seed/crm-analysis/600/400",
+    tags: ["Requirements Analysis", "Process Mapping", "CRM", "Stakeholder Management", "User Stories"],
+    liveUrl: "#", // Link to a case study or presentation if available
+    // repoUrl removed
+    aiHint: "business process flowchart crm",
   },
   {
-    title: "Project Beta",
-    description: "A collaborative task management application using Firebase for real-time updates and authentication. Allows teams to organize tasks and projects.",
-    imageUrl: "https://picsum.photos/seed/beta/600/400",
-    tags: ["React", "Firebase", "Realtime Database", "Authentication", "Material UI"],
+    title: "E-commerce Checkout Optimization",
+    description: "Identified friction points in the online checkout process through data analysis and user feedback. Proposed solutions that contributed to a 10% decrease in cart abandonment.",
+    imageUrl: "https://picsum.photos/seed/checkout-opt/600/400",
+    tags: ["Data Analysis", "Process Improvement", "E-commerce", "A/B Testing Concepts", "User Experience"],
     liveUrl: "#",
-    repoUrl: "#",
-     aiHint: "task management dashboard",
+    // repoUrl removed
+     aiHint: "website checkout conversion rate graph",
   },
   {
-    title: "Project Gamma",
-    description: "A data visualization dashboard displaying complex datasets with interactive charts and graphs, built with D3.js and React.",
-    imageUrl: "https://picsum.photos/seed/gamma/600/400",
-    tags: ["React", "D3.js", "Data Visualization", "Node.js", "Express"],
+    title: "Reporting Dashboard Requirements",
+    description: "Defined requirements and data sources for a new executive dashboard, enabling better visibility into key performance indicators (KPIs).",
+    imageUrl: "https://picsum.photos/seed/dashboard-req/600/400",
+    tags: ["Requirements Gathering", "Data Modeling (Conceptual)", "KPIs", "Reporting", "Stakeholder Interviews"],
     liveUrl: "#",
-    repoUrl: "#",
-     aiHint: "data dashboard charts",
+    // repoUrl removed
+     aiHint: "business dashboard kpi charts",
   },
    {
-    title: "Project Delta",
-    description: "A personal blog platform with markdown support and static site generation for optimal performance, created using Astro and Tailwind CSS.",
-    imageUrl: "https://picsum.photos/seed/delta/600/400",
-    tags: ["Astro", "Markdown", "SSG", "Tailwind CSS", "Blog"],
+    title: "Feature Prioritization Framework",
+    description: "Developed a framework to objectively score and prioritize new feature requests based on business value, effort, and strategic alignment.",
+    imageUrl: "https://picsum.photos/seed/feature-prio/600/400",
+    tags: ["Business Strategy", "Prioritization", "Product Management Support", "Decision Making", "Framework Development"],
     liveUrl: "#",
-    repoUrl: "#",
-     aiHint: "blog website article",
+    // repoUrl removed
+     aiHint: "decision matrix chart strategy",
   },
-  // Add more projects
 ];
 
 const ProjectsSection: React.FC = () => {
@@ -54,9 +54,9 @@ const ProjectsSection: React.FC = () => {
          <div className="text-center mb-10 md:mb-12">
              {/* Enhanced Title Styling */}
              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-                Featured Projects
+                Key Analysis Projects
              </h2>
-             <p className="text-muted-foreground mt-2 text-lg">A selection of my recent work.</p>
+             <p className="text-muted-foreground mt-2 text-lg">Examples of my analytical contributions.</p>
          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> {/* Adjusted grid cols for better spacing */}
@@ -66,7 +66,7 @@ const ProjectsSection: React.FC = () => {
                    <div className="relative h-48 md:h-56 w-full overflow-hidden"> {/* Image container */}
                      <Image
                         src={project.imageUrl}
-                        alt={`Screenshot of ${project.title}`}
+                        alt={`Visual representing ${project.title}`} // Updated alt text
                         layout="fill"
                         objectFit="cover"
                         className="transition-transform duration-500 ease-out group-hover:scale-105" // Image zoom on hover
@@ -91,20 +91,21 @@ const ProjectsSection: React.FC = () => {
                     </CardDescription>
                   </CardContent>
                   <CardFooter className="px-4 pb-4 pt-2 flex justify-end space-x-3 mt-auto bg-muted/20 border-t border-border/30">
-                    {project.repoUrl && project.repoUrl !== "#" && (
+                    {/* Replacing GitHub link with a documentation/report link if applicable */}
+                    {/* {project.repoUrl && project.repoUrl !== "#" && (
                         <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors group/btn">
                            <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer">
                              <>
-                               <Github className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> GitHub
+                               <FileText className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> Documentation
                              </>
                            </Link>
                          </Button>
-                    )}
+                    )} */}
                     {project.liveUrl && project.liveUrl !== "#" && (
                          <Button variant="outline" size="sm" asChild className="text-accent border-accent hover:bg-accent/10 hover:text-accent transition-colors group/btn">
                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                              <>
-                               <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> Live Demo
+                               <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> View Case Study
                              </>
                            </Link>
                          </Button>

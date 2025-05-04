@@ -1,37 +1,42 @@
+
 "use client";
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code, Database, Palette, Server, Cloud } from "lucide-react"; // Example icons
+import { ClipboardList, BrainCircuit, DatabaseZap, Wrench, Users, MessageSquare } from "lucide-react"; // Relevant BA icons
 
 const skillsData = [
   {
-    category: "Frontend",
-    icon: <Code className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "JavaScript (ES6+)"],
+    category: "Business Analysis Core",
+    icon: <ClipboardList className="h-5 w-5 mr-2 text-accent" />,
+    skills: ["Requirements Elicitation", "Stakeholder Analysis", "Process Modeling (BPMN)", "Use Case Development", "User Stories", "Gap Analysis", "Business Case Development"],
   },
   {
-    category: "Backend",
-    icon: <Server className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Node.js", "Express", "Python", "Flask/Django", "REST APIs", "GraphQL"],
+    category: "Technical Skills",
+    icon: <BrainCircuit className="h-5 w-5 mr-2 text-accent" />,
+    skills: ["Data Analysis (SQL)", "System Analysis", "API Understanding", "Data Warehousing Concepts", "Reporting & Visualization (Tableau/Power BI Basics)", "Agile/Scrum Methodologies"],
   },
   {
-    category: "Databases",
-     icon: <Database className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["PostgreSQL", "MongoDB", "Firebase Firestore", "SQL", "NoSQL"],
+    category: "Tools & Platforms",
+     icon: <Wrench className="h-5 w-5 mr-2 text-accent" />,
+    skills: ["JIRA", "Confluence", "Microsoft Visio", "Lucidchart", "SQL Server / PostgreSQL", "Excel (Advanced)", "Microsoft Office Suite"],
   },
   {
-    category: "UI/UX & Design",
-     icon: <Palette className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Figma", "Adobe XD", "User Research", "Prototyping", "Wireframing", "Responsive Design"],
+    category: "Domain Knowledge", // Kept Domain Expertise section separate, added a basic one here
+     icon: <DatabaseZap className="h-5 w-5 mr-2 text-accent" />,
+    skills: ["E-commerce", "FinTech", "Healthcare (Basic)", "SaaS"], // Link to Domain Expertise section for more detail
   },
    {
-    category: "DevOps & Cloud",
-     icon: <Cloud className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Docker", "CI/CD", "AWS", "Google Cloud", "Vercel", "Git"],
+    category: "Soft Skills",
+     icon: <Users className="h-5 w-5 mr-2 text-accent" />,
+    skills: ["Communication", "Problem-Solving", "Critical Thinking", "Stakeholder Management", "Facilitation", "Presentation Skills", "Negotiation"],
   },
-  // Add more categories as needed
+   {
+    category: "Methodologies",
+     icon: <MessageSquare className="h-5 w-5 mr-2 text-accent" />, // Using MessageSquare as a generic process icon
+    skills: ["Agile", "Scrum", "Waterfall (Understanding)", "SDLC"],
+  },
 ];
 
 const SkillsSection: React.FC = () => {
@@ -41,9 +46,9 @@ const SkillsSection: React.FC = () => {
         <CardHeader className="p-0 mb-8 text-center"> {/* Increased bottom margin and centered */}
           {/* Enhanced Title Styling */}
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Technical Toolkit
+            Analytical Toolkit
           </CardTitle>
-           <p className="text-muted-foreground mt-2 text-lg">Technologies I work with.</p>
+           <p className="text-muted-foreground mt-2 text-lg">My Business Analysis skills and competencies.</p>
         </CardHeader>
         <CardContent className="p-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Reduced gap slightly */}
