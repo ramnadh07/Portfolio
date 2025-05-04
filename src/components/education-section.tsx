@@ -1,3 +1,4 @@
+
 "use client";
 import React from "react";
 import Image from "next/image"; // Import Image
@@ -94,3 +95,4 @@ const EducationSection: React.FC = () => {
 };
 
 export default EducationSection;
+
