@@ -35,12 +35,13 @@ const Footer: React.FC = () => {
             {/* Tip Section */}
             {randomTip && ( // Only render if a tip has been selected on the client
                 <div className="py-4 border-b border-border/30">
-                    <Card className="container max-w-screen-md mx-auto bg-muted/30 border-none shadow-none p-0">
-                        <CardContent className="p-3 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+                    {/* Removed Card for transparency, applied centering directly */}
+                    <div className="container max-w-screen-md mx-auto text-center">
+                        <div className="p-3 text-sm text-muted-foreground flex items-center justify-center gap-2">
                             <Lightbulb className="h-4 w-4 text-accent flex-shrink-0" />
                             <span><strong>Quick Tip:</strong> {randomTip}</span>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
             )}
 
