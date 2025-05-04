@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
@@ -66,3 +67,4 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 export default AnimatedSection;
 
 // Keyframes are now defined in tailwind.config.ts
+

@@ -1,10 +1,11 @@
+
 "use client"; // Needed for useState and useEffect
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Lightbulb } from "lucide-react"; // Example social icons + Lightbulb for tip
+import { Linkedin, Mail, Lightbulb } from "lucide-react"; // Import Mail, removed Github/Twitter
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card"; // Import Card components
+import AnimatedSection from "./animated-section"; // Import AnimatedSection
 
 const interestingTips = [
   "Continuous learning is key: dedicate time each week to explore new tools, techniques, or industry trends.",
@@ -34,15 +35,18 @@ const Footer: React.FC = () => {
         <footer className="border-t border-border/40 bg-background/95 mt-16">
             {/* Tip Section */}
             {randomTip && ( // Only render if a tip has been selected on the client
-                <div className="py-4 border-b border-border/30">
-                    {/* Removed Card for transparency, applied centering directly */}
-                    <div className="container max-w-screen-md mx-auto text-center">
-                        <div className="p-3 text-sm text-muted-foreground flex items-center justify-center gap-2">
-                            <Lightbulb className="h-4 w-4 text-accent flex-shrink-0" />
-                            <span><strong>Quick Tip:</strong> {randomTip}</span>
+                <AnimatedSection animationClass="animate-fade-in" delay="delay-0"> {/* Added fade-in animation */}
+                    <div className="py-4 border-b border-border/30">
+                        {/* Removed Card for transparency, applied centering directly */}
+                        <div className="container max-w-screen-md mx-auto text-center">
+                            {/* Adjusted flex alignment to items-start */}
+                            <div className="p-3 text-sm text-muted-foreground flex items-start justify-center gap-2">
+                                <Lightbulb className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> {/* Added margin-top for better alignment */}
+                                <span><strong>Quick Tip:</strong> {randomTip}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </AnimatedSection>
             )}
 
             <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4">
@@ -55,17 +59,13 @@ const Footer: React.FC = () => {
                              <Linkedin className="h-5 w-5" />
                         </Link>
                     </Button>
-                     {/* Optionally add GitHub or other relevant links */}
-                    {/* <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
-                        <Link href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                            <Github className="h-5 w-5" />
+                    {/* Added Mail icon/link */}
+                    <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
+                        <Link href="mailto:your.email@example.com" aria-label="Email">
+                           <Mail className="h-5 w-5" />
                         </Link>
-                    </Button> */}
-                     {/* <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
-                        <Link href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                           <Twitter className="h-5 w-5" />
-                        </Link>
-                    </Button> */}
+                    </Button>
+                    {/* Removed GitHub and Twitter icons */}
                 </div>
             </div>
         </footer>
@@ -73,3 +73,4 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+
