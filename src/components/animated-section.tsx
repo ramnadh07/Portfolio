@@ -13,7 +13,7 @@ interface AnimatedSectionProps extends React.HTMLAttributes<HTMLDivElement> {
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   children,
   className,
-  animationClass = 'animate-fade-in-up', // Default animation
+  animationClass = 'animate-fade-in-up', // Default animation remains fadeInUp
   delay = 'delay-0',
   threshold = 0.1, // Trigger animation when 10% visible
   ...props
@@ -26,62 +26,45 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Optional: unobserve after triggering once
+          // Keep observing in case element scrolls out and back in
           // observer.unobserve(entry.target);
+        } else {
+           // Optional: Reset animation if element scrolls completely out of view
+           // Useful if you want animations to re-trigger on scroll up/down
+           // setIsVisible(false);
         }
-        // Optional: reset animation if scrolled out of view
-        // else {
-        //   setIsVisible(false);
-        // }
       },
       { threshold }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current; // Capture ref value
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-  }, [threshold]);
+  }, [threshold]); // Dependency array includes threshold
 
   return (
-    <div
+    <section // Changed div to section for semantic meaning
       ref={ref}
       className={cn(
-        'opacity-0 transition-all duration-700 ease-out', // Start hidden, define transition
-        isVisible ? `${animationClass} opacity-100 ${delay}` : 'translate-y-4', // Apply animation and final state if visible
+        'opacity-0 transition-all duration-700 ease-out', // Start hidden, slightly faster duration
+        isVisible ? `${animationClass} opacity-100 ${delay}` : 'translate-y-5', // Apply animation, slightly larger initial Y offset
         className
       )}
       {...props}
     >
       {children}
-    </div>
+    </section>
   );
 };
 
 export default AnimatedSection;
 
-// Add keyframes to globals.css or a dedicated animation CSS file if needed
-/* In globals.css or animations.css:
-@layer utilities {
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  .animate-fade-in {
-    animation: fadeIn 0.7s ease-out forwards;
-  }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.7s ease-out forwards;
-  }
-}
-*/
+// Keyframes are now defined in tailwind.config.ts

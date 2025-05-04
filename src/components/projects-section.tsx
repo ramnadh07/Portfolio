@@ -51,34 +51,39 @@ const projectsData = [
 const ProjectsSection: React.FC = () => {
   return (
     <AnimatedSection id="projects" className="scroll-mt-16" delay="delay-400">
-       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border-0 rounded-lg p-6 md:p-10 !bg-transparent !border-0 !shadow-none">
-         <CardHeader className="p-0 mb-8">
-          <CardTitle className="text-3xl md:text-4xl font-semibold text-primary text-center">
-            Featured Projects
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+       {/* Removed outer Card to make section title stand alone */}
+         <div className="text-center mb-10 md:mb-12">
+             <h2 className="text-3xl md:text-4xl font-semibold text-primary">
+                Featured Projects
+             </h2>
+             <p className="text-muted-foreground mt-2 text-lg">A selection of my recent work.</p>
+         </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> {/* Adjusted grid cols for better spacing */}
             {projectsData.map((project, index) => (
               <AnimatedSection key={project.title} delay={`delay-${index * 100}`}>
-                <Card className="flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-card">
-                   <div className="relative h-48 md:h-56 w-full overflow-hidden">
+                <Card className="group flex flex-col h-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-out border border-border/50 transform hover:-translate-y-2 bg-card"> {/* Added group */}
+                   <div className="relative h-48 md:h-56 w-full overflow-hidden"> {/* Image container */}
                      <Image
                         src={project.imageUrl}
                         alt={`Screenshot of ${project.title}`}
                         layout="fill"
                         objectFit="cover"
-                        className="transition-transform duration-500 ease-out group-hover:scale-105"
+                        className="transition-transform duration-500 ease-out group-hover:scale-105" // Image zoom on hover
                          data-ai-hint={project.aiHint}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                      {/* Optional overlay for text contrast */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
+                      {/* Project Title on Image */}
+                       <CardTitle className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-colors duration-300 group-hover:text-accent-foreground/90">{project.title}</CardTitle>
                    </div>
 
+                  {/* Card Body */}
                   <CardHeader className="pt-4 px-4">
-                    <CardTitle className="text-xl font-semibold text-foreground mb-1">{project.title}</CardTitle>
+                     {/* Title moved to image overlay */}
                      <div className="flex flex-wrap gap-1.5 mt-1">
                       {project.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs cursor-default">
+                        <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
                           {tag}
                         </Badge>
                       ))}
@@ -89,18 +94,18 @@ const ProjectsSection: React.FC = () => {
                       {project.description}
                     </CardDescription>
                   </CardContent>
-                  <CardFooter className="px-4 pb-4 pt-2 flex justify-end space-x-3 mt-auto">
+                  <CardFooter className="px-4 pb-4 pt-2 flex justify-end space-x-3 mt-auto bg-muted/20 border-t border-border/30"> {/* Added subtle footer bg and border */}
                     {project.repoUrl && project.repoUrl !== "#" && (
-                        <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors">
+                        <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors group/btn">
                            <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4 mr-1.5" /> GitHub
+                            <Github className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> GitHub
                            </Link>
                          </Button>
                     )}
                     {project.liveUrl && project.liveUrl !== "#" && (
-                         <Button variant="outline" size="sm" asChild className="text-accent border-accent hover:bg-accent/10 hover:text-accent transition-colors">
+                         <Button variant="outline" size="sm" asChild className="text-accent border-accent hover:bg-accent/10 hover:text-accent transition-colors group/btn">
                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                             <ExternalLink className="h-4 w-4 mr-1.5" /> Live Demo
+                             <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> Live Demo
                            </Link>
                          </Button>
                     )}
@@ -109,8 +114,6 @@ const ProjectsSection: React.FC = () => {
               </AnimatedSection>
             ))}
           </div>
-        </CardContent>
-      </Card>
     </AnimatedSection>
   );
 };

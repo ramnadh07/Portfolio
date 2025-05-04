@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// Removed Geist font imports as the package is not listed in dependencies
+// import { GeistSans } from "geist/font/sans";
+// import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster"; // Import Toaster
+import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { cn } from "@/lib/utils"; // Import cn utility
 
 export const metadata: Metadata = {
   title: "Elegant Folio",
@@ -26,12 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    // Removed Geist font variables from html class
+    <html lang="en" className={cn("scroll-smooth")}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className="antialiased min-h-screen flex flex-col bg-background font-sans" // Added fallback font-sans
       >
         <Header />
-        <main className="flex-grow container mx-auto px-4 py-8 md:py-12">
+        {/* Removed container from here, apply padding directly */}
+        <main className="flex-grow w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
           {children}
         </main>
         <Footer />

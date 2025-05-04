@@ -51,7 +51,7 @@ const experienceData = [
 
 const ExperienceSection: React.FC = () => {
   return (
-    <AnimatedSection id="experience" className="scroll-mt-16" delay="delay-300">
+    <AnimatedSection id="experience" className="scroll-mt-16" delay="delay-350"> {/* Adjusted delay */}
        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
          <CardHeader className="p-0 mb-6">
           <CardTitle className="text-3xl md:text-4xl font-semibold text-primary text-center">
@@ -59,30 +59,33 @@ const ExperienceSection: React.FC = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion type="single" collapsible className="w-full space-y-2"> {/* Added space-y */}
                 {experienceData.map((exp, index) => (
-                 <AnimatedSection key={exp.id} delay={`delay-${index * 100}`}>
-                    <AccordionItem value={exp.id} className="border-b border-border/50 last:border-b-0">
-                        <AccordionTrigger className="text-left hover:no-underline group py-4">
+                 <AnimatedSection key={exp.id} delay={`delay-${index * 75}`}> {/* Adjusted delay step */}
+                    <AccordionItem
+                      value={exp.id}
+                      className="border border-border/50 rounded-md overflow-hidden transition-all duration-300 hover:border-accent/70 hover:bg-muted/30" // Added hover effects and border radius
+                      >
+                        <AccordionTrigger className="text-left hover:no-underline group py-4 px-4 md:px-6 hover:bg-muted/50 transition-colors duration-200"> {/* Added padding and hover bg */}
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full mr-4">
                                 <div className="flex items-center mb-1 sm:mb-0">
-                                    <Briefcase className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors" />
-                                    <span className="text-lg font-medium text-foreground group-hover:text-accent transition-colors">{exp.role}</span>
+                                    <Briefcase className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />
+                                    <span className="text-lg font-medium text-foreground group-hover:text-accent transition-colors duration-300">{exp.role}</span>
                                     <span className="text-muted-foreground mx-2 hidden sm:inline">@</span>
                                      <span className="text-lg text-muted-foreground sm:text-foreground ml-7 sm:ml-0">{exp.company}</span>
                                 </div>
 
-                                <div className="flex items-center text-sm text-muted-foreground ml-7 sm:ml-0">
+                                <div className="flex items-center text-sm text-muted-foreground ml-7 sm:ml-0 mt-1 sm:mt-0">
                                     <Calendar className="h-4 w-4 mr-1.5" />
                                     {exp.duration}
                                 </div>
                             </div>
                         </AccordionTrigger>
-                        <AccordionContent className="pb-4 pt-0 pl-7 pr-2">
-                            <ul className="list-none space-y-2 pl-5 text-muted-foreground text-base leading-relaxed">
+                        <AccordionContent className="pb-4 pt-0 px-6 md:px-8"> {/* Added padding */}
+                            <ul className="list-none space-y-2.5 text-muted-foreground text-base leading-relaxed pt-2"> {/* Adjusted spacing and added padding-top */}
                                 {exp.description.map((item, idx) => (
                                     <li key={idx} className="flex items-start">
-                                        <TrendingUp className="h-4 w-4 mr-2 mt-1 text-accent/80 flex-shrink-0" />
+                                        <TrendingUp className="h-4 w-4 mr-2.5 mt-1 text-accent/80 flex-shrink-0" /> {/* Adjusted spacing */}
                                         <span>{item}</span>
                                     </li>
                                 ))}
