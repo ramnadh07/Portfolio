@@ -5,7 +5,7 @@ import { CodeXml, User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHa
 
 const Header: React.FC = () => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur-sm supports-[backdrop-filter]:bg-background/75">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/85"> {/* Increased opacity */}
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2 group transition-transform duration-300 ease-out hover:scale-105">
           <CodeXml className="h-6 w-6 text-primary transition-transform duration-300 group-hover:rotate-[10deg]" />
