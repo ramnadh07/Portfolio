@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'; // Import Dropdown components
-import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond, ThumbsDown, ThumbsUp, TrendingDown, TrendingUp } from 'lucide-react'; // Added ThumbsDown, ThumbsUp icons
+import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond, TrendingDown, TrendingUp } from 'lucide-react'; // Added TrendingDown, TrendingUp icons
 
 const Header: React.FC = () => {
   const [rating, setRating] = useState<string | null>(null); // Add state for rating
