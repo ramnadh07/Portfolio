@@ -17,7 +17,7 @@ const DateTimeDisplay: React.FC = () => {
   }, []); // Empty dependency array ensures this runs once on mount
 
   return (
-    <div className="w-full bg-transparent py-1 border-b border-border/20"> {/* Narrow height, transparent bg, subtle border */}
+    <div className="w-full bg-transparent py-1"> {/* Removed border classes */}
       <div className="container max-w-screen-2xl mx-auto flex justify-end items-center px-4">
         <div className="flex items-center space-x-2 text-xs text-muted-foreground">
           {currentDateTime ? (
@@ -38,3 +38,4 @@ const DateTimeDisplay: React.FC = () => {
 };
 
 export default DateTimeDisplay;
+
