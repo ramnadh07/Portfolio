@@ -51,6 +51,20 @@ const Chatbot: React.FC = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Add initial welcome message when chat opens and there are no messages
+   useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      setMessages([
+        {
+          id: 'bot-welcome',
+          role: 'model',
+          content: [{ text: "Hi there! 👋 I'm Ram's Portfolio Assistant. Ask me about his skills, projects, or experience!" }],
+        }
+      ]);
+    }
+   }, [isOpen, messages.length]); // Depend on isOpen and message length
+
+
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -84,17 +98,23 @@ const Chatbot: React.FC = () => {
       content: [{ text: userMessageContent }],
     };
 
-    setMessages((prev) => [...prev, newUserMessage]);
+    // Exclude welcome message from history sent to AI
+    const currentMessages = [...messages, newUserMessage];
+    setMessages(currentMessages);
+
     setInput('');
     setIsLoading(true);
 
     try {
-      // Prepare history for the API call (use locally defined schema)
-      const historyForApi = messages.map(({ role, content }) => ({ role, content }));
+      // Prepare history for the API call (use locally defined schema), excluding the initial welcome message
+      const historyForApi = currentMessages
+        .filter(msg => msg.id !== 'bot-welcome') // Filter out welcome message
+        .map(({ role, content }) => ({ role, content }));
+
 
       // Validate input against the locally defined schema before calling the flow
       const chatInput: PortfolioChatInput = PortfolioChatInputSchema.parse({
-        history: historyForApi,
+        history: historyForApi, // Send filtered history
         message: userMessageContent,
       });
 
@@ -139,17 +159,18 @@ const Chatbot: React.FC = () => {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button
-          variant="outline"
+          variant="outline" // Changed to outline for less visual weight
           size="icon"
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all hover:scale-105 z-50"
+          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all hover:scale-105 z-50 border-2 border-background" // Added border, changed bg
           aria-label="Open Chatbot"
         >
-          <MessageSquare className="h-6 w-6" />
+           {/* Using Bot icon */}
+           <Bot className="h-6 w-6" />
         </Button>
       </SheetTrigger>
       <SheetContent className="flex flex-col p-0 w-[400px] sm:w-[500px] md:w-[600px] lg:max-w-lg"> {/* Adjusted width */}
-        <SheetHeader className="p-4 border-b">
-          <SheetTitle className="flex items-center gap-2 text-lg">
+        <SheetHeader className="p-4 border-b bg-muted/30"> {/* Added subtle background */}
+          <SheetTitle className="flex items-center gap-2 text-lg font-semibold text-foreground"> {/* Adjusted styling */}
              <Bot className="h-5 w-5 text-primary"/> Ram's Portfolio Assistant
           </SheetTitle>
           {/* Optional: Add description if needed */}
@@ -168,15 +189,16 @@ const Chatbot: React.FC = () => {
                     >
                     {message.role === 'model' && (
                         <Avatar className="h-8 w-8 border border-border">
-                        <AvatarFallback><Bot className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
+                         {/* Use Bot icon as fallback */}
+                         <AvatarFallback><Bot className="h-4 w-4 text-muted-foreground"/></AvatarFallback>
                         </Avatar>
                     )}
                     <div
                         className={cn(
-                        'rounded-lg p-3 max-w-[80%] break-words text-sm',
+                        'rounded-lg p-3 max-w-[80%] break-words text-sm shadow-sm', // Added shadow
                         message.role === 'user'
                             ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-muted-foreground'
+                            : 'bg-card text-card-foreground border border-border/50' // Changed bot message bg
                         )}
                     >
                         {message.content[0].text} {/* Assuming single text part */}
@@ -213,7 +235,7 @@ const Chatbot: React.FC = () => {
               disabled={isLoading}
               aria-label="Chat input"
             />
-            <Button type="submit" size="icon" disabled={isLoading || !input.trim()} aria-label="Send message">
+            <Button type="submit" size="icon" variant="secondary" disabled={isLoading || !input.trim()} aria-label="Send message"> {/* Changed variant */}
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
           </form>
