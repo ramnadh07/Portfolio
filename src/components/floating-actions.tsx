@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar, Linkedin, Mail, Lightbulb, Users, Briefcase, SquareAsterisk } from "lucide-react"; // Added SquareAsterisk and kept Lightbulb for sub-menu
+import { Calendar, Linkedin, Mail, Lightbulb, Users, Briefcase, Sparkles } from "lucide-react"; // Replaced SquareAsterisk with Sparkles
 import { cn } from "@/lib/utils";
 
 const FloatingActions: React.FC = () => {
@@ -42,7 +42,7 @@ const FloatingActions: React.FC = () => {
             className="rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 w-16 h-16 flex items-center justify-center animate-pulse hover:animate-none" // Circular and pulsing
             aria-label="Quick Actions"
           >
-            <SquareAsterisk className="h-6 w-6" /> {/* Replaced Lightbulb with SquareAsterisk */}
+            <Sparkles className="h-6 w-6" /> {/* Changed icon to Sparkles */}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-2 rounded-lg shadow-xl bg-popover border border-border/50 mr-4 mb-1">
