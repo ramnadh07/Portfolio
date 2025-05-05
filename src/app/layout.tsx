@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/header";
 import DateTimeDisplay from "@/components/date-time-display"; // Import the new component
 import Footer from "@/components/footer";
+import FloatingActions from "@/components/floating-actions"; // Import FloatingActions
 import { cn } from "@/lib/utils"; // Import cn utility
 // Removed Chatbot import
 
@@ -35,9 +36,12 @@ export default function RootLayout({
           {/* Removed Chatbot component */}
         </main>
         {/* Removed AnimatedSection wrapper from Footer */}
+        <FloatingActions /> {/* Add FloatingActions component */}
         <Footer />
         <Toaster />
       </body>
     </html>
   );
 }
+
+    
