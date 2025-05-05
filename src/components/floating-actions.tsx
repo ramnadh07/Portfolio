@@ -1,15 +1,16 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar, Linkedin, Mail, Lightbulb, Users, Briefcase, Sparkles } from "lucide-react"; // Replaced SquareAsterisk with Sparkles
+import { Calendar, Linkedin, Mail, Lightbulb, Users, Briefcase, Sparkles, Download, Share2, FileText } from "lucide-react"; // Added Download, Share2, FileText
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast"; // Import useToast
 
 const FloatingActions: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { toast } = useToast(); // Initialize toast
 
   const toggleVisibility = () => {
     // Show button if user scrolls down more than 300px
@@ -27,6 +28,57 @@ const FloatingActions: React.FC = () => {
       window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
+
+  const handleReferProfile = async () => {
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Link Copied!",
+          description: "Profile link copied to clipboard.",
+        });
+      } else {
+          // Fallback for older browsers or insecure contexts
+          const textArea = document.createElement("textarea");
+          textArea.value = window.location.href;
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          try {
+            document.execCommand('copy');
+             toast({
+              title: "Link Copied!",
+              description: "Profile link copied to clipboard.",
+            });
+          } catch (err) {
+             toast({
+              title: "Copy Failed",
+              description: "Could not copy link automatically. Please copy it manually.",
+              variant: "destructive",
+            });
+          }
+          document.body.removeChild(textArea);
+      }
+    } catch (err) {
+       toast({
+        title: "Copy Failed",
+        description: "Could not copy link. Please try again or copy manually.",
+        variant: "destructive",
+      });
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
+  const handleDownloadPdf = () => {
+    // Placeholder for PDF generation logic
+    // In a real app, this would trigger a server-side or client-side PDF generation process
+    console.log("PDF download initiated (placeholder)");
+    toast({
+      title: "PDF Download",
+      description: "PDF generation not implemented in this example.",
+    });
+  };
+
 
   return (
     <div
@@ -75,12 +127,44 @@ const FloatingActions: React.FC = () => {
                                 General Discussion
                             </Link>
                         </Button>
+                        {/* Add payment gateway link or info if applicable */}
+                         {/* <Button variant="ghost" size="sm" disabled className="w-full justify-start text-xs px-2 py-1 text-muted-foreground italic">
+                           (Payment required for some sessions)
+                         </Button> */}
                     </div>
                  </PopoverContent>
              </Popover>
 
+             {/* Download PDF */}
+             <Button
+                variant="ghost"
+                className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50"
+                onClick={handleDownloadPdf}
+              >
+                <Download className="mr-2 h-4 w-4 text-accent" />
+                Download as PDF
+             </Button>
 
-            {/* Other Actions */}
+             {/* Refer Profile */}
+             <Button
+                variant="ghost"
+                className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50"
+                onClick={handleReferProfile}
+             >
+                <Share2 className="mr-2 h-4 w-4 text-accent" />
+                Refer Profile
+             </Button>
+
+             {/* Freelance/Contract Inquiry */}
+             <Button variant="ghost" asChild className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50">
+                <Link href="#connect"> {/* Links to the connect/feedback section */}
+                    <FileText className="mr-2 h-4 w-4 text-accent" />
+                    Freelance/Contract Inquiry
+                </Link>
+             </Button>
+
+
+            {/* Other Existing Actions */}
             <Button variant="ghost" asChild className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50">
               <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="mr-2 h-4 w-4 text-accent" />
@@ -102,5 +186,3 @@ const FloatingActions: React.FC = () => {
 };
 
 export default FloatingActions;
-
-    
