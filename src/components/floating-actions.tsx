@@ -1,10 +1,11 @@
+
 "use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar, Linkedin, Mail, Lightbulb, Users, Briefcase, Sparkles, Download, Share2, FileText } from "lucide-react"; // Added Download, Share2, FileText
+import { Calendar, Linkedin, Mail, Lightbulb, Users, Briefcase, Sparkles, Share2, FileText } from "lucide-react"; // Removed Download icon
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast"; // Import useToast
 
@@ -69,14 +70,11 @@ const FloatingActions: React.FC = () => {
     }
   };
 
-  const handleDownloadPdf = () => {
-    // Placeholder for PDF generation logic
-    // In a real app, this would trigger a server-side or client-side PDF generation process
-    console.log("PDF download initiated (placeholder)");
-    toast({
-      title: "PDF Download",
-      description: "PDF generation not implemented in this example.",
-    });
+  // Function to handle opening mail client for freelance inquiry
+  const handleFreelanceInquiry = () => {
+    const email = "your.email@example.com"; // Replace with your actual email
+    const subject = "Freelance/Contract Inquiry";
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
   };
 
 
@@ -135,15 +133,7 @@ const FloatingActions: React.FC = () => {
                  </PopoverContent>
              </Popover>
 
-             {/* Download PDF */}
-             <Button
-                variant="ghost"
-                className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50"
-                onClick={handleDownloadPdf}
-              >
-                <Download className="mr-2 h-4 w-4 text-accent" />
-                Download as PDF
-             </Button>
+             {/* Removed Download PDF Button */}
 
              {/* Refer Profile */}
              <Button
@@ -155,12 +145,14 @@ const FloatingActions: React.FC = () => {
                 Refer Profile
              </Button>
 
-             {/* Freelance/Contract Inquiry */}
-             <Button variant="ghost" asChild className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50">
-                <Link href="#connect"> {/* Links to the connect/feedback section */}
-                    <FileText className="mr-2 h-4 w-4 text-accent" />
-                    Freelance/Contract Inquiry
-                </Link>
+             {/* Freelance/Contract Inquiry - Updated to open mailto link */}
+             <Button
+                variant="ghost"
+                className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50"
+                onClick={handleFreelanceInquiry}
+             >
+                <FileText className="mr-2 h-4 w-4 text-accent" />
+                Freelance/Contract Inquiry
              </Button>
 
 
