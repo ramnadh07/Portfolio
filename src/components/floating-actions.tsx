@@ -42,7 +42,7 @@ const FloatingActions: React.FC = () => {
             className="rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 w-16 h-16 flex items-center justify-center animate-pulse hover:animate-none" // Circular and pulsing
             aria-label="Quick Actions"
           >
-            <Lightbulb className="h-6 w-6" />
+            <Lightbulb className="h-6 w-6" /> {/* Kept Lightbulb but button is enhanced */}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-2 rounded-lg shadow-xl bg-popover border border-border/50 mr-4 mb-1">
@@ -93,7 +93,7 @@ const FloatingActions: React.FC = () => {
                 Send an Email
               </Link>
             </Button>
-             {/* Add more relevant buttons here */}
+             {/* Add more relevant buttons here if specified */}
           </div>
         </PopoverContent>
       </Popover>
