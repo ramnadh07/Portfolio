@@ -6,11 +6,14 @@ import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, Responsiv
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info } from "lucide-react"; // Added Info icon
+import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info, Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings } from "lucide-react"; // Added Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import VisitorInterestInfoDialog from "./visitor-interest-info-dialog"; // Import the new dialog component
-import { Button } from "@/components/ui/button"; // Import Button for Dialog trigger
+import VisitorInterestInfoDialog from "./visitor-interest-info-dialog";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from "@/components/ui/sheet"; // Import Sheet components
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 // Static Mock Data (Keeping existing data structure, adding Company Name)
 const skillsInterestData = [
@@ -131,11 +134,14 @@ const TreemapTooltipContent = ({ active, payload }: any) => {
   return null
 }
 
+type SidebarContentKey = 'summary' | 'prompts' | 'interpretation' | 'insights' | null;
+
 
 const AnalyticsDashboardSection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
   const [simulatedViewersData, setSimulatedViewersData] = useState<null | Array<{ month: string; viewers: number }>>(null);
   const [totalSimulatedViewers, setTotalSimulatedViewers] = useState<null | number>(null);
+  const [activeSidebarContent, setActiveSidebarContent] = useState<SidebarContentKey>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -155,6 +161,60 @@ const AnalyticsDashboardSection: React.FC = () => {
 
   const cardAnimationDelay = (index: number) => `delay-${index * 100}`; // Staggered animation delay for cards
   const chartHeight = "h-[240px]"; // Consistent height for charts in the second row
+
+   // Helper function to render sidebar content
+  const renderSidebarContent = () => {
+    switch (activeSidebarContent) {
+      case 'summary':
+        return (
+          <div className="p-4 space-y-3">
+            <h4 className="font-semibold text-primary">Summary</h4>
+            <p className="text-sm text-muted-foreground">The dashboard suggests the primary audience consists of hiring managers and recruiters from mid-sized companies (51-200 employees) in the FinTech and Healthcare sectors. They are mainly looking for Business Analysts and Consultants, with specific interest in Salesforce and Requirements Elicitation.</p>
+          </div>
+        );
+      case 'prompts':
+        return (
+          <div className="p-4 space-y-3">
+            <h4 className="font-semibold text-primary">Example Prompts</h4>
+            <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                <li>"Summarize the key characteristics of the most frequent visitor segment."</li>
+                <li>"Which industries show the highest interest in 'Functional Consulting' skills?"</li>
+                <li>"Generate potential follow-up email templates for hiring managers in FinTech."</li>
+                <li>"Identify potential skill gaps based on visitor interest."</li>
+            </ul>
+          </div>
+        );
+      case 'interpretation':
+        return (
+          <div className="p-4 space-y-3">
+             <h4 className="font-semibold text-primary">Interpretation</h4>
+             <p className="text-sm text-muted-foreground">
+                 The data points towards a strong interest from established tech-focused companies seeking experienced BAs/Consultants. The focus on Salesforce and specific BA skills (Requirements, Process Modeling) indicates a need for practical implementation expertise. GTM support interest, while lower, suggests opportunities in strategic roles within these organizations.
+             </p>
+          </div>
+        );
+      case 'insights':
+        return (
+          <div className="p-4 space-y-3">
+            <h4 className="font-semibold text-primary">Actionable Insights</h4>
+             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                 <li>Tailor project examples highlighting Salesforce CRM and Requirements Elicitation successes.</li>
+                 <li>Emphasize experience within FinTech and Healthcare domains.</li>
+                 <li>Consider adding case studies focused on GTM strategy support.</li>
+                 <li>Highlight ability to bridge business needs and technical solutions for mid-sized companies.</li>
+             </ul>
+          </div>
+        );
+      default:
+        return (
+           <div className="p-4 text-center text-muted-foreground">
+             <HelpCircle className="h-6 w-6 mx-auto mb-2" />
+             Select an option from the left menu to view details.
+           </div>
+        );
+    }
+  };
+
 
   return (
     <AnimatedSection id="analytics" className="scroll-mt-20 md:scroll-mt-24" delay="delay-550">
@@ -366,19 +426,89 @@ const AnalyticsDashboardSection: React.FC = () => {
             <AnimatedSection animationClass="animate-fade-in-up" delay={cardAnimationDelay(6)} className="col-span-1 sm:col-span-2 lg:col-span-4">
                  {/* Added distinct background */}
                 <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-muted/30">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pr-4 pl-6"> {/* Adjusted padding */}
-                        <div className="flex items-center space-x-2">
-                            <UsersRound className="h-5 w-5 text-primary" />
-                            <CardTitle className="text-lg font-medium text-primary">Visitor Business Interest Summary</CardTitle>
-                        </div>
-                        {/* Dialog Trigger Button */}
-                         <VisitorInterestInfoDialog>
-                             <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary">
-                                 <Info className="h-4 w-4"/>
-                                 <span className="sr-only">More Info</span>
-                            </Button>
-                         </VisitorInterestInfoDialog>
-                    </CardHeader>
+                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pr-4 pl-6">
+                         <div className="flex items-center space-x-2">
+                             <UsersRound className="h-5 w-5 text-primary" />
+                             <CardTitle className="text-lg font-medium text-primary">Visitor Business Interest Summary</CardTitle>
+                         </div>
+                         {/* Info Dialog & Sidebar Trigger */}
+                         <div className="flex items-center space-x-1">
+                            <VisitorInterestInfoDialog>
+                                 <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary">
+                                     <Info className="h-4 w-4"/>
+                                     <span className="sr-only">More Info</span>
+                                </Button>
+                            </VisitorInterestInfoDialog>
+                            {/* Sidebar Trigger Button */}
+                             <Sheet>
+                                 <SheetTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary">
+                                        <Menu className="h-4 w-4" />
+                                        <span className="sr-only">Explore Insights</span>
+                                    </Button>
+                                 </SheetTrigger>
+                                 <SheetContent side="right" className="w-[350px] sm:w-[450px] flex flex-col p-0"> {/* Adjust width and remove padding */}
+                                     <SheetHeader className="p-4 border-b">
+                                         <SheetTitle className="flex items-center gap-2 text-primary">
+                                             <Settings className="h-5 w-5" /> Explore Insights
+                                         </SheetTitle>
+                                          <SheetDescription className="text-muted-foreground text-xs">
+                                             Dive deeper into the simulated visitor data.
+                                          </SheetDescription>
+                                     </SheetHeader>
+                                     <div className="flex flex-1 overflow-hidden">
+                                        {/* Sidebar Navigation */}
+                                        <nav className="w-1/3 border-r p-2 flex flex-col space-y-1 bg-background/50">
+                                            <Button
+                                                variant={activeSidebarContent === 'summary' ? 'secondary' : 'ghost'}
+                                                size="sm"
+                                                className="w-full justify-start text-xs"
+                                                onClick={() => setActiveSidebarContent('summary')}
+                                            >
+                                                <BookOpen className="mr-2 h-3.5 w-3.5" /> Summary
+                                            </Button>
+                                            <Button
+                                                variant={activeSidebarContent === 'prompts' ? 'secondary' : 'ghost'}
+                                                size="sm"
+                                                className="w-full justify-start text-xs"
+                                                onClick={() => setActiveSidebarContent('prompts')}
+                                            >
+                                                 <MessageSquare className="mr-2 h-3.5 w-3.5" /> Prompts
+                                            </Button>
+                                            <Button
+                                                variant={activeSidebarContent === 'interpretation' ? 'secondary' : 'ghost'}
+                                                size="sm"
+                                                className="w-full justify-start text-xs"
+                                                onClick={() => setActiveSidebarContent('interpretation')}
+                                            >
+                                                 <Brain className="mr-2 h-3.5 w-3.5" /> Interpretation
+                                            </Button>
+                                             <Button
+                                                variant={activeSidebarContent === 'insights' ? 'secondary' : 'ghost'}
+                                                size="sm"
+                                                className="w-full justify-start text-xs"
+                                                onClick={() => setActiveSidebarContent('insights')}
+                                            >
+                                                 <Lightbulb className="mr-2 h-3.5 w-3.5" /> Insights
+                                            </Button>
+                                        </nav>
+                                        {/* Content Area */}
+                                         <div className="w-2/3 flex-1 overflow-y-auto bg-background">
+                                            {renderSidebarContent()}
+                                        </div>
+                                     </div>
+                                     <SheetFooter className="p-4 border-t">
+                                         <SheetClose asChild>
+                                             <Button type="button" variant="outline" size="sm">
+                                             Close
+                                             </Button>
+                                         </SheetClose>
+                                     </SheetFooter>
+                                 </SheetContent>
+                             </Sheet>
+                         </div>
+                     </CardHeader>
+
                     <CardContent className="p-6 pt-4 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
 
                          {/* Row 1 */}
@@ -529,7 +659,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Major Requirement
                             </h4>
-                            <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
+                            <div className={cn("flex-grow w-full", chartHeight)}> {/* Consistent height */}
                                  <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
                                      <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
                                          <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-30} dx={-5} dy={10} height={40}/>
@@ -560,7 +690,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Specific Skills Mentioned
                             </h4>
-                            <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
+                            <div className={cn("flex-grow w-full", chartHeight)}> {/* Consistent height */}
                                 <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
                                     <BarChart data={needsSummaryData.skillsMentioned} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
                                         <XAxis type="number" hide />
@@ -576,7 +706,6 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                          </div>
 
-                         {/* Removed Interpretation Box */}
 
                     </CardContent>
                 </Card>
@@ -590,3 +719,4 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
+
