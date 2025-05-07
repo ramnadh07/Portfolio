@@ -2,13 +2,15 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Cell, Treemap, Tooltip as RechartsTooltip } from "recharts"; // Renamed Tooltip, Added Treemap
+import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Cell, Treemap, Tooltip as RechartsTooltip } from "recharts";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain } from "lucide-react"; // Added more icons
+import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info } from "lucide-react"; // Added Info icon
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import Shadcn Tooltip components
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import VisitorInterestInfoDialog from "./visitor-interest-info-dialog"; // Import the new dialog component
+import { Button } from "@/components/ui/button"; // Import Button for Dialog trigger
 
 // Static Mock Data (Keeping existing data structure, adding Company Name)
 const skillsInterestData = [
@@ -152,6 +154,7 @@ const AnalyticsDashboardSection: React.FC = () => {
   }, []); // Empty dependency array ensures this runs once on mount
 
   const cardAnimationDelay = (index: number) => `delay-${index * 100}`; // Staggered animation delay for cards
+  const chartHeight = "h-[240px]"; // Consistent height for charts in the second row
 
   return (
     <AnimatedSection id="analytics" className="scroll-mt-20 md:scroll-mt-24" delay="delay-550">
@@ -359,28 +362,29 @@ const AnalyticsDashboardSection: React.FC = () => {
                 </AnimatedSection>
            </div>
 
-           {/* Visitor Needs Summary Section -> Renamed */}
+           {/* Visitor Business Interest Summary Section */}
             <AnimatedSection animationClass="animate-fade-in-up" delay={cardAnimationDelay(6)} className="col-span-1 sm:col-span-2 lg:col-span-4">
-                <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4"> {/* Adjusted padding */}
-                        <CardTitle className="text-lg font-medium">Visitor Business Interest Summary</CardTitle> {/* Updated Title */}
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <UsersRound className="h-4 w-4 text-muted-foreground cursor-help" />
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>Breakdown of simulated visitor characteristics and needs based on feedback.</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
+                 {/* Added distinct background */}
+                <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-muted/30">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pr-4 pl-6"> {/* Adjusted padding */}
+                        <div className="flex items-center space-x-2">
+                            <UsersRound className="h-5 w-5 text-primary" />
+                            <CardTitle className="text-lg font-medium text-primary">Visitor Business Interest Summary</CardTitle>
+                        </div>
+                        {/* Dialog Trigger Button */}
+                         <VisitorInterestInfoDialog>
+                             <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary">
+                                 <Info className="h-4 w-4"/>
+                                 <span className="sr-only">More Info</span>
+                            </Button>
+                         </VisitorInterestInfoDialog>
                     </CardHeader>
-                    <CardContent className="pt-4 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10"> {/* Changed to 3 columns */}
+                    <CardContent className="p-6 pt-4 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
 
                          {/* Row 1 */}
-                         {/* Company Name (New Treemap) */}
-                          <div className="col-span-1 flex flex-col">
-                              <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
+                         {/* Company Name (Treemap) */}
+                          <div className="col-span-1 flex flex-col space-y-3">
+                              <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -393,7 +397,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Companies Showing Interest
                               </h4>
-                             <div className="flex-grow h-[200px] w-full">
+                             <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
                                 {!isClient ? (
                                     <Skeleton className="w-full h-full" />
                                 ) : (
@@ -417,8 +421,8 @@ const AnalyticsDashboardSection: React.FC = () => {
                           </div>
 
                          {/* Company Size */}
-                         <div className="col-span-1 flex flex-col">
-                            <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
+                         <div className="col-span-1 flex flex-col space-y-3">
+                            <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -431,7 +435,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Company Size
                             </h4>
-                            <div className="flex-grow h-[200px] w-full">
+                            <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
                                 <ChartContainer config={needsSummaryData.companySize.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
                                     <BarChart data={needsSummaryData.companySize} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
                                         <XAxis type="number" hide />
@@ -447,9 +451,9 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                          </div>
 
-                         {/* Role -> Renamed Title, Kept Pie for simplicity */}
-                          <div className="col-span-1 flex flex-col items-center">
-                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
+                         {/* Role */}
+                          <div className="col-span-1 flex flex-col space-y-3">
+                             <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -460,26 +464,28 @@ const AnalyticsDashboardSection: React.FC = () => {
                                         </TooltipContent>
                                     </Tooltip>
                                 </TooltipProvider>
-                                Common Visitor Roles {/* Updated Title */}
+                                Common Visitor Roles
                              </h4>
-                             <div className="flex-grow h-[180px] w-[180px]">
-                                <ChartContainer config={needsSummaryData.roles.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
-                                    <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
-                                        <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
-                                        <Pie data={needsSummaryData.roles} dataKey="value" nameKey="name" innerRadius={40} outerRadius={70} strokeWidth={2}>
-                                            {needsSummaryData.roles.map((entry) => (
-                                            <Cell key={`cell-role-${entry.name}`} fill={entry.fill} />
-                                            ))}
-                                        </Pie>
-                                    </PieChart>
-                                </ChartContainer>
+                             <div className={`flex-grow w-full flex items-center justify-center ${chartHeight}`}> {/* Consistent height & center pie */}
+                                <div className="h-[180px] w-[180px]">
+                                    <ChartContainer config={needsSummaryData.roles.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                        <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+                                            <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
+                                            <Pie data={needsSummaryData.roles} dataKey="value" nameKey="name" innerRadius={40} outerRadius={70} strokeWidth={2}>
+                                                {needsSummaryData.roles.map((entry) => (
+                                                <Cell key={`cell-role-${entry.name}`} fill={entry.fill} />
+                                                ))}
+                                            </Pie>
+                                        </PieChart>
+                                    </ChartContainer>
+                                </div>
                              </div>
                           </div>
 
                           {/* Row 2 */}
                          {/* Industry */}
-                          <div className="col-span-1 flex flex-col">
-                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
+                          <div className="col-span-1 flex flex-col space-y-3">
+                             <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -492,7 +498,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                  Industry
                              </h4>
-                             <div className="flex-grow h-[200px] w-full">
+                             <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
                                  <ChartContainer config={needsSummaryData.industries.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
                                      <BarChart data={needsSummaryData.industries} layout="horizontal" margin={{ top: 5, right: 0, left: 0, bottom: 30 }}>
                                          <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-40} dx={-10} dy={15} height={50}/>
@@ -509,8 +515,8 @@ const AnalyticsDashboardSection: React.FC = () => {
                           </div>
 
                          {/* Major Requirement */}
-                         <div className="col-span-1 flex flex-col"> {/* Changed span */}
-                            <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
+                         <div className="col-span-1 flex flex-col space-y-3"> {/* Changed span */}
+                            <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -523,7 +529,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Major Requirement
                             </h4>
-                            <div className="flex-grow h-[200px] w-full">
+                            <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
                                  <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
                                      <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
                                          <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-30} dx={-5} dy={10} height={40}/>
@@ -540,8 +546,8 @@ const AnalyticsDashboardSection: React.FC = () => {
                          </div>
 
                          {/* Specific Skills Mentioned */}
-                         <div className="col-span-1 flex flex-col"> {/* Changed span */}
-                            <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
+                         <div className="col-span-1 flex flex-col space-y-3"> {/* Changed span */}
+                            <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -554,7 +560,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Specific Skills Mentioned
                             </h4>
-                            <div className="flex-grow h-[200px] w-full">
+                            <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
                                 <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
                                     <BarChart data={needsSummaryData.skillsMentioned} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
                                         <XAxis type="number" hide />
@@ -570,15 +576,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                          </div>
 
-                         {/* Interpretation - Span full width */}
-                         <div className="col-span-1 md:col-span-3 mt-6 pt-6 border-t border-border/40 flex flex-col items-center text-center"> {/* Span 3 cols */}
-                             <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center">
-                                 <Brain className="h-5 w-5 mr-2 text-accent"/> Interpretation
-                             </h4>
-                             <p className="text-base text-muted-foreground max-w-3xl">
-                                 This (simulated) dashboard suggests visitors are primarily hiring managers and recruiters from mid-sized companies (51-200 employees), particularly within the FinTech and Healthcare sectors. They are often looking for Business Analysts and Functional Consultants, with specific interest in skills like Salesforce configuration and Requirements Elicitation. The positive average rating and decent engagement rate indicate a generally well-received profile, though the upward trend in viewership suggests increasing visibility.
-                             </p>
-                         </div>
+                         {/* Removed Interpretation Box */}
 
                     </CardContent>
                 </Card>
@@ -592,4 +590,3 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
-
