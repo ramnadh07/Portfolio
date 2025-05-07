@@ -6,12 +6,11 @@ import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, Responsiv
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info, Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings } from "lucide-react"; // Added Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings
+import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info, Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import VisitorInterestInfoDialog from "./visitor-interest-info-dialog";
+// Removed VisitorInterestInfoDialog import
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from "@/components/ui/sheet"; // Import Sheet components
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
@@ -141,7 +140,7 @@ const AnalyticsDashboardSection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
   const [simulatedViewersData, setSimulatedViewersData] = useState<null | Array<{ month: string; viewers: number }>>(null);
   const [totalSimulatedViewers, setTotalSimulatedViewers] = useState<null | number>(null);
-  const [activeSidebarContent, setActiveSidebarContent] = useState<SidebarContentKey>(null);
+  const [activeSidebarContent, setActiveSidebarContent] = useState<SidebarContentKey>('summary'); // Default to summary
 
   useEffect(() => {
     setIsClient(true);
@@ -422,292 +421,260 @@ const AnalyticsDashboardSection: React.FC = () => {
                 </AnimatedSection>
            </div>
 
-           {/* Visitor Business Interest Summary Section */}
+           {/* Visitor Business Interest Summary Section - Reworked with integrated sidebar */}
             <AnimatedSection animationClass="animate-fade-in-up" delay={cardAnimationDelay(6)} className="col-span-1 sm:col-span-2 lg:col-span-4">
-                 {/* Added distinct background */}
-                <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-muted/30">
-                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pr-4 pl-6">
+                <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-muted/30 overflow-hidden"> {/* Added overflow-hidden */}
+                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pr-4 pl-6 border-b border-border/30">
                          <div className="flex items-center space-x-2">
                              <UsersRound className="h-5 w-5 text-primary" />
                              <CardTitle className="text-lg font-medium text-primary">Visitor Business Interest Summary</CardTitle>
                          </div>
-                         {/* Info Dialog & Sidebar Trigger */}
-                         <div className="flex items-center space-x-1">
-                            <VisitorInterestInfoDialog>
-                                 <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary">
-                                     <Info className="h-4 w-4"/>
-                                     <span className="sr-only">More Info</span>
-                                </Button>
-                            </VisitorInterestInfoDialog>
-                            {/* Sidebar Trigger Button */}
-                             <Sheet>
-                                 <SheetTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-primary">
-                                        <Menu className="h-4 w-4" />
-                                        <span className="sr-only">Explore Insights</span>
-                                    </Button>
-                                 </SheetTrigger>
-                                 <SheetContent side="right" className="w-[350px] sm:w-[450px] flex flex-col p-0"> {/* Adjust width and remove padding */}
-                                     <SheetHeader className="p-4 border-b">
-                                         <SheetTitle className="flex items-center gap-2 text-primary">
-                                             <Settings className="h-5 w-5" /> Explore Insights
-                                         </SheetTitle>
-                                          <SheetDescription className="text-muted-foreground text-xs">
-                                             Dive deeper into the simulated visitor data.
-                                          </SheetDescription>
-                                     </SheetHeader>
-                                     <div className="flex flex-1 overflow-hidden">
-                                        {/* Sidebar Navigation */}
-                                        <nav className="w-1/3 border-r p-2 flex flex-col space-y-1 bg-background/50">
-                                            <Button
-                                                variant={activeSidebarContent === 'summary' ? 'secondary' : 'ghost'}
-                                                size="sm"
-                                                className="w-full justify-start text-xs"
-                                                onClick={() => setActiveSidebarContent('summary')}
-                                            >
-                                                <BookOpen className="mr-2 h-3.5 w-3.5" /> Summary
-                                            </Button>
-                                            <Button
-                                                variant={activeSidebarContent === 'prompts' ? 'secondary' : 'ghost'}
-                                                size="sm"
-                                                className="w-full justify-start text-xs"
-                                                onClick={() => setActiveSidebarContent('prompts')}
-                                            >
-                                                 <MessageSquare className="mr-2 h-3.5 w-3.5" /> Prompts
-                                            </Button>
-                                            <Button
-                                                variant={activeSidebarContent === 'interpretation' ? 'secondary' : 'ghost'}
-                                                size="sm"
-                                                className="w-full justify-start text-xs"
-                                                onClick={() => setActiveSidebarContent('interpretation')}
-                                            >
-                                                 <Brain className="mr-2 h-3.5 w-3.5" /> Interpretation
-                                            </Button>
-                                             <Button
-                                                variant={activeSidebarContent === 'insights' ? 'secondary' : 'ghost'}
-                                                size="sm"
-                                                className="w-full justify-start text-xs"
-                                                onClick={() => setActiveSidebarContent('insights')}
-                                            >
-                                                 <Lightbulb className="mr-2 h-3.5 w-3.5" /> Insights
-                                            </Button>
-                                        </nav>
-                                        {/* Content Area */}
-                                         <div className="w-2/3 flex-1 overflow-y-auto bg-background">
-                                            {renderSidebarContent()}
-                                        </div>
-                                     </div>
-                                     <SheetFooter className="p-4 border-t">
-                                         <SheetClose asChild>
-                                             <Button type="button" variant="outline" size="sm">
-                                             Close
-                                             </Button>
-                                         </SheetClose>
-                                     </SheetFooter>
-                                 </SheetContent>
-                             </Sheet>
-                         </div>
+                         {/* Removed Info Dialog Trigger */}
                      </CardHeader>
 
-                    <CardContent className="p-6 pt-4 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
-
-                         {/* Row 1 */}
-                         {/* Company Name (Treemap) */}
-                          <div className="col-span-1 flex flex-col space-y-3">
-                              <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Building2 className="h-4 w-4 mr-1.5 cursor-help"/>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Simulated distribution of interest by company name.</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                                Companies Showing Interest
-                              </h4>
-                             <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
-                                {!isClient ? (
-                                    <Skeleton className="w-full h-full" />
-                                ) : (
-                                 <ChartContainer config={needsSummaryData.companyName.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
-                                     <Treemap
-                                         data={needsSummaryData.companyName}
-                                         dataKey="size"
-                                         ratio={4 / 3}
-                                         stroke="hsl(var(--card))"
-                                         fill="hsl(var(--accent))"
-                                         isAnimationActive={true}
-                                        >
-                                         {needsSummaryData.companyName.map((entry) => (
-                                             <Cell key={`cell-compname-${entry.name}`} fill={entry.fill} />
-                                         ))}
-                                         <RechartsTooltip content={<TreemapTooltipContent />} cursor={{ stroke: 'hsl(var(--foreground))', strokeWidth: 1 }}/>
-                                     </Treemap>
-                                 </ChartContainer>
-                                )}
-                              </div>
-                          </div>
-
-                         {/* Company Size */}
-                         <div className="col-span-1 flex flex-col space-y-3">
-                            <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <UsersRound className="h-4 w-4 mr-1.5 cursor-help"/>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Breakdown of visitor company sizes (simulated).</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                                Company Size
-                            </h4>
-                            <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
-                                <ChartContainer config={needsSummaryData.companySize.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
-                                    <BarChart data={needsSummaryData.companySize} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
-                                        <XAxis type="number" hide />
-                                        <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={11} width={60} interval={0} />
-                                        <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                        <Bar dataKey="value" radius={4} barSize={14}>
-                                        {needsSummaryData.companySize.map((entry) => (
-                                            <Cell key={`cell-compsize-${entry.name}`} fill={entry.fill} />
-                                        ))}
-                                        </Bar>
-                                    </BarChart>
-                                </ChartContainer>
+                    <div className="flex flex-col md:flex-row"> {/* Main flex container for charts + sidebar */}
+                        {/* Charts Area */}
+                        <CardContent className="p-6 pt-4 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10 flex-grow">
+                             {/* Row 1 */}
+                            {/* Company Name (Treemap) */}
+                            <div className="col-span-1 flex flex-col space-y-3">
+                                <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Building2 className="h-4 w-4 mr-1.5 cursor-help"/>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Simulated distribution of interest by company name.</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                    Companies Showing Interest
+                                </h4>
+                                <div className={`flex-grow w-full ${chartHeight}`}>
+                                    {!isClient ? (
+                                        <Skeleton className="w-full h-full" />
+                                    ) : (
+                                    <ChartContainer config={needsSummaryData.companyName.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                        <Treemap
+                                            data={needsSummaryData.companyName}
+                                            dataKey="size"
+                                            ratio={4 / 3}
+                                            stroke="hsl(var(--card))"
+                                            fill="hsl(var(--accent))"
+                                            isAnimationActive={true}
+                                            >
+                                            {needsSummaryData.companyName.map((entry) => (
+                                                <Cell key={`cell-compname-${entry.name}`} fill={entry.fill} />
+                                            ))}
+                                            <RechartsTooltip content={<TreemapTooltipContent />} cursor={{ stroke: 'hsl(var(--foreground))', strokeWidth: 1 }}/>
+                                        </Treemap>
+                                    </ChartContainer>
+                                    )}
+                                </div>
                             </div>
-                         </div>
 
-                         {/* Role */}
-                          <div className="col-span-1 flex flex-col space-y-3">
-                             <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Briefcase className="h-4 w-4 mr-1.5 cursor-help"/>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Common roles of visitors (simulated).</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                                Common Visitor Roles
-                             </h4>
-                             <div className={`flex-grow w-full flex items-center justify-center ${chartHeight}`}> {/* Consistent height & center pie */}
-                                <div className="h-[180px] w-[180px]">
-                                    <ChartContainer config={needsSummaryData.roles.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
-                                        <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
-                                            <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
-                                            <Pie data={needsSummaryData.roles} dataKey="value" nameKey="name" innerRadius={40} outerRadius={70} strokeWidth={2}>
-                                                {needsSummaryData.roles.map((entry) => (
-                                                <Cell key={`cell-role-${entry.name}`} fill={entry.fill} />
-                                                ))}
-                                            </Pie>
-                                        </PieChart>
+                            {/* Company Size */}
+                            <div className="col-span-1 flex flex-col space-y-3">
+                                <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <UsersRound className="h-4 w-4 mr-1.5 cursor-help"/>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Breakdown of visitor company sizes (simulated).</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                    Company Size
+                                </h4>
+                                <div className={`flex-grow w-full ${chartHeight}`}>
+                                    <ChartContainer config={needsSummaryData.companySize.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                        <BarChart data={needsSummaryData.companySize} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
+                                            <XAxis type="number" hide />
+                                            <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={11} width={60} interval={0} />
+                                            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                                            <Bar dataKey="value" radius={4} barSize={14}>
+                                            {needsSummaryData.companySize.map((entry) => (
+                                                <Cell key={`cell-compsize-${entry.name}`} fill={entry.fill} />
+                                            ))}
+                                            </Bar>
+                                        </BarChart>
                                     </ChartContainer>
                                 </div>
-                             </div>
-                          </div>
-
-                          {/* Row 2 */}
-                         {/* Industry */}
-                          <div className="col-span-1 flex flex-col space-y-3">
-                             <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Factory className="h-4 w-4 mr-1.5 cursor-help"/>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Industries visitors commonly belong to (simulated).</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                                 Industry
-                             </h4>
-                             <div className={`flex-grow w-full ${chartHeight}`}> {/* Consistent height */}
-                                 <ChartContainer config={needsSummaryData.industries.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
-                                     <BarChart data={needsSummaryData.industries} layout="horizontal" margin={{ top: 5, right: 0, left: 0, bottom: 30 }}>
-                                         <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-40} dx={-10} dy={15} height={50}/>
-                                         <YAxis type="number" hide/>
-                                         <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                         <Bar dataKey="value" radius={4} barSize={18}>
-                                            {needsSummaryData.industries.map((entry) => (
-                                             <Cell key={`cell-ind-${entry.name}`} fill={entry.fill} />
-                                             ))}
-                                         </Bar>
-                                     </BarChart>
-                                 </ChartContainer>
-                             </div>
-                          </div>
-
-                         {/* Major Requirement */}
-                         <div className="col-span-1 flex flex-col space-y-3"> {/* Changed span */}
-                            <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Search className="h-4 w-4 mr-1.5 cursor-help"/>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Primary reasons visitors connect or roles they are looking to fill (simulated).</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                                Major Requirement
-                            </h4>
-                            <div className={cn("flex-grow w-full", chartHeight)}> {/* Consistent height */}
-                                 <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
-                                     <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
-                                         <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-30} dx={-5} dy={10} height={40}/>
-                                         <YAxis type="number" hide/>
-                                         <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                         <Bar dataKey="value" radius={5} barSize={20}>
-                                            {needsSummaryData.lookingFor.map((entry) => (
-                                             <Cell key={`cell-needs-${entry.name}`} fill={entry.fill} />
-                                             ))}
-                                         </Bar>
-                                     </BarChart>
-                                 </ChartContainer>
                             </div>
-                         </div>
 
-                         {/* Specific Skills Mentioned */}
-                         <div className="col-span-1 flex flex-col space-y-3"> {/* Changed span */}
-                            <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start"> {/* Left aligned */}
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Target className="h-4 w-4 mr-1.5 cursor-help"/>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Specific skills mentioned by visitors (simulated).</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                                Specific Skills Mentioned
-                            </h4>
-                            <div className={cn("flex-grow w-full", chartHeight)}> {/* Consistent height */}
-                                <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
-                                    <BarChart data={needsSummaryData.skillsMentioned} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
-                                        <XAxis type="number" hide />
-                                        <YAxis dataKey="skill" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={11} width={95} interval={0} />
-                                        <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                                        <Bar dataKey="value" radius={4} barSize={14}>
-                                        {needsSummaryData.skillsMentioned.map((entry) => (
-                                            <Cell key={`cell-skill-mention-${entry.skill}`} fill={entry.fill} />
-                                        ))}
-                                        </Bar>
-                                    </BarChart>
-                                </ChartContainer>
+                            {/* Common Visitor Roles */}
+                            <div className="col-span-1 flex flex-col space-y-3">
+                                <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Briefcase className="h-4 w-4 mr-1.5 cursor-help"/>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Common roles of visitors (simulated).</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                    Common Visitor Roles
+                                </h4>
+                                <div className={`flex-grow w-full flex items-center justify-center ${chartHeight}`}>
+                                    <div className="h-[180px] w-[180px]">
+                                        <ChartContainer config={needsSummaryData.roles.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                            <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+                                                <ChartTooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
+                                                <Pie data={needsSummaryData.roles} dataKey="value" nameKey="name" innerRadius={40} outerRadius={70} strokeWidth={2}>
+                                                    {needsSummaryData.roles.map((entry) => (
+                                                    <Cell key={`cell-role-${entry.name}`} fill={entry.fill} />
+                                                    ))}
+                                                </Pie>
+                                            </PieChart>
+                                        </ChartContainer>
+                                    </div>
+                                </div>
                             </div>
-                         </div>
 
+                             {/* Row 2 */}
+                            {/* Industry */}
+                            <div className="col-span-1 flex flex-col space-y-3">
+                                <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Factory className="h-4 w-4 mr-1.5 cursor-help"/>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Industries visitors commonly belong to (simulated).</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                    Industry
+                                </h4>
+                                <div className={`flex-grow w-full ${chartHeight}`}>
+                                    <ChartContainer config={needsSummaryData.industries.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                        <BarChart data={needsSummaryData.industries} layout="horizontal" margin={{ top: 5, right: 0, left: 0, bottom: 30 }}>
+                                            <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-40} dx={-10} dy={15} height={50}/>
+                                            <YAxis type="number" hide/>
+                                            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                                            <Bar dataKey="value" radius={4} barSize={18}>
+                                                {needsSummaryData.industries.map((entry) => (
+                                                <Cell key={`cell-ind-${entry.name}`} fill={entry.fill} />
+                                                ))}
+                                            </Bar>
+                                        </BarChart>
+                                    </ChartContainer>
+                                </div>
+                            </div>
 
-                    </CardContent>
+                            {/* Major Requirement */}
+                            <div className="col-span-1 flex flex-col space-y-3">
+                                <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Search className="h-4 w-4 mr-1.5 cursor-help"/>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Primary reasons visitors connect or roles they are looking to fill (simulated).</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                    Major Requirement
+                                </h4>
+                                <div className={cn("flex-grow w-full", chartHeight)}>
+                                    <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                        <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
+                                            <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-30} dx={-5} dy={10} height={40}/>
+                                            <YAxis type="number" hide/>
+                                            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                                            <Bar dataKey="value" radius={5} barSize={20}>
+                                                {needsSummaryData.lookingFor.map((entry) => (
+                                                <Cell key={`cell-needs-${entry.name}`} fill={entry.fill} />
+                                                ))}
+                                            </Bar>
+                                        </BarChart>
+                                    </ChartContainer>
+                                </div>
+                            </div>
+
+                            {/* Specific Skills Mentioned */}
+                            <div className="col-span-1 flex flex-col space-y-3">
+                                <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Target className="h-4 w-4 mr-1.5 cursor-help"/>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Specific skills mentioned by visitors (simulated).</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                    Specific Skills Mentioned
+                                </h4>
+                                <div className={cn("flex-grow w-full", chartHeight)}>
+                                    <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
+                                        <BarChart data={needsSummaryData.skillsMentioned} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
+                                            <XAxis type="number" hide />
+                                            <YAxis dataKey="skill" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={11} width={95} interval={0} />
+                                            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                                            <Bar dataKey="value" radius={4} barSize={14}>
+                                            {needsSummaryData.skillsMentioned.map((entry) => (
+                                                <Cell key={`cell-skill-mention-${entry.skill}`} fill={entry.fill} />
+                                            ))}
+                                            </Bar>
+                                        </BarChart>
+                                    </ChartContainer>
+                                </div>
+                            </div>
+                        </CardContent>
+
+                        {/* Integrated Sidebar Area */}
+                        <aside className="w-full md:w-1/3 lg:w-1/4 border-l border-border/30 bg-sidebar flex flex-col"> {/* Adjusted width */}
+                            {/* Sidebar Navigation */}
+                             <nav className="p-3 border-b border-border/30 flex flex-wrap gap-1 justify-center md:flex-col md:space-y-1 md:justify-start md:flex-nowrap">
+                                 <Button
+                                     variant={activeSidebarContent === 'summary' ? 'secondary' : 'ghost'}
+                                     size="sm"
+                                     className="w-full justify-start text-xs px-2 py-1.5"
+                                     onClick={() => setActiveSidebarContent('summary')}
+                                 >
+                                     <BookOpen className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Summary
+                                 </Button>
+                                 <Button
+                                     variant={activeSidebarContent === 'prompts' ? 'secondary' : 'ghost'}
+                                     size="sm"
+                                     className="w-full justify-start text-xs px-2 py-1.5"
+                                     onClick={() => setActiveSidebarContent('prompts')}
+                                 >
+                                     <MessageSquare className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Prompts
+                                 </Button>
+                                 <Button
+                                     variant={activeSidebarContent === 'interpretation' ? 'secondary' : 'ghost'}
+                                     size="sm"
+                                     className="w-full justify-start text-xs px-2 py-1.5"
+                                     onClick={() => setActiveSidebarContent('interpretation')}
+                                 >
+                                     <Brain className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Interpretation
+                                 </Button>
+                                 <Button
+                                     variant={activeSidebarContent === 'insights' ? 'secondary' : 'ghost'}
+                                     size="sm"
+                                     className="w-full justify-start text-xs px-2 py-1.5"
+                                     onClick={() => setActiveSidebarContent('insights')}
+                                 >
+                                     <Lightbulb className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Insights
+                                 </Button>
+                             </nav>
+
+                             {/* Sidebar Content Area */}
+                             <div className="flex-grow overflow-y-auto p-4 bg-background"> {/* Use background color */}
+                                {renderSidebarContent()}
+                             </div>
+                        </aside>
+                    </div>
                 </Card>
             </AnimatedSection>
 

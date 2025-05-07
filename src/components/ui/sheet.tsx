@@ -2,25 +2,25 @@
 "use client"
 
 import * as React from "react"
-import * as SheetPrimitive from "@radix-ui/react-dialog" // Use Dialog primitive for Sheet
+import * as DialogPrimitive from "@radix-ui/react-dialog" // Correct import path
 import { cva, type VariantProps } from "class-variance-authority"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-const Sheet = SheetPrimitive.Root
+const Sheet = DialogPrimitive.Root // Use Dialog primitive for Sheet
 
-const SheetTrigger = SheetPrimitive.Trigger
+const SheetTrigger = DialogPrimitive.Trigger
 
-const SheetClose = SheetPrimitive.Close
+const SheetClose = DialogPrimitive.Close
 
-const SheetPortal = SheetPrimitive.Portal
+const SheetPortal = DialogPrimitive.Portal
 
 const SheetOverlay = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
+  React.ElementRef<typeof DialogPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
-  <SheetPrimitive.Overlay
+  <DialogPrimitive.Overlay
     className={cn(
       "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", // Adjusted overlay style
       className
@@ -29,7 +29,7 @@ const SheetOverlay = React.forwardRef<
     ref={ref}
   />
 ))
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
+SheetOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
   "fixed z-50 flex flex-col gap-4 bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500", // Added flex flex-col
@@ -44,37 +44,36 @@ const sheetVariants = cva(
           "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
     },
-    // Removed defaultVariants to allow explicit positioning in chatbot.tsx
-    // defaultVariants: {
-    //   side: "right",
-    // },
+     defaultVariants: { // Re-add default variant
+       side: "right",
+     },
   }
 )
 
 interface SheetContentProps
-  extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
+  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>, // Use DialogPrimitive.Content
     VariantProps<typeof sheetVariants> {}
 
 const SheetContent = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Content>,
+  React.ElementRef<typeof DialogPrimitive.Content>, // Use DialogPrimitive.Content
   SheetContentProps
->(({ side, className, children, ...props }, ref) => ( // Explicitly receive side prop
+>(({ side, className, children, ...props }, ref) => ( // Side prop is optional now due to defaultVariants
   <SheetPortal>
     <SheetOverlay />
-    <SheetPrimitive.Content
+    <DialogPrimitive.Content // Use DialogPrimitive.Content
       ref={ref}
-      className={cn(sheetVariants({ side }), className)} // Apply side variant if provided
+      className={cn(sheetVariants({ side }), className)} // Apply side variant
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
         <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
-    </SheetPrimitive.Content>
+      </DialogPrimitive.Close>
+    </DialogPrimitive.Content>
   </SheetPortal>
 ))
-SheetContent.displayName = SheetPrimitive.Content.displayName
+SheetContent.displayName = DialogPrimitive.Content.displayName
 
 const SheetHeader = ({
   className,
@@ -105,28 +104,28 @@ const SheetFooter = ({
 SheetFooter.displayName = "SheetFooter"
 
 const SheetTitle = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
+  React.ElementRef<typeof DialogPrimitive.Title>, // Use DialogPrimitive.Title
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> // Use DialogPrimitive.Title
 >(({ className, ...props }, ref) => (
-  <SheetPrimitive.Title
+  <DialogPrimitive.Title // Use DialogPrimitive.Title
     ref={ref}
     className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
 ))
-SheetTitle.displayName = SheetPrimitive.Title.displayName
+SheetTitle.displayName = DialogPrimitive.Title.displayName
 
 const SheetDescription = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
+  React.ElementRef<typeof DialogPrimitive.Description>, // Use DialogPrimitive.Description
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> // Use DialogPrimitive.Description
 >(({ className, ...props }, ref) => (
-  <SheetPrimitive.Description
+  <DialogPrimitive.Description // Use DialogPrimitive.Description
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
 ))
-SheetDescription.displayName = SheetPrimitive.Description.displayName
+SheetDescription.displayName = DialogPrimitive.Description.displayName
 
 export {
   Sheet,
