@@ -10,8 +10,8 @@ import DomainExpertiseSection from "@/components/domain-expertise-section";
 import ProjectsSection from "@/components/projects-section";
 import EducationSection from "@/components/education-section";
 import SocialImpactSection from "@/components/social-impact-section";
-import FeedbackSection from "@/components/feedback-section"; // Import FeedbackSection
-import AnalyticsDashboardSection from "@/components/analytics-dashboard-section"; // Import AnalyticsDashboardSection
+import FeedbackSection from "@/components/feedback-section"; // Keep FeedbackSection for now, will rename if needed elsewhere
+import AnalyticsDashboardSection from "@/components/analytics-dashboard-section";
 
 export default function Home() {
   return (
@@ -25,7 +25,8 @@ export default function Home() {
       <ProjectsSection />
       <SocialImpactSection />
       <FeedbackSection /> {/* Add FeedbackSection */}
-      <AnalyticsDashboardSection /> {/* Add AnalyticsDashboardSection */}
+      <AnalyticsDashboardSection />
     </div>
   );
 }
+

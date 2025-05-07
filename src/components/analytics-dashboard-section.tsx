@@ -1,7 +1,8 @@
+
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Cell, RadialBar, RadialBarChart, Tooltip as RechartsTooltip } from "recharts"; // Renamed Tooltip to RechartsTooltip
+import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Cell, Treemap, Tooltip as RechartsTooltip } from "recharts"; // Renamed Tooltip, Added Treemap
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -9,7 +10,7 @@ import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import Shadcn Tooltip components
 
-// Static Mock Data (Keeping existing data structure)
+// Static Mock Data (Keeping existing data structure, adding Company Name)
 const skillsInterestData = [
   { skill: "Bus. Analysis", value: 120, fill: "hsl(var(--chart-1))" },
   { skill: "Func. Consulting", value: 95, fill: "hsl(var(--chart-2))" },
@@ -55,6 +56,17 @@ const needsSummaryData = {
         { name: "201-1000", value: 18, fill: "hsl(var(--chart-4))" },
         { name: "1000+", value: 7, fill: "hsl(var(--chart-5))" },
     ],
+    // Mock Company Name Data for Treemap
+    companyName: [
+        { name: 'Tech Solutions Inc.', size: 1200, fill: "hsl(var(--chart-1))" },
+        { name: 'Innovate Ltd.', size: 800, fill: "hsl(var(--chart-2))" },
+        { name: 'Data Corp', size: 500, fill: "hsl(var(--chart-3))" },
+        { name: 'Alpha Enterprises', size: 400, fill: "hsl(var(--chart-4))" },
+        { name: 'Beta Group', size: 300, fill: "hsl(var(--chart-5))" },
+        { name: 'Gamma Systems', size: 200, fill: "hsl(var(--chart-1) / 0.8)" },
+        { name: 'Delta Solutions', size: 150, fill: "hsl(var(--chart-2) / 0.8)" },
+        { name: 'Other Startups', size: 450, fill: "hsl(var(--muted))" },
+    ],
     roles: [
         { name: "Hiring Manager", value: 40, fill: "hsl(var(--chart-1))" },
         { name: "Recruiter", value: 25, fill: "hsl(var(--chart-2))" },
@@ -70,7 +82,7 @@ const needsSummaryData = {
         { name: "Consulting", value: 8, fill: "hsl(var(--chart-5))" },
         { name: "Other", value: 7, fill: "hsl(var(--chart-1) / 0.6)" },
     ],
-    lookingFor: [
+    lookingFor: [ // Renamed to majorRequirement internally for clarity
         { name: "BA Role", value: 35, fill: "hsl(var(--chart-1))" },
         { name: "Consulting", value: 28, fill: "hsl(var(--chart-2))" },
         { name: "Strategic Insights", value: 17, fill: "hsl(var(--chart-3))" },
@@ -87,6 +99,36 @@ const needsSummaryData = {
     ]
 };
 
+// Custom Content for Treemap Tooltip
+const TreemapTooltipContent = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-lg border bg-background p-2 shadow-sm">
+        <div className="grid grid-cols-1 gap-1">
+          <div className="flex flex-col">
+            <span className="text-[0.70rem] uppercase text-muted-foreground">
+              Company
+            </span>
+            <span className="font-bold text-foreground">
+              {payload[0].payload.name}
+            </span>
+          </div>
+           <div className="flex flex-col">
+            <span className="text-[0.70rem] uppercase text-muted-foreground">
+              Relative Interest (Simulated Size)
+            </span>
+            <span className="font-bold" style={{ color: payload[0].payload.fill }}>
+               {payload[0].value}
+            </span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return null
+}
+
 
 const AnalyticsDashboardSection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
@@ -95,6 +137,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
   useEffect(() => {
     setIsClient(true);
+    // Simulate viewer data fetching only on client
     const viewers = [
       { month: "Jan", viewers: Math.floor(Math.random() * 50) + 10 },
       { month: "Feb", viewers: Math.floor(Math.random() * 60) + 15 },
@@ -104,9 +147,9 @@ const AnalyticsDashboardSection: React.FC = () => {
       { month: "Jun", viewers: Math.floor(Math.random() * 100) + 35 },
     ];
     setSimulatedViewersData(viewers);
-    const total = viewers.reduce((sum, item) => sum + item.viewers, 0) * 3 + 150;
+    const total = viewers.reduce((sum, item) => sum + item.viewers, 0) * 3 + 150; // Adjusted simulation logic
     setTotalSimulatedViewers(total);
-  }, []);
+  }, []); // Empty dependency array ensures this runs once on mount
 
   const cardAnimationDelay = (index: number) => `delay-${index * 100}`; // Staggered animation delay for cards
 
@@ -316,11 +359,11 @@ const AnalyticsDashboardSection: React.FC = () => {
                 </AnimatedSection>
            </div>
 
-           {/* Visitor Needs Summary Section */}
+           {/* Visitor Needs Summary Section -> Renamed */}
             <AnimatedSection animationClass="animate-fade-in-up" delay={cardAnimationDelay(6)} className="col-span-1 sm:col-span-2 lg:col-span-4">
                 <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/40 bg-background/70">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4"> {/* Adjusted padding */}
-                        <CardTitle className="text-lg font-medium">Visitor Needs Summary</CardTitle>
+                        <CardTitle className="text-lg font-medium">Visitor Business Interest Summary</CardTitle> {/* Updated Title */}
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -332,15 +375,54 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </Tooltip>
                         </TooltipProvider>
                     </CardHeader>
-                    <CardContent className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10"> {/* Increased gap */}
+                    <CardContent className="pt-4 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10"> {/* Changed to 3 columns */}
 
-                         {/* Company Name - Changed from Company Size */}
+                         {/* Row 1 */}
+                         {/* Company Name (New Treemap) */}
+                          <div className="col-span-1 flex flex-col">
+                              <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Building2 className="h-4 w-4 mr-1.5 cursor-help"/>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Simulated distribution of interest by company name.</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                                Companies Showing Interest
+                              </h4>
+                             <div className="flex-grow h-[200px] w-full">
+                                {!isClient ? (
+                                    <Skeleton className="w-full h-full" />
+                                ) : (
+                                 <ChartContainer config={needsSummaryData.companyName.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
+                                     <Treemap
+                                         data={needsSummaryData.companyName}
+                                         dataKey="size"
+                                         ratio={4 / 3}
+                                         stroke="hsl(var(--card))"
+                                         fill="hsl(var(--accent))"
+                                         isAnimationActive={true}
+                                        >
+                                         {needsSummaryData.companyName.map((entry) => (
+                                             <Cell key={`cell-compname-${entry.name}`} fill={entry.fill} />
+                                         ))}
+                                         <RechartsTooltip content={<TreemapTooltipContent />} cursor={{ stroke: 'hsl(var(--foreground))', strokeWidth: 1 }}/>
+                                     </Treemap>
+                                 </ChartContainer>
+                                )}
+                              </div>
+                          </div>
+
+                         {/* Company Size */}
                          <div className="col-span-1 flex flex-col">
                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
-                                            <Building2 className="h-4 w-4 mr-1.5 cursor-help"/>
+                                            <UsersRound className="h-4 w-4 mr-1.5 cursor-help"/>
                                         </TooltipTrigger>
                                         <TooltipContent>
                                             <p>Breakdown of visitor company sizes (simulated).</p>
@@ -357,7 +439,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                         <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                                         <Bar dataKey="value" radius={4} barSize={14}>
                                         {needsSummaryData.companySize.map((entry) => (
-                                            <Cell key={`cell-comp-${entry.name}`} fill={entry.fill} />
+                                            <Cell key={`cell-compsize-${entry.name}`} fill={entry.fill} />
                                         ))}
                                         </Bar>
                                     </BarChart>
@@ -365,7 +447,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                          </div>
 
-                         {/* Role */}
+                         {/* Role -> Renamed Title, Kept Pie for simplicity */}
                           <div className="col-span-1 flex flex-col items-center">
                              <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
                                 <TooltipProvider>
@@ -378,7 +460,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                         </TooltipContent>
                                     </Tooltip>
                                 </TooltipProvider>
-                                Role
+                                Common Visitor Roles {/* Updated Title */}
                              </h4>
                              <div className="flex-grow h-[180px] w-[180px]">
                                 <ChartContainer config={needsSummaryData.roles.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
@@ -394,6 +476,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                              </div>
                           </div>
 
+                          {/* Row 2 */}
                          {/* Industry */}
                           <div className="col-span-1 flex flex-col">
                              <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
@@ -425,8 +508,8 @@ const AnalyticsDashboardSection: React.FC = () => {
                              </div>
                           </div>
 
-                         {/* Major Requirement - Changed span to lg:col-span-2 */}
-                         <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col">
+                         {/* Major Requirement */}
+                         <div className="col-span-1 flex flex-col"> {/* Changed span */}
                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
                                 <TooltipProvider>
                                     <Tooltip>
@@ -440,7 +523,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Major Requirement
                             </h4>
-                            <div className="flex-grow h-[200px] w-full"> {/* Adjusted height */}
+                            <div className="flex-grow h-[200px] w-full">
                                  <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
                                      <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
                                          <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-30} dx={-5} dy={10} height={40}/>
@@ -456,8 +539,8 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                          </div>
 
-                         {/* Skills Metrics - Changed span to lg:col-span-1 */}
-                         <div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col">
+                         {/* Specific Skills Mentioned */}
+                         <div className="col-span-1 flex flex-col"> {/* Changed span */}
                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
                                 <TooltipProvider>
                                     <Tooltip>
@@ -471,7 +554,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Specific Skills Mentioned
                             </h4>
-                            <div className="flex-grow h-[200px] w-full"> {/* Adjusted height */}
+                            <div className="flex-grow h-[200px] w-full">
                                 <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
                                     <BarChart data={needsSummaryData.skillsMentioned} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
                                         <XAxis type="number" hide />
@@ -488,7 +571,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                          </div>
 
                          {/* Interpretation - Span full width */}
-                         <div className="col-span-1 md:col-span-2 lg:col-span-3 mt-6 pt-6 border-t border-border/40 flex flex-col items-center text-center">
+                         <div className="col-span-1 md:col-span-3 mt-6 pt-6 border-t border-border/40 flex flex-col items-center text-center"> {/* Span 3 cols */}
                              <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center">
                                  <Brain className="h-5 w-5 mr-2 text-accent"/> Interpretation
                              </h4>
@@ -509,3 +592,4 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
+
