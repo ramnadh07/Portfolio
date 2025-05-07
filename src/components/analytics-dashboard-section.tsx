@@ -425,8 +425,8 @@ const AnalyticsDashboardSection: React.FC = () => {
                              </div>
                           </div>
 
-                         {/* Major Requirement */}
-                         <div className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col">
+                         {/* Major Requirement - Changed span to lg:col-span-2 */}
+                         <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col">
                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
                                 <TooltipProvider>
                                     <Tooltip>
@@ -440,7 +440,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Major Requirement
                             </h4>
-                            <div className="flex-grow h-[180px] w-full">
+                            <div className="flex-grow h-[200px] w-full"> {/* Adjusted height */}
                                  <ChartContainer config={needsSummaryData.lookingFor.reduce((acc, cur) => ({ ...acc, [cur.name]: { label: cur.name, color: cur.fill } }), {})} className="w-full h-full">
                                      <BarChart data={needsSummaryData.lookingFor} layout="horizontal" margin={{ top: 5, right: 10, left: 10, bottom: 20 }}>
                                          <XAxis dataKey="name" type="category" tickLine={false} axisLine={false} tickMargin={5} fontSize={10} interval={0} angle={-30} dx={-5} dy={10} height={40}/>
@@ -456,8 +456,8 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                          </div>
 
-                         {/* Skills Metrics */}
-                         <div className="col-span-1 md:col-span-1 lg:col-span-3 flex flex-col">
+                         {/* Skills Metrics - Changed span to lg:col-span-1 */}
+                         <div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col">
                             <h4 className="text-sm font-medium text-muted-foreground mb-3 flex items-center">
                                 <TooltipProvider>
                                     <Tooltip>
@@ -471,7 +471,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 </TooltipProvider>
                                 Specific Skills Mentioned
                             </h4>
-                            <div className="flex-grow h-[200px] w-full">
+                            <div className="flex-grow h-[200px] w-full"> {/* Adjusted height */}
                                 <ChartContainer config={needsSummaryData.skillsMentioned.reduce((acc, cur) => ({ ...acc, [cur.skill]: { label: cur.skill, color: cur.fill } }), {})} className="w-full h-full">
                                     <BarChart data={needsSummaryData.skillsMentioned} layout="vertical" margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
                                         <XAxis type="number" hide />
@@ -487,7 +487,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                          </div>
 
-                         {/* Interpretation */}
+                         {/* Interpretation - Span full width */}
                          <div className="col-span-1 md:col-span-2 lg:col-span-3 mt-6 pt-6 border-t border-border/40 flex flex-col items-center text-center">
                              <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center">
                                  <Brain className="h-5 w-5 mr-2 text-accent"/> Interpretation
