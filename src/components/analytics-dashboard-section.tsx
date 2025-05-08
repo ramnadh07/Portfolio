@@ -222,17 +222,18 @@ const AnalyticsDashboardSection: React.FC = () => {
 
   // Helper function to render prompt buttons
   const renderPromptButtons = (prompts: string[]) => (
-    <div className="space-y-1 mt-2">
+    <div className="space-y-2 mt-2">
       {prompts.map((prompt, index) => (
         <Button
           key={index}
-          variant="link"
+          variant="outline" // Changed variant to outline for button look
           size="sm"
-          className="text-muted-foreground h-auto p-0 text-left justify-start hover:text-accent text-xs leading-snug whitespace-normal" // Added whitespace-normal for wrapping
+          className="w-full text-muted-foreground h-auto p-2 text-left justify-start hover:bg-accent/10 hover:text-accent text-xs leading-snug whitespace-normal border-border/50" // Added border, adjusted padding
           onClick={() => handlePromptClick(prompt)}
           disabled={isGeneratingResponse}
         >
-          - {prompt}
+         {/* Removed the leading dash */}
+          {prompt}
         </Button>
       ))}
     </div>
@@ -297,7 +298,8 @@ const AnalyticsDashboardSection: React.FC = () => {
         return (
           <div className="p-4 space-y-3">
             <h4 className="font-semibold text-primary">Actionable Insights</h4>
-             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+             {/* Adjusted list styling for better multi-line indentation */}
+             <ul className="text-sm text-muted-foreground list-disc list-outside pl-5 space-y-1">
                  <li>Tailor project examples highlighting Salesforce CRM and Requirements Elicitation successes.</li>
                  <li>Emphasize experience within FinTech and Healthcare domains.</li>
                  <li>Consider adding case studies focused on GTM strategy support.</li>
