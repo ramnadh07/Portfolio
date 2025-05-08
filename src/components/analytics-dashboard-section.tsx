@@ -228,7 +228,7 @@ const AnalyticsDashboardSection: React.FC = () => {
           key={index}
           variant="link"
           size="sm"
-          className="text-muted-foreground h-auto p-0 text-left justify-start hover:text-accent text-xs leading-snug"
+          className="text-muted-foreground h-auto p-0 text-left justify-start hover:text-accent text-xs leading-snug whitespace-normal" // Added whitespace-normal for wrapping
           onClick={() => handlePromptClick(prompt)}
           disabled={isGeneratingResponse}
         >
@@ -766,7 +766,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                              {/* Sidebar Content Area */}
                              <div className="flex-grow overflow-y-auto p-0 bg-background"> {/* Removed padding */}
-                                 <div className="min-w-[280px] max-w-[320px]">
+                                 <div className="min-w-[280px] max-w-[320px] w-[280px] md:w-auto"> {/* Fixed width */}
                                 {renderSidebarContent()}
                                      </div>
                              </div>
