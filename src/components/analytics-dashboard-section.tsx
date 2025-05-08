@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from "react";
@@ -6,10 +5,9 @@ import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, Responsiv
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info, Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings, PencilLine, SearchCheck } from "lucide-react"; // Added PencilLine, SearchCheck
+import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info, Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings, PencilLine, SearchCheck, BotMessageSquare, ChevronLeft } from "lucide-react"; // Added BotMessageSquare, ChevronLeft
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-// Removed VisitorInterestInfoDialog import
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -60,7 +58,6 @@ const needsSummaryData = {
         { name: "201-1000", value: 18, fill: "hsl(var(--chart-4))" },
         { name: "1000+", value: 7, fill: "hsl(var(--chart-5))" },
     ],
-    // Mock Company Name Data for Treemap
     companyName: [
         { name: 'Tech Solutions Inc.', size: 1200, fill: "hsl(var(--chart-1))" },
         { name: 'Innovate Ltd.', size: 800, fill: "hsl(var(--chart-2))" },
@@ -86,14 +83,14 @@ const needsSummaryData = {
         { name: "Consulting", value: 8, fill: "hsl(var(--chart-5))" },
         { name: "Other", value: 7, fill: "hsl(var(--chart-1) / 0.6)" },
     ],
-    lookingFor: [ // Renamed to majorRequirement internally for clarity
+    lookingFor: [
         { name: "BA Role", value: 35, fill: "hsl(var(--chart-1))" },
         { name: "Consulting", value: 28, fill: "hsl(var(--chart-2))" },
         { name: "Strategic Insights", value: 17, fill: "hsl(var(--chart-3))" },
         { name: "Collaboration", value: 12, fill: "hsl(var(--chart-4))" },
         { name: "General Inquiry", value: 8, fill: "hsl(var(--chart-5))" },
     ],
-    skillsMentioned: [ // Re-using skillsInterestData format for consistency
+    skillsMentioned: [
         { skill: "Salesforce", value: 55, fill: "hsl(var(--chart-1))" },
         { skill: "Req. Elicitation", value: 70, fill: "hsl(var(--chart-2))" },
         { skill: "Process Model.", value: 45, fill: "hsl(var(--chart-3))" },
@@ -101,6 +98,24 @@ const needsSummaryData = {
         { skill: "Data Analysis", value: 25, fill: "hsl(var(--chart-5))" },
         { skill: "UAT", value: 15, fill: "hsl(var(--chart-1) / 0.6)" },
     ]
+};
+
+// Example prompts for each category
+const examplePrompts = {
+  summary: [
+    "Provide a detailed breakdown of the visitor profile.",
+    "What are the top 3 most sought-after requirements?",
+  ],
+  interpretation: [
+    "Explain the significance of the high interest in Salesforce.",
+    "Why might mid-sized FinTech companies be visiting?",
+    "What does the lower GTM interest imply?",
+  ],
+  insights: [
+    "Generate ideas for a case study targeting FinTech recruiters.",
+    "Suggest specific keywords to emphasize Salesforce expertise.",
+    "How can I better showcase my strategic skills?",
+  ]
 };
 
 // Custom Content for Treemap Tooltip
@@ -141,6 +156,8 @@ const AnalyticsDashboardSection: React.FC = () => {
   const [simulatedViewersData, setSimulatedViewersData] = useState<null | Array<{ month: string; viewers: number }>>(null);
   const [totalSimulatedViewers, setTotalSimulatedViewers] = useState<null | number>(null);
   const [activeSidebarContent, setActiveSidebarContent] = useState<SidebarContentKey>('summary'); // Default to summary
+  const [sidebarDisplayContent, setSidebarDisplayContent] = useState<string | null>(null); // State for dynamic content
+  const [isGeneratingResponse, setIsGeneratingResponse] = useState(false); // Loading state
 
   useEffect(() => {
     setIsClient(true);
@@ -161,8 +178,98 @@ const AnalyticsDashboardSection: React.FC = () => {
   const cardAnimationDelay = (index: number) => `delay-${index * 100}`; // Staggered animation delay for cards
   const chartHeight = "h-[240px]"; // Consistent height for charts in the second row
 
-   // Helper function to render sidebar content
-  const renderSidebarContent = () => {
+  // Simulate AI response generation
+  const handlePromptClick = (promptText: string) => {
+    console.log("Prompt clicked:", promptText);
+    setIsGeneratingResponse(true);
+    setSidebarDisplayContent(null); // Clear previous content
+
+    // Simulate API call delay
+    setTimeout(() => {
+        let response = `Response to: "${promptText}"\n\n`;
+        // Basic mock responses based on keywords
+        if (promptText.includes("profile")) {
+            response += "The typical visitor is a hiring manager or recruiter from a mid-sized (51-200 employees) company, predominantly in the FinTech or Healthcare sector. They express strong interest in Business Analysis and Consulting roles, specifically mentioning Salesforce and Requirements Elicitation skills.";
+        } else if (promptText.includes("requirements")) {
+            response += "The top 3 requirements mentioned are: 1. Business Analysis Roles (especially Senior level), 2. Consulting (particularly CRM/Salesforce implementation), and 3. Strategic Insights (market analysis, GTM support).";
+        } else if (promptText.includes("Salesforce")) {
+            response += "The high interest in Salesforce suggests a strong market demand for implementing or optimizing this CRM platform. Visitors likely represent companies seeking expertise in configuration, workflow automation, and integration related to Salesforce Sales Cloud or Service Cloud.";
+        } else if (promptText.includes("FinTech")) {
+            response += "Mid-sized FinTech companies often require BAs/Consultants for projects involving process optimization for financial workflows, requirements gathering for new platform features (like lending or payment systems), CRM integration, and ensuring regulatory compliance within their software.";
+        } else if (promptText.includes("GTM")) {
+            response += "Lower GTM interest compared to core BA/Consulting roles might imply visitors are primarily focused on operational/implementation needs first. However, it still presents an opportunity to showcase strategic thinking and market analysis skills, potentially for future growth phases or product launches within these companies.";
+        } else if (promptText.includes("case study") || promptText.includes("ideas")) {
+            response += "Case Study Idea for FinTech Recruiter:\nTitle: 'Streamlining Loan Origination Process for Mid-Sized FinTech Lender'\nFocus: Highlight requirements elicitation (user stories, process maps), Salesforce configuration (custom objects, approval processes), and quantifiable results (e.g., 20% reduction in processing time, improved data accuracy). Emphasize collaboration with development and compliance teams.";
+        } else if (promptText.includes("keywords")) {
+            response += "Keywords to emphasize Salesforce expertise: Salesforce Configuration, Salesforce CRM Implementation, Sales Cloud, Service Cloud, Workflow Automation, Process Builder, Requirements Elicitation, Functional Specification, UAT Coordination, Solution Design, Apex (conceptual understanding), SOQL (basic queries).";
+        } else if (promptText.includes("strategic skills")) {
+            response += "To showcase strategic skills better: \n1. Detail your involvement in market analysis or competitive intelligence projects. \n2. Quantify contributions to GTM strategy or business case development. \n3. Add a dedicated 'Strategic Contributions' section or highlight these aspects within project descriptions. \n4. Frame functional solutions within a broader strategic context (e.g., 'Implemented CRM to support strategic goal of X').";
+        } else {
+            response += "This is a simulated response providing insights based on the selected prompt. In a real scenario, more detailed analysis would be provided.";
+        }
+
+        setSidebarDisplayContent(response);
+        setIsGeneratingResponse(false);
+    }, 1500); // 1.5 second delay
+  };
+
+  // Function to handle sidebar tab changes
+  const handleTabChange = (tabKey: SidebarContentKey) => {
+    setActiveSidebarContent(tabKey);
+    setSidebarDisplayContent(null); // Reset dynamic content when changing tabs
+    setIsGeneratingResponse(false); // Cancel any ongoing generation
+  }
+
+  // Helper function to render prompt buttons
+  const renderPromptButtons = (prompts: string[]) => (
+    <div className="space-y-1 mt-2">
+      {prompts.map((prompt, index) => (
+        <Button
+          key={index}
+          variant="link"
+          size="sm"
+          className="text-muted-foreground h-auto p-0 text-left justify-start hover:text-accent text-xs leading-snug"
+          onClick={() => handlePromptClick(prompt)}
+          disabled={isGeneratingResponse}
+        >
+          - {prompt}
+        </Button>
+      ))}
+    </div>
+  );
+
+   // Helper function to render sidebar content based on state
+   const renderSidebarContent = () => {
+     if (isGeneratingResponse) {
+        return (
+            <div className="p-4 space-y-3 text-center text-muted-foreground">
+                <Loader2 className="h-5 w-5 mx-auto animate-spin mb-2" />
+                Generating response...
+            </div>
+        );
+     }
+
+     if (sidebarDisplayContent) {
+        return (
+             <div className="p-4 space-y-3 relative">
+                 <Button
+                     variant="ghost"
+                     size="sm"
+                     className="absolute top-2 right-2 px-2 py-1 text-xs h-auto"
+                     onClick={() => setSidebarDisplayContent(null)} // Go back to default view
+                 >
+                     <ChevronLeft className="h-3 w-3 mr-1"/> Back
+                 </Button>
+                 <h4 className="font-semibold text-primary flex items-center">
+                     <BotMessageSquare className="h-4 w-4 mr-2 text-accent"/> AI Response
+                 </h4>
+                 <p className="text-sm text-muted-foreground whitespace-pre-wrap">{sidebarDisplayContent}</p>
+             </div>
+        );
+     }
+
+
+    // Default content based on active tab
     switch (activeSidebarContent) {
       case 'summary':
         return (
@@ -171,13 +278,9 @@ const AnalyticsDashboardSection: React.FC = () => {
             <p className="text-sm text-muted-foreground">The dashboard suggests the primary audience consists of hiring managers and recruiters from mid-sized companies (51-200 employees) in the FinTech and Healthcare sectors. They are mainly looking for Business Analysts and Consultants, with specific interest in Salesforce and Requirements Elicitation.</p>
              <Separator className="my-4" />
              <h5 className="text-xs font-medium text-muted-foreground flex items-center"><PencilLine className="h-3.5 w-3.5 mr-1.5"/> Try Asking:</h5>
-             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1 pl-2">
-                 <li>"Provide a detailed breakdown of the visitor profile."</li>
-                 <li>"What are the top 3 most sought-after requirements?"</li>
-             </ul>
+             {renderPromptButtons(examplePrompts.summary)}
           </div>
         );
-      // Removed 'prompts' case
       case 'interpretation':
         return (
           <div className="p-4 space-y-3">
@@ -187,11 +290,7 @@ const AnalyticsDashboardSection: React.FC = () => {
              </p>
              <Separator className="my-4" />
              <h5 className="text-xs font-medium text-muted-foreground flex items-center"><SearchCheck className="h-3.5 w-3.5 mr-1.5"/> Try Asking:</h5>
-             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1 pl-2">
-                 <li>"Explain the significance of the high interest in Salesforce."</li>
-                 <li>"Why might mid-sized FinTech companies be visiting?"</li>
-                 <li>"What does the lower GTM interest imply?"</li>
-             </ul>
+             {renderPromptButtons(examplePrompts.interpretation)}
           </div>
         );
       case 'insights':
@@ -206,18 +305,14 @@ const AnalyticsDashboardSection: React.FC = () => {
              </ul>
              <Separator className="my-4" />
              <h5 className="text-xs font-medium text-muted-foreground flex items-center"><Lightbulb className="h-3.5 w-3.5 mr-1.5"/> Try Asking:</h5>
-              <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1 pl-2">
-                 <li>"Generate ideas for a case study targeting FinTech recruiters."</li>
-                 <li>"Suggest specific keywords to emphasize Salesforce expertise."</li>
-                 <li>"How can I better showcase my strategic skills?"</li>
-             </ul>
+              {renderPromptButtons(examplePrompts.insights)}
           </div>
         );
       default:
         return (
            <div className="p-4 text-center text-muted-foreground">
              <HelpCircle className="h-6 w-6 mx-auto mb-2" />
-             Select an option from the left menu to view details.
+             Select an option from the left menu to view details or click a prompt.
            </div>
         );
     }
@@ -438,7 +533,6 @@ const AnalyticsDashboardSection: React.FC = () => {
                              <UsersRound className="h-5 w-5 text-primary" />
                              <CardTitle className="text-lg font-medium text-primary">Visitor Business Interest Summary</CardTitle>
                          </div>
-                         {/* Removed Info Dialog Trigger */}
                      </CardHeader>
 
                     <div className="flex flex-col md:flex-row"> {/* Main flex container for charts + sidebar */}
@@ -648,16 +742,15 @@ const AnalyticsDashboardSection: React.FC = () => {
                                      variant={activeSidebarContent === 'summary' ? 'secondary' : 'ghost'}
                                      size="sm"
                                      className="w-full justify-start text-xs px-2 py-1.5"
-                                     onClick={() => setActiveSidebarContent('summary')}
+                                     onClick={() => handleTabChange('summary')}
                                  >
                                      <BookOpen className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Summary
                                  </Button>
-                                 {/* Removed Prompts Button */}
                                  <Button
                                      variant={activeSidebarContent === 'interpretation' ? 'secondary' : 'ghost'}
                                      size="sm"
                                      className="w-full justify-start text-xs px-2 py-1.5"
-                                     onClick={() => setActiveSidebarContent('interpretation')}
+                                     onClick={() => handleTabChange('interpretation')}
                                  >
                                      <Brain className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Interpretation
                                  </Button>
@@ -665,14 +758,14 @@ const AnalyticsDashboardSection: React.FC = () => {
                                      variant={activeSidebarContent === 'insights' ? 'secondary' : 'ghost'}
                                      size="sm"
                                      className="w-full justify-start text-xs px-2 py-1.5"
-                                     onClick={() => setActiveSidebarContent('insights')}
+                                     onClick={() => handleTabChange('insights')}
                                  >
                                      <Lightbulb className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Insights
                                  </Button>
                              </nav>
 
                              {/* Sidebar Content Area */}
-                             <div className="flex-grow overflow-y-auto p-4 bg-background"> {/* Use background color */}
+                             <div className="flex-grow overflow-y-auto p-0 bg-background"> {/* Removed padding */}
                                 {renderSidebarContent()}
                              </div>
                         </aside>
