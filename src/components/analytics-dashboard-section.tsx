@@ -6,7 +6,7 @@ import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, Responsiv
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info, Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings } from "lucide-react";
+import { Users, Target, Star, TrendingUp, Handshake, Zap, UsersRound, Activity, Loader2, Building2, Briefcase, Factory, Search, HelpCircle, Brain, Info, Menu, BookOpen, Lightbulb, BarChartBig, MessageSquare, Settings, PencilLine, SearchCheck } from "lucide-react"; // Added PencilLine, SearchCheck
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 // Removed VisitorInterestInfoDialog import
@@ -133,7 +133,7 @@ const TreemapTooltipContent = ({ active, payload }: any) => {
   return null
 }
 
-type SidebarContentKey = 'summary' | 'prompts' | 'interpretation' | 'insights' | null;
+type SidebarContentKey = 'summary' | 'interpretation' | 'insights' | null;
 
 
 const AnalyticsDashboardSection: React.FC = () => {
@@ -169,20 +169,15 @@ const AnalyticsDashboardSection: React.FC = () => {
           <div className="p-4 space-y-3">
             <h4 className="font-semibold text-primary">Summary</h4>
             <p className="text-sm text-muted-foreground">The dashboard suggests the primary audience consists of hiring managers and recruiters from mid-sized companies (51-200 employees) in the FinTech and Healthcare sectors. They are mainly looking for Business Analysts and Consultants, with specific interest in Salesforce and Requirements Elicitation.</p>
+             <Separator className="my-4" />
+             <h5 className="text-xs font-medium text-muted-foreground flex items-center"><PencilLine className="h-3.5 w-3.5 mr-1.5"/> Try Asking:</h5>
+             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1 pl-2">
+                 <li>"Provide a detailed breakdown of the visitor profile."</li>
+                 <li>"What are the top 3 most sought-after requirements?"</li>
+             </ul>
           </div>
         );
-      case 'prompts':
-        return (
-          <div className="p-4 space-y-3">
-            <h4 className="font-semibold text-primary">Example Prompts</h4>
-            <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                <li>"Summarize the key characteristics of the most frequent visitor segment."</li>
-                <li>"Which industries show the highest interest in 'Functional Consulting' skills?"</li>
-                <li>"Generate potential follow-up email templates for hiring managers in FinTech."</li>
-                <li>"Identify potential skill gaps based on visitor interest."</li>
-            </ul>
-          </div>
-        );
+      // Removed 'prompts' case
       case 'interpretation':
         return (
           <div className="p-4 space-y-3">
@@ -190,6 +185,13 @@ const AnalyticsDashboardSection: React.FC = () => {
              <p className="text-sm text-muted-foreground">
                  The data points towards a strong interest from established tech-focused companies seeking experienced BAs/Consultants. The focus on Salesforce and specific BA skills (Requirements, Process Modeling) indicates a need for practical implementation expertise. GTM support interest, while lower, suggests opportunities in strategic roles within these organizations.
              </p>
+             <Separator className="my-4" />
+             <h5 className="text-xs font-medium text-muted-foreground flex items-center"><SearchCheck className="h-3.5 w-3.5 mr-1.5"/> Try Asking:</h5>
+             <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1 pl-2">
+                 <li>"Explain the significance of the high interest in Salesforce."</li>
+                 <li>"Why might mid-sized FinTech companies be visiting?"</li>
+                 <li>"What does the lower GTM interest imply?"</li>
+             </ul>
           </div>
         );
       case 'insights':
@@ -201,6 +203,13 @@ const AnalyticsDashboardSection: React.FC = () => {
                  <li>Emphasize experience within FinTech and Healthcare domains.</li>
                  <li>Consider adding case studies focused on GTM strategy support.</li>
                  <li>Highlight ability to bridge business needs and technical solutions for mid-sized companies.</li>
+             </ul>
+             <Separator className="my-4" />
+             <h5 className="text-xs font-medium text-muted-foreground flex items-center"><Lightbulb className="h-3.5 w-3.5 mr-1.5"/> Try Asking:</h5>
+              <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1 pl-2">
+                 <li>"Generate ideas for a case study targeting FinTech recruiters."</li>
+                 <li>"Suggest specific keywords to emphasize Salesforce expertise."</li>
+                 <li>"How can I better showcase my strategic skills?"</li>
              </ul>
           </div>
         );
@@ -643,14 +652,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                  >
                                      <BookOpen className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Summary
                                  </Button>
-                                 <Button
-                                     variant={activeSidebarContent === 'prompts' ? 'secondary' : 'ghost'}
-                                     size="sm"
-                                     className="w-full justify-start text-xs px-2 py-1.5"
-                                     onClick={() => setActiveSidebarContent('prompts')}
-                                 >
-                                     <MessageSquare className="mr-2 h-3.5 w-3.5 flex-shrink-0" /> Prompts
-                                 </Button>
+                                 {/* Removed Prompts Button */}
                                  <Button
                                      variant={activeSidebarContent === 'interpretation' ? 'secondary' : 'ghost'}
                                      size="sm"
@@ -686,4 +688,3 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
-
