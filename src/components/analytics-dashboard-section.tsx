@@ -766,7 +766,9 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                              {/* Sidebar Content Area */}
                              <div className="flex-grow overflow-y-auto p-0 bg-background"> {/* Removed padding */}
+                                 <div className="min-w-[280px] max-w-[320px]">
                                 {renderSidebarContent()}
+                                     </div>
                              </div>
                         </aside>
                     </div>
