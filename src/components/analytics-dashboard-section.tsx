@@ -11,6 +11,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area"; // Import ScrollArea
 
 // Static Mock Data (Keeping existing data structure, adding Company Name)
 const skillsInterestData = [
@@ -222,21 +223,23 @@ const AnalyticsDashboardSection: React.FC = () => {
 
   // Helper function to render prompt buttons
   const renderPromptButtons = (prompts: string[]) => (
-    <div className="space-y-2 mt-2">
-      {prompts.map((prompt, index) => (
-        <Button
-          key={index}
-          variant="outline" // Changed variant to outline for button look
-          size="sm"
-          className="w-full text-muted-foreground h-auto p-2 text-left justify-start hover:bg-accent/10 hover:text-accent text-xs leading-snug whitespace-normal border-border/50" // Added border, adjusted padding
-          onClick={() => handlePromptClick(prompt)}
-          disabled={isGeneratingResponse}
-        >
-         {/* Removed the leading dash */}
-          {prompt}
-        </Button>
-      ))}
-    </div>
+    // Added ScrollArea for scrollbar functionality
+    <ScrollArea className="h-[100px] w-full pr-3"> {/* Set max height and padding */}
+      <div className="space-y-2 mt-2">
+        {prompts.map((prompt, index) => (
+          <Button
+            key={index}
+            variant="outline"
+            size="sm"
+            className="w-full text-muted-foreground h-auto p-2 text-left justify-start hover:bg-accent/10 hover:text-accent text-xs leading-snug whitespace-normal border-border/50"
+            onClick={() => handlePromptClick(prompt)}
+            disabled={isGeneratingResponse}
+          >
+            {prompt}
+          </Button>
+        ))}
+      </div>
+    </ScrollArea>
   );
 
    // Helper function to render sidebar content based on state
