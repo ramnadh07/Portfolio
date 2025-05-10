@@ -140,7 +140,7 @@ const EducationSection: React.FC = () => {
 
           {/* Continuous Learning Section (Full Width) */}
           <AnimatedSection animationClass="animate-fade-in-up" delay="delay-400">
-             <Card className="bg-gradient-to-r from-card via-accent/10 to-card border border-border/40 rounded-lg p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 ease-out group">
+             <Card className="bg-gradient-to-r from-background via-accent/5 to-background group border border-border/40 rounded-lg p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 ease-out hover:via-accent/15">
                 <CardHeader className="p-0 text-center mb-4">
                 <CardTitle className="text-2xl md:text-3xl font-semibold text-primary group-hover:text-accent transition-colors">
                     Commitment to Growth
@@ -148,10 +148,10 @@ const EducationSection: React.FC = () => {
                 </CardHeader>
                 <CardContent className="p-0 text-center">
                 <blockquote className="relative">
-                    <p className="text-lg md:text-xl italic text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                    &ldquo;The pursuit of knowledge is a lifelong journey, lighting the path to continuous self-improvement and innovation.&rdquo;
+                    <p className="text-lg md:text-xl italic text-muted-foreground leading-relaxed max-w-3xl mx-auto group-hover:text-accent/90 transition-colors duration-300 group-hover:drop-shadow-[0_0_5px_hsl(var(--accent))]">
+                    &ldquo;Embracing change and continuous learning are the cornerstones of professional evolution and strategic impact.&rdquo;
                     </p>
-                    <footer className="mt-3 text-sm text-foreground">- Ramalingeswara Nadh (A Guiding Principle)</footer>
+                    <footer className="mt-3 text-sm text-foreground group-hover:text-accent/80 transition-colors duration-300">— Ramalingeswara Nadh</footer>
                 </blockquote>
                 </CardContent>
             </Card>
