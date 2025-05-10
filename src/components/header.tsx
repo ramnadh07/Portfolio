@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'; // Import Dropdown components
 import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond, TrendingDown, TrendingUp } from 'lucide-react'; // Removed Calendar, Clock icons
+import { ThemeToggleButton } from '@/components/theme-toggle-button';
 
 
 const Header: React.FC = () => {
@@ -60,8 +61,8 @@ const Header: React.FC = () => {
                   >
                     <span>{value}</span>
                     {/* Icons for Low/High */}
-                    {value === 1 && <TrendingDown className="h-3 w-3 text-muted-foreground ml-2" />}
-                    {value === 10 && <TrendingUp className="h-3 w-3 text-muted-foreground ml-2" />}
+                    {value <= 3 && <TrendingDown className="h-3 w-3 text-muted-foreground ml-2" />}
+                    {value >= 8 && <TrendingUp className="h-3 w-3 text-muted-foreground ml-2" />}
                   </DropdownMenuRadioItem>
                 ))}
               </DropdownMenuRadioGroup>
@@ -76,8 +77,8 @@ const Header: React.FC = () => {
           </Link>
         </div>
 
-        {/* Navigation Links */}
-        <div className="flex items-center space-x-4"> {/* Wrapper for nav */}
+        {/* Navigation Links & Theme Toggle */}
+        <div className="flex items-center space-x-2"> {/* Wrapper for nav and theme toggle */}
             <nav className="flex items-center space-x-1">
             <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 sm:px-3">
                 <Link href="#about">
@@ -137,7 +138,7 @@ const Header: React.FC = () => {
             </Button>
 
             {/* Contact Button */}
-            <Button variant="outline" size="sm" asChild className="ml-2 border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group">
+            <Button variant="outline" size="sm" asChild className="border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group">
                 <Link href="mailto:your.email@example.com">
                 <>
                     <Mail className="h-4 w-4 sm:mr-1.5 transition-transform duration-200 group-hover:scale-110" />
@@ -146,7 +147,7 @@ const Header: React.FC = () => {
                 </Link>
             </Button>
             </nav>
-
+             <ThemeToggleButton />
              {/* Removed Date and Time Display */}
         </div>
       </div>
@@ -155,3 +156,4 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+

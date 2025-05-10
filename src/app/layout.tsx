@@ -10,6 +10,7 @@ import DateTimeDisplay from "@/components/date-time-display"; // Import the new 
 import Footer from "@/components/footer";
 import FloatingActions from "@/components/floating-actions"; // Import FloatingActions
 import { cn } from "@/lib/utils"; // Import cn utility
+import { ThemeProvider } from "@/components/theme-provider";
 // Removed Chatbot import
 
 export const metadata: Metadata = {
@@ -24,21 +25,28 @@ export default function RootLayout({
 }>) {
   return (
     // Removed Geist font variables from html class
-    <html lang="en" className={cn("scroll-smooth")}>
+    <html lang="en" className={cn("scroll-smooth")} suppressHydrationWarning>
       <body
         className="antialiased min-h-screen flex flex-col font-sans" // Removed bg-background
       >
-        <Header />
-        <DateTimeDisplay /> {/* Add the DateTimeDisplay component here */}
-        {/* Removed container from here, apply padding directly */}
-        <main className="flex-grow w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative"> {/* Removed relative positioning */}
-          {children}
-          {/* Removed Chatbot component */}
-        </main>
-        {/* Removed AnimatedSection wrapper from Footer */}
-        <FloatingActions /> {/* Add FloatingActions component */}
-        <Footer />
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <DateTimeDisplay /> {/* Add the DateTimeDisplay component here */}
+          {/* Removed container from here, apply padding directly */}
+          <main className="flex-grow w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative"> {/* Removed relative positioning */}
+            {children}
+            {/* Removed Chatbot component */}
+          </main>
+          {/* Removed AnimatedSection wrapper from Footer */}
+          <FloatingActions /> {/* Add FloatingActions component */}
+          <Footer />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
