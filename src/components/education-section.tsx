@@ -115,9 +115,11 @@ const EducationSection: React.FC = () => {
                 Certifications
               </h3>
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
+                {/* The Card itself will grow to match the education column height due to grid.
+                    CardContent will grow within the card, and ScrollArea will enable scrolling for its content. */}
                 <CardContent className="p-0 flex-grow overflow-hidden relative">
-                  <ScrollArea className="absolute inset-0">
-                    <div className="p-4 space-y-4">
+                  <ScrollArea className="absolute inset-0"> {/* ScrollArea takes full space of its relative parent (CardContent) */}
+                    <div className="p-4 space-y-4"> {/* Padding applied inside scrollable area */}
                       {certificationsData.map((cert, index) => (
                         <AnimatedSection key={cert.name} delay={`delay-${index * 75 + 250}`}>
                           <Card className="bg-muted/40 border border-border/20 p-3 hover:shadow-md hover:border-accent/40 transform hover:-translate-y-0.5 transition-all duration-300 ease-out group">
@@ -138,7 +140,7 @@ const EducationSection: React.FC = () => {
 
           {/* Continuous Learning Section (Full Width) */}
           <AnimatedSection animationClass="animate-fade-in-up" delay="delay-400">
-             <Card className="bg-gradient-to-r from-card via-accent/5 to-card border border-border/40 rounded-lg p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 ease-out group">
+             <Card className="bg-gradient-to-r from-card via-accent/10 to-card border border-border/40 rounded-lg p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 ease-out group">
                 <CardHeader className="p-0 text-center mb-4">
                 <CardTitle className="text-2xl md:text-3xl font-semibold text-primary group-hover:text-accent transition-colors">
                     Commitment to Growth
@@ -147,9 +149,9 @@ const EducationSection: React.FC = () => {
                 <CardContent className="p-0 text-center">
                 <blockquote className="relative">
                     <p className="text-lg md:text-xl italic text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                    &ldquo;Live as if you were to die tomorrow. Learn as if you were to live forever.&rdquo;
+                    &ldquo;The pursuit of knowledge is a lifelong journey, lighting the path to continuous self-improvement and innovation.&rdquo;
                     </p>
-                    <footer className="mt-3 text-sm text-foreground">- Mahatma Gandhi</footer>
+                    <footer className="mt-3 text-sm text-foreground">- Ramalingeswara Nadh (A Guiding Principle)</footer>
                 </blockquote>
                 </CardContent>
             </Card>
@@ -161,3 +163,4 @@ const EducationSection: React.FC = () => {
 };
 
 export default EducationSection;
+
