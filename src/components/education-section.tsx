@@ -52,16 +52,8 @@ const certificationsData = [
     issuingBody: "Scrum Alliance",
     year: "2019",
   },
-  {
-    name: "Advanced Agile Project Management",
-    issuingBody: "Coursera Project Network",
-    year: "2023",
-  },
-   {
-    name: "Data Analytics for Business Leaders",
-    issuingBody: "LinkedIn Learning",
-    year: "2022",
-  },
+  // Removed "Advanced Agile Project Management"
+  // Removed "Data Analytics for Business Leaders"
 ];
 
 const EducationSection: React.FC = () => {
