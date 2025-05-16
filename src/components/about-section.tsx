@@ -13,12 +13,12 @@ const AboutSection: React.FC = () => {
           {/* Image Column */}
           <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
             <Image
-              src="https://picsum.photos/seed/ba-strategy-consultant/600/800" // Changed seed
-              alt="Portrait of Ramalingeswara Nadh, Strategy Consultant" // Updated alt text
+              src="https://placehold.co/600x800.png" 
+              alt="Abstract futuristic and optimistic visual representing Ramalingeswara Nadh's profile" 
               layout="fill"
               objectFit="cover"
-              className="transition-transform duration-500 ease-out group-hover:scale-105 filter group-hover:brightness-105"
-              data-ai-hint="professional business strategy consultant portrait" // Updated hint
+              className="transition-all duration-700 ease-in-out group-hover:scale-110 filter group-hover:brightness-110 group-hover:saturate-150"
+              data-ai-hint="abstract futuristic" 
             />
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent md:bg-gradient-to-r md:from-card md:via-card/30 md:to-transparent"></div>
