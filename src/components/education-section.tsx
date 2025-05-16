@@ -4,7 +4,8 @@ import React from "react";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, Award, Calendar } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area"; // Import ScrollArea
+import { ScrollArea } from "@/components/ui/scroll-area"; 
+import { cn } from "@/lib/utils";
 
 const educationDegreesData = [
   {
@@ -52,8 +53,16 @@ const certificationsData = [
     issuingBody: "Scrum Alliance",
     year: "2019",
   },
-  // Removed "Advanced Agile Project Management"
-  // Removed "Data Analytics for Business Leaders"
+  {
+    name: "Google Project Management: Professional Certificate",
+    issuingBody: "Coursera & Google",
+    year: "2023",
+  },
+  {
+    name: "Salesforce Certified Administrator",
+    issuingBody: "Salesforce",
+    year: "2024",
+  },
 ];
 
 const EducationSection: React.FC = () => {
@@ -101,17 +110,18 @@ const EducationSection: React.FC = () => {
             </AnimatedSection>
 
             {/* Right Column: Certifications */}
-            <AnimatedSection animationClass="animate-fade-in-up" delay="delay-200" className="flex flex-col"> {/* flex flex-col for height matching */}
+            <AnimatedSection animationClass="animate-fade-in-up" delay="delay-200" className="flex flex-col">
               <h3 className="flex items-center text-2xl font-semibold text-primary mb-4">
                 <Award className="h-7 w-7 mr-2.5 text-accent" />
                 Certifications
               </h3>
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
-                {/* The Card itself will grow to match the education column height due to grid.
-                    CardContent will grow within the card, and ScrollArea will enable scrolling for its content. */}
-                <CardContent className="p-0 flex-grow overflow-hidden relative">
-                  <ScrollArea className="absolute inset-0"> {/* ScrollArea takes full space of its relative parent (CardContent) */}
-                    <div className="p-4 space-y-4"> {/* Padding applied inside scrollable area */}
+                <CardContent className={cn(
+                  "p-0 overflow-hidden relative", // Base classes
+                  certificationsData.length > 4 ? "h-[30rem]" : "flex-grow" // Conditional height or flex-grow
+                )}>
+                  <ScrollArea className="absolute inset-0"> 
+                    <div className="p-4 space-y-4">
                       {certificationsData.map((cert, index) => (
                         <AnimatedSection key={cert.name} delay={`delay-${index * 75 + 250}`}>
                           <Card className="bg-muted/40 border border-border/20 p-3 hover:shadow-md hover:border-accent/40 transform hover:-translate-y-0.5 transition-all duration-300 ease-out group">
