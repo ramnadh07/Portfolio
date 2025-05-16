@@ -233,7 +233,7 @@ const AnalyticsDashboardSection: React.FC = () => {
   const renderActiveTabContent = () => {
     if (isGeneratingResponse) {
         return (
-            <div className="space-y-3 text-center text-muted-foreground">
+            <div className="space-y-3 text-center text-muted-foreground p-1">
                 <Loader2 className="h-5 w-5 mx-auto animate-spin mb-2" />
                 Generating response...
             </div>
@@ -242,7 +242,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
     if (sidebarDisplayContent) {
         return (
-            <div className="space-y-3 relative h-full">
+            <div className="space-y-3 relative p-1"> {/* Ensure padding for content */}
                 <Button
                     variant="ghost"
                     size="sm"
@@ -254,9 +254,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                 <h4 className="font-semibold text-primary flex items-center pt-1">
                     <BotMessageSquare className="h-4 w-4 mr-2 text-accent"/> AI Response
                 </h4>
-                <ScrollArea className="h-[calc(100%-2.5rem)]"> {/* Adjust height to account for title and button */}
-                   <p className="text-sm text-muted-foreground whitespace-pre-wrap">{sidebarDisplayContent}</p>
-                </ScrollArea>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{sidebarDisplayContent}</p>
             </div>
         );
     }
@@ -264,14 +262,14 @@ const AnalyticsDashboardSection: React.FC = () => {
     switch (activeSidebarContent) {
       case 'summary':
         return (
-          <div className="space-y-3">
+          <div className="space-y-3 p-1"> {/* Ensure padding for content */}
             <h4 className="font-semibold text-primary">Summary</h4>
             <p className="text-sm text-muted-foreground">The dashboard suggests the primary audience consists of hiring managers and recruiters from mid-sized companies (51-200 employees) in the FinTech and Healthcare sectors. They are mainly looking for Business Analysts and Consultants, with specific interest in Salesforce and Requirements Elicitation.</p>
           </div>
         );
       case 'interpretation':
         return (
-          <div className="space-y-3">
+          <div className="space-y-3 p-1"> {/* Ensure padding for content */}
              <h4 className="font-semibold text-primary">Interpretation</h4>
              <p className="text-sm text-muted-foreground">
                  The data points towards a strong interest from established tech-focused companies seeking experienced BAs/Consultants. The focus on Salesforce and specific BA skills (Requirements, Process Modeling) indicates a need for practical implementation expertise. GTM support interest, while lower, suggests opportunities in strategic roles within these organizations.
@@ -280,7 +278,7 @@ const AnalyticsDashboardSection: React.FC = () => {
         );
       case 'insights':
         return (
-          <div className="space-y-3">
+          <div className="space-y-3 p-1"> {/* Ensure padding for content */}
             <h4 className="font-semibold text-primary">Actionable Insights</h4>
              <ul className="text-sm text-muted-foreground list-disc list-outside pl-5 space-y-1">
                  <li>Tailor project examples highlighting Salesforce CRM and Requirements Elicitation successes.</li>
@@ -292,7 +290,7 @@ const AnalyticsDashboardSection: React.FC = () => {
         );
       default:
         return (
-           <div className="text-center text-muted-foreground">
+           <div className="text-center text-muted-foreground p-1"> {/* Ensure padding for content */}
              <HelpCircle className="h-6 w-6 mx-auto mb-2" />
              Select an option from the top menu to view details or generate insights.
            </div>
@@ -707,7 +705,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
                         </CardContent>
 
-                        <aside className="w-full md:w-1/3 lg:w-1/4 border-l border-border/30 bg-sidebar flex flex-col">
+                        <aside className="w-full md:w-2/5 lg:w-1/3 border-l border-border/30 bg-sidebar flex flex-col">
                             {/* Box 1: Navigation */}
                             <div className="p-2 m-2 border border-border/50 rounded-md bg-background shadow">
                                 <nav className="flex flex-wrap gap-1 justify-center md:flex-col md:space-y-1 md:justify-start md:flex-nowrap">
@@ -739,9 +737,14 @@ const AnalyticsDashboardSection: React.FC = () => {
                             </div>
 
                             {/* Box 2: Main Text Content Display */}
-                            <div className="p-3 m-2 border border-border/50 rounded-md bg-background shadow flex-grow overflow-y-auto">
-                                {renderActiveTabContent()}
+                            <div className="p-3 m-2 border border-border/50 rounded-md bg-background shadow flex-grow flex flex-col min-h-0">
+                                <ScrollArea className="h-full w-full">
+                                    <div className="p-1"> {/* Padding for content inside ScrollArea */}
+                                        {renderActiveTabContent()}
+                                    </div>
+                                </ScrollArea>
                             </div>
+
 
                             {/* Box 3: Example Prompts (conditionally) */}
                             {activeSidebarContent && !sidebarDisplayContent && !isGeneratingResponse && examplePrompts[activeSidebarContent] && (
@@ -763,5 +766,3 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
-
-
