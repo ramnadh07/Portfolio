@@ -8,7 +8,7 @@ import { ClipboardList, BrainCircuit, DatabaseZap, Wrench, Users, MessageSquare,
 
 const skillsData = [
   {
-    category: "Business Analysis Core",
+    category: "Business Analysis",
     icon: <ClipboardList className="h-5 w-5 mr-2 text-accent" />,
     skills: ["Requirements Elicitation & Management", "Stakeholder Analysis", "Process Modeling (BPMN)", "Use Case Development", "User Stories", "Gap Analysis", "Feasibility Studies"],
   },
@@ -81,3 +81,4 @@ const SkillsSection: React.FC = () => {
 };
 
 export default SkillsSection;
+
