@@ -13,12 +13,12 @@ const AboutSection: React.FC = () => {
           {/* Image Column */}
           <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
             <Image
-              src="https://placehold.co/600x800.png" 
-              alt="Abstract futuristic and optimistic visual representing Ramalingeswara Nadh's profile" 
+              src="https://placehold.co/600x800.png"
+              alt="Abstract futuristic and optimistic visual representing Ramalingeswara Nadh's profile"
               layout="fill"
               objectFit="cover"
               className="transition-all duration-700 ease-in-out group-hover:scale-110 filter group-hover:brightness-110 group-hover:saturate-150"
-              data-ai-hint="abstract futuristic" 
+              data-ai-hint="abstract futuristic"
             />
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent md:bg-gradient-to-r md:from-card md:via-card/30 md:to-transparent"></div>
@@ -33,13 +33,13 @@ const AboutSection: React.FC = () => {
             </CardHeader>
             <CardContent className="p-0 space-y-4 text-base md:text-lg text-foreground leading-relaxed">
               <p>
-                Hi, I'm Ramalingeswara Nadh, a multifaceted professional based in San Francisco, blending skills in Business Analysis, Functional Consulting, and Business Strategy. I thrive on dissecting complex challenges, translating them into actionable technology requirements, and shaping strategic initiatives that drive growth and operational efficiency. My passion is connecting the dots between business vision, market opportunity, and technical execution.
+                Hi, I'm Ramalingeswara Nadh, a multifaceted professional based in Bangalore, blending skills in Business Analysis, Consulting, and Business Strategy. I thrive on dissecting complex challenges, translating them into actionable technology requirements, and shaping strategic initiatives that drive growth and operational efficiency. My passion is connecting the dots between business vision, market opportunity, and technical execution.
               </p>
               <p>
-                My career spans traditional business analysis, deep-diving into process optimization and requirements elicitation, to functional consulting roles where I've configured and implemented enterprise systems (like CRM/ERP). More recently, I've focused on business strategy, market analysis, competitive intelligence, and supporting Go-To-Market (GTM) efforts, including pursuits and proposal development. I leverage data (SQL, analytics tools) and frameworks to inform strategic decisions and ensure successful project and business outcomes.
+                My career spans traditional business analysis, deep-diving into process optimization and requirements elicitation, to consulting roles where I've strategized and enabled AI driven accelerators across organizational competencies. More recently, I've focused on business strategy, market analysis, competitive intelligence, and supporting Go-To-Market (GTM) efforts, including pursuits and proposal development. I leverage AI, data & analytics tools and frameworks to inform strategic decisions and ensure successful project and business outcomes.
               </p>
               <p>
-                Beyond my core roles, I'm deeply interested in market dynamics, contribute to strategic planning discussions, and volunteer my analytical skills for social impact projects. Exploring the Bay Area's innovation landscape keeps me inspired.
+                Beyond my core roles, I'm deeply interested in market dynamics, contribute to strategic planning discussions, and volunteer my analytical skills for social impact projects. Exploring the potential for positive impact & innovation keeps me inspired.
               </p>
             </CardContent>
           </div>
