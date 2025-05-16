@@ -738,7 +738,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                             {/* Box 2: Main Text Content Display */}
                             <div className="p-3 m-2 border border-border/50 rounded-md bg-background shadow flex-grow flex flex-col min-h-0">
-                                <ScrollArea className="h-full w-full">
+                                <ScrollArea className="h-56 w-full"> {/* Applied fixed height for scrolling */}
                                     <div className="p-1"> {/* Padding for content inside ScrollArea */}
                                         {renderActiveTabContent()}
                                     </div>
@@ -766,3 +766,5 @@ const AnalyticsDashboardSection: React.FC = () => {
 };
 
 export default AnalyticsDashboardSection;
+
+
