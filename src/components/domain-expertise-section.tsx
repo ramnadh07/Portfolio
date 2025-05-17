@@ -29,12 +29,12 @@ const domainData = [
   {
     name: "Manufacturing & Operations",
     icon: <Factory className="h-5 w-5 mr-2 text-accent" />,
-    description: "Streamlining production processes, implementing ERP/MES systems, and driving operational excellence through data-driven insights.",
+    description: "Streamlining production processes, implementing advanced manufacturing solutions, and driving operational excellence through data-driven insights.",
   },
   {
     name: "Supply Chain & Logistics",
     icon: <Truck className="h-5 w-5 mr-2 text-accent" />,
-    description: "Designing resilient supply networks, optimizing inventory and warehouse management, and implementing logistics technology solutions.",
+    description: "Enhancing end-to-end supply chain visibility and traceability, optimizing processes for efficiency, and implementing technology solutions for transparent logistics networks.",
   },
 ];
 
