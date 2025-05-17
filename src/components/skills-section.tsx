@@ -18,12 +18,11 @@ const skillsData = [
     skills: [
       "Domain Advisory",
       "Solution Design",
-      "Modernization & Digital Transformation Frameworks",
       "Platformation Strategy",
       "Business Capability Modeling",
-      "Target Operating Model Design",
       "Value Stream Mapping",
-      "Product-Feature Mapping"
+      "Product-Feature Mapping",
+      "Modernization & Digital Transformation Frameworks"
     ],
   },
   {
