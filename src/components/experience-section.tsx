@@ -10,7 +10,7 @@ import {
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar, TrendingUp, Settings, Target, BrainCircuit } from "lucide-react"; // Added BrainCircuit
+import { Briefcase, Calendar, TrendingUp, Settings, Target, BrainCircuit, Lightbulb } from "lucide-react"; // Added Lightbulb
 
 const experienceData = [
  {
@@ -43,12 +43,12 @@ const experienceData = [
       "Created detailed process maps (BPMN) and solution design documents, facilitating clear communication between business and technical teams.",
       "Elevated Sonata's positioning as a digital innovation partner through impactful solution storytelling and effective proposal delivery.",
     ],
-     icon: <BrainCircuit className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />, // Changed to BrainCircuit for variety
+     icon: <Lightbulb className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
   },
   {
      id: "exp3",
-    company: "Data Insights Corp.", // This was previously Innovate Solutions Ltd., keeping original company for this older role.
-    role: "Business Analyst", // Keeping role as BA
+    company: "Data Insights Corp.",
+    role: "Business Analyst",
     duration: "Jul 2017 - Feb 2019",
     startYear: "2017",
     keywords: ["Requirements Elicitation", "User Stories", "UAT Coordination", "Confluence", "UX/UI Collaboration", "Project Support"],
