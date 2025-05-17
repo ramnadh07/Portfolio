@@ -19,11 +19,11 @@ const experienceData = [
     role: "Senior Business Analyst / Strategy Lead",
     duration: "Apr 2024 - Present",
     startYear: "2024",
-    keywords: ["Strategic Roadmaps", "Digital Transformation", "Market Analysis", "GTM Support", "Proposal Development", "Competitive Intelligence"],
+    keywords: ["Strategic Roadmaps", "Digital Transformation", "Market Analysis", "GTM Support", "Proposal Development", "Competitive Intelligence", "Product Strategy"],
     description: [
       "Led cross-functional teams in defining strategic roadmaps for digital transformation initiatives, aligning technology investments with long-term business goals.",
       "Conducted market analysis and competitive intelligence to identify growth opportunities, contributing to the development of new service offerings.",
-      "Developed compelling business cases for major projects, securing executive buy-in and funding.",
+      "Partnered closely with product management to define product vision, strategy, and roadmaps, ensuring new features and enhancements aligned with core business objectives and user needs.",
       "Supported GTM strategy by contributing to proposal development, solutioning for key pursuits, and creating sales enablement materials.",
       "Acted as a key liaison between product management, sales, and technical teams to ensure strategic alignment and effective execution.",
     ],
@@ -150,3 +150,4 @@ const ExperienceSection: React.FC = () => {
 };
 
 export default ExperienceSection;
+
