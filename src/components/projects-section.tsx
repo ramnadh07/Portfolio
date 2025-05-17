@@ -7,43 +7,43 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
-import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink } from "lucide-react"; // Added Layers3, Target, BriefcaseBusiness
+import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink } from "lucide-react";
 
 const projectsData = [
   {
     title: "Smart Farms & AgriTech Solutions",
     description: "This initiative involves designing and developing technology solutions for modern agriculture. It includes IoT integration for farm monitoring, data analytics for crop optimization, and supply chain improvements for better market access.",
-    imageUrl: "https://picsum.photos/seed/agritech-project/600/400",
+    imageUrl: "https://picsum.photos/seed/agritech-future/600/400", // Updated seed
     tags: ["AgriTech", "IoT", "Data Analytics", "Supply Chain", "Solution Design", "Sustainable Farming"],
     liveUrl: "#",
-    aiHint: "smart farm technology",
+    aiHint: "modern agriculture technology", // Updated hint
     icon: <Sprout className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
   },
   {
     title: "Platform Engineering & Modernization",
     description: "Focuses on re-architecting and modernizing existing enterprise platforms to enhance scalability, performance, and maintainability. This includes cloud migration strategies, microservices adoption, and DevOps enablement.",
-    imageUrl: "https://picsum.photos/seed/platform-modern/600/400",
+    imageUrl: "https://picsum.photos/seed/platform-automation/600/400", // Updated seed
     tags: ["Platform Engineering", "Modernization", "Cloud Migration", "Microservices", "DevOps", "Scalability"],
     liveUrl: "#",
-    aiHint: "cloud architecture diagram",
+    aiHint: "futuristic automation abstract", // Updated hint
     icon: <Layers3 className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
   },
   {
     title: "Market Strategy Analysis",
     description: "This project involves conducting in-depth market research and competitive analysis to identify new opportunities, define product positioning, and inform go-to-market strategies for new products or services.",
-    imageUrl: "https://picsum.photos/seed/market-analysis-new/600/400",
+    imageUrl: "https://picsum.photos/seed/creative-strategy/600/400", // Updated seed
     tags: ["Market Research", "Competitive Analysis", "GTM Strategy", "Product Positioning", "Strategic Planning"],
     liveUrl: "#",
-    aiHint: "market research charts",
+    aiHint: "innovative strategy team", // Updated hint
     icon: <Target className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
   },
   {
     title: "GTM Pursuits",
     description: "Supporting high-value sales pursuits and go-to-market initiatives. This includes understanding client needs, solution architecting, proposal development, and creating compelling presentations to win new business.",
-    imageUrl: "https://picsum.photos/seed/gtm-pursuits/600/400",
+    imageUrl: "https://picsum.photos/seed/business-pursuits/600/400", // Updated seed
     tags: ["GTM Strategy", "Sales Pursuits", "Solutioning", "Proposal Development", "Client Engagement"],
     liveUrl: "#",
-    aiHint: "business presentation team",
+    aiHint: "professional business meeting", // Updated hint
     icon: <BriefcaseBusiness className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
   },
 ];
@@ -111,3 +111,4 @@ const ProjectsSection: React.FC = () => {
 };
 
 export default ProjectsSection;
+
