@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; // Removed CardContent and CardFooter from direct import if no longer needed elsewhere
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
@@ -100,7 +100,7 @@ const ProjectsSection: React.FC = () => {
                       {project.title}
                     </CardTitle>
                   </div>
-                  <CardHeader className="pt-4 px-4">
+                  <CardHeader className="pt-4 px-4 pb-4 flex-grow"> {/* Added flex-grow and bottom padding */}
                     <div className="flex flex-wrap gap-1.5 mt-1">
                       {project.tags.map((tag) => (
                         <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
@@ -108,16 +108,11 @@ const ProjectsSection: React.FC = () => {
                         </Badge>
                       ))}
                     </div>
-                  </CardHeader>
-                  <CardContent className="flex-grow px-4 py-2">
-                    <p className="text-xs text-muted-foreground/80 flex items-center justify-center">
+                    <p className="text-xs text-muted-foreground/80 flex items-center justify-center mt-auto pt-2"> {/* Added mt-auto and pt-2 for spacing */}
                       <Info className="h-3 w-3 mr-1.5" /> Click card for details
                     </p>
-                  </CardContent>
-                   <CardFooter className="px-4 pb-4 pt-2 mt-auto bg-muted/20 border-t border-border/30">
-                     {/* Placeholder for any front footer content if needed, or remove if empty */}
-                      <p className="text-xs text-muted-foreground text-center w-full">Hover for image effects</p>
-                   </CardFooter>
+                  </CardHeader>
+                  {/* CardContent and CardFooter removed from the front face */}
                 </div>
 
                 {/* Back Face */}
@@ -128,14 +123,14 @@ const ProjectsSection: React.FC = () => {
                        {project.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="flex-grow px-4 py-3 overflow-y-auto">
-                    <ScrollArea className="h-[200px] pr-3"> {/* Adjust height as needed */}
+                  <div className="flex-grow px-4 py-3 overflow-y-auto"> {/* Replaced CardContent with div for direct ScrollArea child */}
+                    <ScrollArea className="h-[200px] pr-3">
                       <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                         {project.description}
                       </CardDescription>
                     </ScrollArea>
-                  </CardContent>
-                  <CardFooter className="px-4 pb-4 pt-3 flex justify-between items-center border-t border-border/40 bg-muted/30">
+                  </div>
+                  <div className="px-4 pb-4 pt-3 flex justify-between items-center border-t border-border/40 bg-muted/30"> {/* Replaced CardFooter with div */}
                     <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleFlip(project.id); }} className="text-accent border-accent hover:bg-accent/10 hover:text-accent transition-colors group/btn">
                       <RotateCcw className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:rotate-[-45deg]" /> View Image
                     </Button>
@@ -148,7 +143,7 @@ const ProjectsSection: React.FC = () => {
                            </Link>
                          </Button>
                     )}
-                  </CardFooter>
+                  </div>
                 </div>
               </Card>
             </div>
@@ -160,3 +155,4 @@ const ProjectsSection: React.FC = () => {
 };
 
 export default ProjectsSection;
+
