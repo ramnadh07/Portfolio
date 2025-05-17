@@ -53,7 +53,7 @@ const experienceData = [
     startYear: "2023",
     keywords: ["CSR Strategy", "Community Engagement", "Impact Reporting", "Stakeholder Management", "Brand Value", "Outreach Initiatives", "Corporate Social Responsibility"],
     description: [
-        "Spearheaded the strategy for impact-driven community engagement programs, ensuring CSR initiatives were deeply aligned with Stellium's long-term brand value and business objectives.",
+        "Orchestrated the strategy for impact-driven community engagement programs, ensuring CSR initiatives were deeply aligned with Stellium's long-term brand value and business objectives.",
         "Developed compelling CSR narratives, comprehensive impact reports, and insightful case studies to significantly enhance brand visibility and build robust stakeholder trust.",
         "Collaborated with educational institutions and community leaders to design and deliver impactful scholarship programs and targeted outreach initiatives.",
         "Played a key role in reinforcing Stellium's brand purpose, strategically embedding CSR as an integral lever within the company's growth and identity roadmap.",
