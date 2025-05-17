@@ -17,7 +17,7 @@ const impactData = [
     description: "Analyzed donation patterns and distribution logistics to identify opportunities for improving efficiency, helping reach 15% more families.",
     imageUrl: "https://picsum.photos/seed/impact-ba1/600/400",
     tags: ["Data Analysis", "Process Improvement", "Non-Profit", "Logistics"],
-    icon: <BarChartBig className="h-5 w-5 mr-2 text-accent" />,
+    icon: <BarChartBig className="h-5 w-5 mr-2 text-current" />, // Changed text-accent to text-current for overlay
     aiHint: "food bank logistics charts",
   },
   {
@@ -28,7 +28,7 @@ const impactData = [
     description: "Provide guidance and career advice to university students interested in business analysis, helping them prepare for interviews and understand industry expectations.",
     imageUrl: "https://picsum.photos/seed/impact-ba2/600/400",
     tags: ["Mentorship", "Community", "Career Development", "Education"],
-    icon: <Handshake className="h-5 w-5 mr-2 text-accent" />,
+    icon: <Handshake className="h-5 w-5 mr-2 text-current" />, // Changed text-accent to text-current for overlay
     aiHint: "professional mentorship meeting students",
   },
   {
@@ -39,7 +39,7 @@ const impactData = [
     description: "Facilitated an introductory workshop on Agile principles and practices for staff at several small non-profit organizations.",
     imageUrl: "https://picsum.photos/seed/impact-ba3/600/400",
     tags: ["Agile", "Workshop Facilitation", "Training", "Non-Profit Support"],
-    icon: <Wrench className="h-5 w-5 mr-2 text-accent" />, // Using Wrench as a tool/methodology icon
+    icon: <Wrench className="h-5 w-5 mr-2 text-current" />, // Changed text-accent to text-current for overlay
     aiHint: "agile workshop presentation group",
   },
 ];
@@ -70,9 +70,11 @@ const SocialImpactSection: React.FC = () => {
                       data-ai-hint={item.aiHint}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-300"></div>
-                     <h3 className="absolute bottom-4 left-4 text-lg font-semibold text-white drop-shadow-md z-10 transition-colors duration-300 group-hover:text-accent-foreground/90 flex items-center">
-                       {item.icon} {item.title}
-                    </h3>
+                     {/* Updated Title Styling to match Projects Section */}
+                     <CardTitle className="absolute bottom-4 left-4 text-lg font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
+                       {React.cloneElement(item.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
+                       {item.title}
+                    </CardTitle>
                   </div>
                   <CardHeader className="pt-4 px-4 pb-2">
                      {/* Title moved to image overlay */}
