@@ -13,38 +13,38 @@ const projectsData = [
   {
     title: "Smart Farms & AgriTech Solutions",
     description: "This initiative involves designing and developing technology solutions for modern agriculture. It includes IoT integration for farm monitoring, data analytics for crop optimization, and supply chain improvements for better market access.",
-    imageUrl: "https://picsum.photos/seed/agritech-future/600/400", // Updated seed
+    imageUrl: "https://picsum.photos/seed/agritech-future/600/400",
     tags: ["AgriTech", "IoT", "Data Analytics", "Supply Chain", "Solution Design", "Sustainable Farming"],
     liveUrl: "#",
-    aiHint: "modern agriculture technology", // Updated hint
-    icon: <Sprout className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
+    aiHint: "modern agriculture technology",
+    icon: <Sprout className="inline-block h-4 w-4 mr-1.5 text-current" />, // text-current to inherit color
   },
   {
     title: "Platform Engineering & Modernization",
     description: "Focuses on re-architecting and modernizing existing enterprise platforms to enhance scalability, performance, and maintainability. This includes cloud migration strategies, microservices adoption, and DevOps enablement.",
-    imageUrl: "https://picsum.photos/seed/platform-automation/600/400", // Updated seed
+    imageUrl: "https://picsum.photos/seed/platform-automation/600/400",
     tags: ["Platform Engineering", "Modernization", "Cloud Migration", "Microservices", "DevOps", "Scalability"],
     liveUrl: "#",
-    aiHint: "futuristic automation abstract", // Updated hint
-    icon: <Layers3 className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
+    aiHint: "futuristic automation abstract",
+    icon: <Layers3 className="inline-block h-4 w-4 mr-1.5 text-current" />,
   },
   {
     title: "Market Strategy Analysis",
     description: "This project involves conducting in-depth market research and competitive analysis to identify new opportunities, define product positioning, and inform go-to-market strategies for new products or services.",
-    imageUrl: "https://picsum.photos/seed/creative-strategy/600/400", // Updated seed
+    imageUrl: "https://picsum.photos/seed/creative-strategy/600/400",
     tags: ["Market Research", "Competitive Analysis", "GTM Strategy", "Product Positioning", "Strategic Planning"],
     liveUrl: "#",
-    aiHint: "innovative strategy team", // Updated hint
-    icon: <Target className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
+    aiHint: "innovative strategy team",
+    icon: <Target className="inline-block h-4 w-4 mr-1.5 text-current" />,
   },
   {
     title: "GTM Pursuits",
     description: "Supporting high-value sales pursuits and go-to-market initiatives. This includes understanding client needs, solution architecting, proposal development, and creating compelling presentations to win new business.",
-    imageUrl: "https://picsum.photos/seed/business-pursuits/600/400", // Updated seed
+    imageUrl: "https://picsum.photos/seed/business-pursuits/600/400",
     tags: ["GTM Strategy", "Sales Pursuits", "Solutioning", "Proposal Development", "Client Engagement"],
     liveUrl: "#",
-    aiHint: "professional business meeting", // Updated hint
-    icon: <BriefcaseBusiness className="inline-block h-4 w-4 mr-1.5 text-accent-foreground/80" />,
+    aiHint: "professional business meeting",
+    icon: <BriefcaseBusiness className="inline-block h-4 w-4 mr-1.5 text-current" />,
   },
 ];
 
@@ -71,9 +71,10 @@ const ProjectsSection: React.FC = () => {
                         className="transition-transform duration-500 ease-out group-hover:scale-105"
                          data-ai-hint={project.aiHint}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
-                       <CardTitle className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-colors duration-300 group-hover:text-accent-foreground/90 flex items-center">
-                         {project.icon} {project.title}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-60 group-hover:opacity-75 transition-opacity duration-300"></div>
+                       <CardTitle className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 rounded-lg backdrop-blur-sm">
+                         {React.cloneElement(project.icon, { className: "inline-block h-4 w-4 mr-1.5 text-white" })} {/* Ensure icon stays white */}
+                         {project.title}
                         </CardTitle>
                    </div>
 
