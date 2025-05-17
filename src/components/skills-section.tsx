@@ -15,22 +15,46 @@ const skillsData = [
   {
     category: "Functional Consulting",
     icon: <Settings className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["System Configuration (CRM/ERP)", "Solution Design", "Fit-Gap Analysis", "User Acceptance Testing (UAT)", "Data Migration Concepts", "Integration Understanding"],
+    skills: [
+      "Domain Advisory",
+      "Solution Design",
+      "Modernization & Digital Transformation Frameworks",
+      "Platformation Strategy",
+      "Business Capability Modeling",
+      "Target Operating Model Design",
+      "Value Stream Mapping",
+      "Product-Feature Mapping"
+    ],
   },
   {
     category: "Business Strategy & GTM",
     icon: <Target className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Market Analysis", "Competitive Intelligence", "Business Case Development", "Financial Modeling Basics", "Go-To-Market Strategy", "Proposal Development", "Pursuits Support", "Sales Enablement"],
+    skills: ["Market Analysis", "Competitive Intelligence", "Business Case Development", "Value Proposition Design", "Go-To-Market Strategy", "Proposal Development", "Pursuits Support", "Sales Enablement"],
   },
   {
     category: "Technical & Data Skills",
     icon: <BrainCircuit className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["Data Analysis (SQL, Excel)", "System Analysis", "API Understanding", "Reporting & Visualization (Tableau/Power BI)", "Agile/Scrum Methodologies", "SDLC"],
+    skills: [
+      "Data Analysis & Insight Generation",
+      "System Analysis",
+      "API Understanding",
+      "Reporting & Visualization (Tableau/Power BI)",
+      "Agile/Scrum Methodologies",
+      "SDLC",
+      "AI & GenAI Use Cases",
+      "Prompt Engineering (LLM, GPT-based systems)"
+    ],
   },
   {
     category: "Tools & Platforms",
      icon: <Wrench className="h-5 w-5 mr-2 text-accent" />,
-    skills: ["JIRA", "Confluence", "Salesforce (Admin Basics)", "MS Dynamics (Conceptual)", "Visio/Lucidchart", "SQL Server / PostgreSQL", "Microsoft Office Suite"],
+    skills: [
+      "Microsoft Excel & Office Suite",
+      "Power BI / Tableau",
+      "Jira / Confluence",
+      "Miro / Figma / Lucidchart",
+      "GenAI Tools & Agentic AI Frameworks"
+    ],
   },
   {
     category: "Soft Skills & Leadership",
