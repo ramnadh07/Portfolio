@@ -10,7 +10,7 @@ import {
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar, TrendingUp, Target, Compass, Lightbulb } from "lucide-react"; // Added Compass
+import { Briefcase, Calendar, TrendingUp, Target, Compass, Lightbulb, Handshake } from "lucide-react";
 
 const experienceData = [
  {
@@ -43,23 +43,23 @@ const experienceData = [
       "Created detailed process maps (BPMN) and solution design documents, facilitating clear communication between business and technical teams.",
       "Elevated Sonata's positioning as a digital innovation partner through impactful solution storytelling and effective proposal delivery.",
     ],
-     icon: <Compass className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />, 
+     icon: <Compass className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
   },
   {
      id: "exp3",
-    company: "Data Insights Corp.",
-    role: "Business Analyst",
-    duration: "Jul 2017 - Feb 2019",
-    startYear: "2017",
-    keywords: ["Requirements Elicitation", "User Stories", "UAT Coordination", "Confluence", "UX/UI Collaboration", "Project Support"],
+    company: "Stellium Consulting India Pvt Ltd.",
+    role: "CSR Consultant",
+    duration: "Jan 2023 - Feb 2023",
+    startYear: "2023",
+    keywords: ["CSR Strategy", "Community Engagement", "Impact Reporting", "Stakeholder Management", "Brand Value", "Outreach Initiatives", "Corporate Social Responsibility"],
     description: [
-        "Elicited and meticulously documented functional and non-functional requirements for diverse client-facing web applications using user stories, use cases, and specification documents.",
-        "Collaborated closely with UX/UI designers to ensure proposed solutions were both technically feasible and highly user-centric.",
-        "Managed UAT coordination, including script development, tester support, and effective defect triaging, ensuring delivery of high-quality software.",
-        "Established and maintained comprehensive project documentation in Confluence, significantly improving team knowledge sharing and onboarding efficiency.",
-        "Provided critical support to project managers by assisting with scope management, change request analysis, and risk identification.",
+        "Spearheaded the strategy for impact-driven community engagement programs, ensuring CSR initiatives were deeply aligned with Stellium's long-term brand value and business objectives.",
+        "Developed compelling CSR narratives, comprehensive impact reports, and insightful case studies to significantly enhance brand visibility and build robust stakeholder trust.",
+        "Collaborated with educational institutions and community leaders to design and deliver impactful scholarship programs and targeted outreach initiatives.",
+        "Played a key role in reinforcing Stellium's brand purpose, strategically embedding CSR as an integral lever within the company's growth and identity roadmap.",
+        "Facilitated partnerships with NGOs and managed stakeholder communications to ensure the effective implementation and sustainability of community projects.",
     ],
-     icon: <Briefcase className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
+     icon: <Handshake className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
   },
    {
      id: "exp4",
@@ -121,7 +121,7 @@ const ExperienceSection: React.FC = () => {
 
                                 {/* Right Tiles: Keywords (Visible on lg and up) */}
                                 <div className="hidden lg:flex flex-wrap gap-1.5 ml-2 items-center justify-end max-w-[220px] flex-shrink-0">
-                                  {exp.keywords.slice(0, 4).map(keyword => ( // Show max 4 keywords initially or adjust as needed
+                                  {exp.keywords.slice(0, 4).map(keyword => ( 
                                     <Badge key={keyword} variant="secondary" className="text-xs px-2 py-0.5 cursor-default">
                                       {keyword}
                                     </Badge>
