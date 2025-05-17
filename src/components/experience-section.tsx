@@ -10,7 +10,7 @@ import {
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar, TrendingUp, Settings, Target, BrainCircuit, Lightbulb } from "lucide-react"; // Added Lightbulb
+import { Briefcase, Calendar, TrendingUp, Settings, Target, BrainCircuit, Lightbulb, Focus } from "lucide-react"; // Added Focus
 
 const experienceData = [
  {
@@ -43,7 +43,7 @@ const experienceData = [
       "Created detailed process maps (BPMN) and solution design documents, facilitating clear communication between business and technical teams.",
       "Elevated Sonata's positioning as a digital innovation partner through impactful solution storytelling and effective proposal delivery.",
     ],
-     icon: <Lightbulb className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
+     icon: <Focus className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />, // Changed icon to Focus
   },
   {
      id: "exp3",
