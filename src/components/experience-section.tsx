@@ -10,7 +10,7 @@ import {
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar, TrendingUp, Settings, Target } from "lucide-react";
+import { Briefcase, Calendar, TrendingUp, Settings, Target, BrainCircuit } from "lucide-react"; // Added BrainCircuit
 
 const experienceData = [
  {
@@ -31,24 +31,24 @@ const experienceData = [
   },
   {
     id: "exp2",
-    company: "Innovate Solutions Ltd.",
-    role: "Functional Consultant / Business Analyst",
-    duration: "Mar 2019 - Dec 2021",
-    startYear: "2019",
-    keywords: ["CRM Implementation", "Salesforce", "Dynamics CRM", "Process Design", "UAT", "Solution Configuration"],
+    company: "Sonata Software",
+    role: "Business Analyst",
+    duration: "May 2023 - Jun 2023",
+    startYear: "2023",
+    keywords: ["Business Analysis", "Healthcare Platform", "GTM Strategy", "Solution Design", "Roadmap Development", "AI Frameworks", "BPMN", "Fit-Gap Analysis", "Stakeholder Management"],
     description: [
-      "Led requirements gathering and process design workshops for a large-scale CRM implementation (e.g., Salesforce/Dynamics), translating complex business needs into functional specifications.",
-      "Configured CRM modules (Sales, Service Cloud) based on client requirements, ensuring optimal system utilization and user experience.",
-      "Performed fit-gap analysis, identifying areas where standard functionality met needs versus where customization or workarounds were necessary.",
-      "Developed and executed UAT plans, managed defect resolution, and provided post-go-live support, ensuring successful system adoption.",
+      "Provided strategic business analysis for a next-gen healthcare platform modernization, focusing on GTM positioning and domain strategy.",
+      "Collaborated with product owners and Subject Matter Experts (SMEs) to perform fit-gap analysis, identify solution gaps, and design future-ready transformation roadmaps.",
+      "Contributed to the development of automation-led internal enhancements and client-facing AI frameworks, aiming for improved operational efficiency and scalability.",
       "Created detailed process maps (BPMN) and solution design documents, facilitating clear communication between business and technical teams.",
+      "Elevated Sonata's positioning as a digital innovation partner through impactful solution storytelling and effective proposal delivery.",
     ],
-     icon: <Settings className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
+     icon: <BrainCircuit className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />, // Changed to BrainCircuit for variety
   },
   {
      id: "exp3",
-    company: "Data Insights Corp.",
-    role: "Business Analyst",
+    company: "Data Insights Corp.", // This was previously Innovate Solutions Ltd., keeping original company for this older role.
+    role: "Business Analyst", // Keeping role as BA
     duration: "Jul 2017 - Feb 2019",
     startYear: "2017",
     keywords: ["Requirements Elicitation", "User Stories", "UAT Coordination", "Confluence", "UX/UI Collaboration", "Project Support"],
