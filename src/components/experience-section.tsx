@@ -61,21 +61,6 @@ const experienceData = [
     ],
      icon: <Handshake className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
   },
-   {
-     id: "exp4",
-    company: "Retail Dynamics Inc.",
-    role: "Junior Business Analyst / QA Analyst",
-    duration: "Jun 2016 - Jun 2017",
-    startYear: "2016",
-    keywords: ["Test Case Development", "Bug Tracking (JIRA)", "Requirements Support", "QA Analysis", "E-commerce"],
-    description: [
-        "Supported senior Business Analysts during requirements elicitation sessions, diligently taking notes and drafting initial documentation.",
-        "Developed and executed rigorous test cases for new e-commerce platform features, identifying critical defects early in the development cycle.",
-        "Effectively reported and tracked software bugs using JIRA, collaborating with developers to ensure timely and accurate resolutions.",
-        "Generated foundational reports on website performance metrics and user behavior patterns, providing initial data points for optimization efforts.",
-    ],
-    icon: <Briefcase className="h-5 w-5 mr-2 text-muted-foreground group-hover:text-accent transition-colors duration-300" />,
-  },
 ];
 
 const ExperienceSection: React.FC = () => {
