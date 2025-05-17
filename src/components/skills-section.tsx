@@ -36,7 +36,6 @@ const skillsData = [
     skills: [
       "Data Analysis & Insight Generation",
       "System Analysis",
-      "API Understanding",
       "Reporting & Visualization (Tableau/Power BI)",
       "Agile/Scrum Methodologies",
       "SDLC",
@@ -104,4 +103,3 @@ const SkillsSection: React.FC = () => {
 };
 
 export default SkillsSection;
-
