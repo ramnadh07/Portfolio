@@ -15,15 +15,15 @@ import { Briefcase, Calendar, TrendingUp, Settings, Target } from "lucide-react"
 const experienceData = [
  {
     id: "exp1",
-    company: "Strategic Solutions Inc.",
+    company: "Mindpsrint",
     role: "Senior Business Analyst / Strategy Lead",
-    duration: "Jan 2022 - Present",
-    startYear: "2022",
+    duration: "Apr 2024 - Present",
+    startYear: "2024",
     keywords: ["Strategic Roadmaps", "Digital Transformation", "Market Analysis", "GTM Support", "Proposal Development", "Competitive Intelligence"],
     description: [
       "Led cross-functional teams in defining strategic roadmaps for digital transformation initiatives, aligning technology investments with long-term business goals.",
       "Conducted market analysis and competitive intelligence to identify growth opportunities, contributing to the development of new service offerings.",
-      "Developed compelling business cases and financial models for major projects, securing executive buy-in and funding.",
+      "Developed compelling business cases for major projects, securing executive buy-in and funding.",
       "Supported GTM strategy by contributing to proposal development, solutioning for key pursuits, and creating sales enablement materials.",
       "Acted as a key liaison between product management, sales, and technical teams to ensure strategic alignment and effective execution.",
     ],
