@@ -23,7 +23,7 @@ const experienceData = [
     description: [
       "Led cross-functional teams in defining strategic roadmaps for digital transformation initiatives, aligning technology investments with long-term business goals.",
       "Conducted market analysis and competitive intelligence to identify growth opportunities, contributing to the development of new service offerings.",
-      "Partnered closely with product management to define product vision, strategy, and roadmaps, ensuring new features and enhancements aligned with core business objectives and user needs.",
+      "Shaped product strategy and development by defining product vision and roadmaps in partnership with product management, leveraging market insights, and aligning technical execution with core business goals and user requirements.",
       "Supported GTM strategy by contributing to proposal development, solutioning for key pursuits, and creating sales enablement materials.",
       "Acted as a key liaison between product management, sales, and technical teams to ensure strategic alignment and effective execution.",
     ],
