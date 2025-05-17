@@ -31,7 +31,7 @@ const experienceData = [
   },
   {
     id: "exp2",
-    company: "Sonata Software",
+    company: "Sonata Software Ltd.",
     role: "Business Analyst",
     duration: "May 2023 - Jun 2023",
     startYear: "2023",
