@@ -7,7 +7,7 @@ import { Card, CardDescription, CardHeader, CardTitle, CardContent, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
-import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink } from "lucide-react";
+import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink, Info } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +38,7 @@ const projectsData = [
     description: "This initiative involves conducting in-depth market research and comprehensive competitive analysis. The aim is to identify emerging market opportunities, define robust product positioning, and inform effective go-to-market strategies for new and existing products or services. It includes analyzing market trends, customer segments, and competitive landscapes to drive strategic decision-making.",
     imageUrl: "https://picsum.photos/seed/creative-strategy/600/400",
     tags: ["Market Research", "Competitive Analysis", "GTM Strategy", "Product Positioning", "Strategic Planning"],
-    liveUrl: "#",
+    liveUrl: null,
     aiHint: "innovative strategy team",
     icon: <Target className="inline-block h-5 w-5 mr-2 text-current" />,
   },
@@ -74,20 +74,19 @@ const ProjectsSection: React.FC = () => {
         {projectsData.map((project, index) => (
           <AnimatedSection key={project.id} delay={`delay-${index * 100}`}>
             <div
-              className="group w-full [perspective:1000px] cursor-pointer" // Removed fixed height h-[450px]
+              className="group w-full h-[450px] [perspective:1000px] cursor-pointer"
               onClick={() => handleFlip(project.id)}
             >
               <Card
                 className={cn(
                   "relative w-full h-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
-                  "flex flex-col", // Ensure card itself uses flex-col to adapt height
+                  "flex flex-col", 
                   flippedCardId === project.id && "[transform:rotateY(180deg)]"
                 )}
               >
                 {/* Front Face */}
                 <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col">
-                  {/* Image Box */}
-                  <div className="relative h-48 md:h-56 w-full overflow-hidden"> {/* Fixed height for image area */}
+                  <div className="relative h-48 md:h-56 w-full overflow-hidden">
                     <Image
                       src={project.imageUrl}
                       alt={`Visual representing ${project.title}`}
@@ -96,19 +95,22 @@ const ProjectsSection: React.FC = () => {
                       className="transition-transform duration-500 ease-out group-hover:scale-105"
                       data-ai-hint={project.aiHint}
                     />
-                    {/* Title overlay removed from here */}
-                    {/* Info icon removed from here */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-60 group-hover:opacity-75 transition-opacity duration-300"></div>
+                    <CardTitle className="tracking-tight absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
+                      {React.cloneElement(project.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
+                      {project.title}
+                    </CardTitle>
+                    <Info className="absolute top-3 right-3 h-4 w-4 text-white/70 group-hover:text-white transition-colors" />
                   </div>
-                  {/* Keywords Box */}
-                  <div className="p-3 border-t border-border/30 bg-background"> {/* Removed flex-grow, height determined by content */}
-                    <div className="flex flex-wrap gap-1.5">
+                  <CardHeader className="pt-4 px-4 pb-2">
+                    <div className="flex flex-wrap gap-1.5 mt-1">
                       {project.tags.map((tag) => (
                         <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                  </div>
+                  </CardHeader>
                 </div>
 
                 {/* Back Face */}
@@ -146,3 +148,4 @@ const ProjectsSection: React.FC = () => {
 };
 
 export default ProjectsSection;
+    
