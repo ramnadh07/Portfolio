@@ -96,7 +96,7 @@ const EducationSection: React.FC = () => {
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
                 <CardContent className={cn(
                   "p-0 overflow-hidden relative", 
-                  certificationsData.length > 6 ? "h-[30rem]" : "flex-grow" 
+                  certificationsData.length > 4 ? "h-[22rem]" : "flex-grow" 
                 )}>
                   <ScrollArea className="absolute inset-0">
                     <div className="p-4 space-y-4">
