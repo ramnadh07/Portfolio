@@ -103,24 +103,26 @@ const FloatingActions: React.FC = () => {
                  <PopoverContent side="left" align="start" className="w-auto p-2 rounded-md shadow-lg bg-popover border border-border/40 ml-2">
                     <div className="flex flex-col space-y-1">
                         <Button variant="ghost" size="sm" asChild className="w-full justify-start text-xs px-2 py-1 hover:bg-accent/40">
-                            <Link href="https://calendly.com/ramnadh_/30min" target="_blank" rel="noopener noreferrer">
+                            {/* Ensure this link is specific to your "Mentoring Session" event type or uses parameters if it's a general link */}
+                            <Link href={`https://calendly.com/ramnadh_/30min?a1=${encodeURIComponent("Mentoring Session")}`} target="_blank" rel="noopener noreferrer">
                                 <Users className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                                 Mentoring Session
                             </Link>
                         </Button>
                          <Button variant="ghost" size="sm" asChild className="w-full justify-start text-xs px-2 py-1 hover:bg-accent/40">
-                            <Link href="https://calendly.com/ramnadh_/30min" target="_blank" rel="noopener noreferrer">
+                             {/* Ensure this link is specific to your "Consulting Inquiry" event type or uses parameters */}
+                            <Link href={`https://calendly.com/ramnadh_/30min?a1=${encodeURIComponent("Consulting Inquiry")}`} target="_blank" rel="noopener noreferrer">
                                 <Briefcase className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                                 Consulting Inquiry
                             </Link>
                         </Button>
                         <Button variant="ghost" size="sm" asChild className="w-full justify-start text-xs px-2 py-1 hover:bg-accent/40">
-                            <Link href="https://calendly.com/ramnadh_/30min" target="_blank" rel="noopener noreferrer">
+                            {/* Ensure this link is specific to your "General Discussion" event type or uses parameters */}
+                            <Link href={`https://calendly.com/ramnadh_/30min?a1=${encodeURIComponent("General Discussion")}`} target="_blank" rel="noopener noreferrer">
                                 <Lightbulb className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                                 General Discussion
                             </Link>
                         </Button>
-                         {/* Removed the payment may be required note */}
                     </div>
                  </PopoverContent>
              </Popover>
