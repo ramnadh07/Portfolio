@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardDescription, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
-import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink, Info } from "lucide-react";
+import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
@@ -74,19 +74,20 @@ const ProjectsSection: React.FC = () => {
         {projectsData.map((project, index) => (
           <AnimatedSection key={project.id} delay={`delay-${index * 100}`}>
             <div
-              className="group w-full h-[450px] [perspective:1000px] cursor-pointer"
+              className="group w-full [perspective:1000px] cursor-pointer"
               onClick={() => handleFlip(project.id)}
             >
               <Card
                 className={cn(
-                  "relative w-full h-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
-                  "flex flex-col", 
+                  "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
+                  "flex flex-col",
+                  "rounded-lg border bg-card text-card-foreground shadow-sm", // Ensure card base styles are here
                   flippedCardId === project.id && "[transform:rotateY(180deg)]"
                 )}
               >
                 {/* Front Face */}
                 <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col">
-                  <div className="relative h-48 md:h-56 w-full overflow-hidden">
+                  <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden"> {/* Responsive image height */}
                     <Image
                       src={project.imageUrl}
                       alt={`Visual representing ${project.title}`}
@@ -100,17 +101,16 @@ const ProjectsSection: React.FC = () => {
                       {React.cloneElement(project.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
                       {project.title}
                     </CardTitle>
-                    <Info className="absolute top-3 right-3 h-4 w-4 text-white/70 group-hover:text-white transition-colors" />
                   </div>
-                  <CardHeader className="pt-4 px-4 pb-2">
-                    <div className="flex flex-wrap gap-1.5 mt-1">
+                  <div className="p-4 border-t border-border/40"> {/* Keywords box */}
+                    <div className="flex flex-wrap gap-1.5">
                       {project.tags.map((tag) => (
                         <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                  </CardHeader>
+                  </div>
                 </div>
 
                 {/* Back Face */}
@@ -122,20 +122,20 @@ const ProjectsSection: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow px-4 py-3 overflow-hidden">
-                    <ScrollArea className="h-full pr-3">
+                    <ScrollArea className="h-full pr-3"> {/* Ensure ScrollArea takes full height of this content block */}
                       <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                         {project.description}
                       </CardDescription>
                     </ScrollArea>
                   </CardContent>
                   {project.liveUrl && project.liveUrl !== "#" && (
-                       <CardFooter className="px-4 pb-4 pt-3 border-t border-border/40 bg-muted/30">
+                       <div className="px-4 pb-4 pt-3 border-t border-border/40 bg-muted/30">
                          <Button variant="default" size="sm" asChild className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors group/btn w-full">
                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
                              <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> View Live
                            </Link>
                          </Button>
-                       </CardFooter>
+                       </div>
                   )}
                 </div>
               </Card>
