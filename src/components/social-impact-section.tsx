@@ -5,14 +5,14 @@ import Image from "next/image";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { UsersRound, Leaf, Rocket } from "lucide-react"; // Updated icon imports
+import { UsersRound, Leaf, Rocket } from "lucide-react"; 
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const impactData = [
   {
     id: "impact-skills-mentorship",
-    title: "Empowering Futures: Skills Incubation & Mentorship",
+    title: "Community Training & Mentorship", // Updated Title
     organization: "Community Development Initiatives",
     role: "Lead Mentor & Program Facilitator",
     duration: "Ongoing",
@@ -24,7 +24,7 @@ const impactData = [
   },
   {
     id: "impact-environmental-stewardship",
-    title: "Eco-Warriors: Environmental & Social Stewardship",
+    title: "Environmental & Social Stewardship", // Updated Title
     organization: "Green Earth Foundation",
     role: "Campaign Coordinator & Educator",
     duration: "Various Campaigns",
@@ -36,7 +36,7 @@ const impactData = [
   },
   {
     id: "impact-startup-innovation",
-    title: "Igniting Innovation: Startup Enablement & Youth Mentorship",
+    title: "Startup Enablement & Mentorship", // Updated Title
     organization: "Innovate Forward Hub",
     role: "Founding Member & Mentor",
     duration: "Strategic Engagements",
@@ -75,13 +75,12 @@ const SocialImpactSection: React.FC = () => {
                   <div 
                     className={cn(
                       "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
-                      "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden", // Base Card styles
+                      "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden", 
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
                   >
                     {/* Front Face - Determines the height based on content */}
-                    <div className="[backface-visibility:hidden] flex flex-col h-full"> {/* Ensure flex-col and h-full for proper layout */}
-                      {/* Image Container */}
+                    <div className="[backface-visibility:hidden] flex flex-col h-full"> 
                       <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
                         <Image
                           src={item.imageUrl}
@@ -97,8 +96,8 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                       {/* Keywords Box - Bordered, below image */}
-                       <div className="px-4 pb-4 pt-2 mt-auto border-t border-border/40 bg-card"> 
+                       {/* Keywords Box */}
+                       <div className="px-4 pt-2 pb-4 mt-auto border-t border-border/40 bg-card"> 
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
