@@ -72,15 +72,20 @@ const SocialImpactSection: React.FC = () => {
                   className="group w-full [perspective:1000px] cursor-pointer"
                   onClick={() => handleFlip(item.id)}
                 >
-                  <div // Main flipping container - this will have card styles
+                  <div // Main flipping container - will have card styles
                     className={cn(
                       "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
                       "rounded-lg border bg-card text-card-foreground shadow-sm", 
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
                   >
-                    {/* Front Face - Determines the height */}
-                    <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg flex flex-col">
+                    {/* Front Face */}
+                    <div className={cn(
+                        "absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg flex flex-col",
+                         // Ensures the front determines the height when not flipped
+                        flippedCardId !== item.id ? "z-10" : "z-0" 
+                      )}
+                    >
                       {/* Image Container */}
                       <div className="relative h-48 md:h-56 lg:h-64 w-full overflow-hidden">
                         <Image
@@ -97,8 +102,8 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                      {/* Keywords Box */}
-                      <div className="border-t border-border/40 p-4 bg-card">
+                       {/* Keywords Box */}
+                      <div className="px-4 pt-3 pb-4 border-t border-border/40 bg-card">
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
@@ -109,8 +114,12 @@ const SocialImpactSection: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Back Face - Absolute, covers the front face */}
-                    <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col">
+                    {/* Back Face */}
+                    <div className={cn(
+                        "absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col",
+                        flippedCardId === item.id ? "z-10" : "z-0" 
+                      )}
+                    >
                       <CardHeader className="pb-3 pt-4 px-4 border-b border-border/40">
                         <CardTitle className="text-xl font-medium text-accent flex items-center">
                           {React.cloneElement(item.icon, { className: "inline-block h-5 w-5 mr-2" })}
