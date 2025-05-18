@@ -78,14 +78,14 @@ const SocialImpactSection: React.FC = () => {
                       "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden",
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
-                    // Dynamic height based on front face content
+                    // Dynamic height based on front face content. Responsive heights set below for the image and keyword box.
                   >
                     {/* Front Face */}
                     <div className={cn(
-                      "absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg",
-                      "shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col" // Added bg-card to front face wrapper
+                      "w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg", // Removed absolute to let content define height
+                      "shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col"
                     )}>
-                      <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
+                      <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden"> {/* Increased image height to match projects */}
                         <Image
                           src={item.imageUrl}
                           alt={`Image related to ${item.title}`}
@@ -100,7 +100,6 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                      {/* Tags/Keywords Box below image */}
                        <div className="px-4 pt-3 pb-4 border-t border-border/40 bg-card mt-auto"> {/* Ensures it's at the bottom of the flex col */}
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
@@ -125,8 +124,8 @@ const SocialImpactSection: React.FC = () => {
                             <p><span className="font-medium text-foreground/80">Duration:</span> {item.duration}</p>
                         </div>
                       </CardHeader>
-                      <CardContent className="flex-grow p-4 overflow-hidden">
-                        <ScrollArea className="h-full pr-3">
+                      <CardContent className="flex-grow p-4 overflow-hidden"> {/* Ensure this can grow */}
+                        <ScrollArea className="h-full pr-3"> {/* Allow ScrollArea to use full height of CardContent */}
                           <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                             {item.description}
                           </CardDescription>
@@ -145,3 +144,5 @@ const SocialImpactSection: React.FC = () => {
 };
 
 export default SocialImpactSection;
+
+    
