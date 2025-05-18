@@ -5,14 +5,14 @@ import Image from "next/image";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { UsersRound, Leaf, Rocket } from "lucide-react"; 
+import { UsersRound, Leaf, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const impactData = [
   {
     id: "impact-skills-mentorship",
-    title: "Community Training & Mentorship", // Updated Title
+    title: "Community Training & Mentorship",
     organization: "Community Development Initiatives",
     role: "Lead Mentor & Program Facilitator",
     duration: "Ongoing",
@@ -24,7 +24,7 @@ const impactData = [
   },
   {
     id: "impact-environmental-stewardship",
-    title: "Environmental & Social Stewardship", // Updated Title
+    title: "Environmental Stewardship", // Updated Title
     organization: "Green Earth Foundation",
     role: "Campaign Coordinator & Educator",
     duration: "Various Campaigns",
@@ -36,7 +36,7 @@ const impactData = [
   },
   {
     id: "impact-startup-innovation",
-    title: "Startup Enablement & Mentorship", // Updated Title
+    title: "Startup Enablement & Mentorship",
     organization: "Innovate Forward Hub",
     role: "Founding Member & Mentor",
     duration: "Strategic Engagements",
@@ -72,15 +72,16 @@ const SocialImpactSection: React.FC = () => {
                   className="group w-full [perspective:1000px] cursor-pointer"
                   onClick={() => handleFlip(item.id)}
                 >
-                  <div 
+                  <div
                     className={cn(
                       "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
-                      "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden", 
+                      "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden",
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
+                    style={{ minHeight: '350px' }} // Ensure consistent height for flip
                   >
-                    {/* Front Face - Determines the height based on content */}
-                    <div className="[backface-visibility:hidden] flex flex-col h-full"> 
+                    {/* Front Face */}
+                    <div className="[backface-visibility:hidden] absolute inset-0 flex flex-col">
                       <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
                         <Image
                           src={item.imageUrl}
@@ -96,8 +97,7 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                       {/* Keywords Box */}
-                       <div className="px-4 pt-2 pb-4 mt-auto border-t border-border/40 bg-card"> 
+                       <div className="px-4 pt-2 pb-4 mt-auto border-t border-border/40 bg-card">
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
@@ -122,7 +122,7 @@ const SocialImpactSection: React.FC = () => {
                         </div>
                       </CardHeader>
                       <CardContent className="flex-grow p-4 overflow-hidden">
-                        <ScrollArea className="h-full pr-3"> 
+                        <ScrollArea className="h-full pr-3">
                           <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                             {item.description}
                           </CardDescription>
@@ -141,4 +141,3 @@ const SocialImpactSection: React.FC = () => {
 };
 
 export default SocialImpactSection;
-
