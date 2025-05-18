@@ -121,13 +121,13 @@ const examplePrompts = {
 const TreemapTooltipContent = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-lg border bg-background p-2 shadow-sm">
+      <div className="rounded-lg border bg-background p-2 shadow-sm max-w-[150px] whitespace-normal">
         <div className="grid grid-cols-1 gap-1">
           <div className="flex flex-col">
             <span className="text-[0.70rem] uppercase text-muted-foreground">
               Company
             </span>
-            <span className="font-bold text-foreground">
+            <span className="font-bold text-foreground break-words">
               {payload[0].payload.name}
             </span>
           </div>
@@ -330,7 +330,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 <TooltipTrigger asChild>
                                     <Users className="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
+                                <TooltipContent className="max-w-[120px] whitespace-normal text-center">
                                     <p>Total simulated page views.</p>
                                 </TooltipContent>
                             </Tooltip>
@@ -355,7 +355,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 <TooltipTrigger asChild>
                                     <Star className="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
+                                <TooltipContent className="max-w-[120px] whitespace-normal text-center">
                                     <p>Average rating from feedback.</p>
                                 </TooltipContent>
                             </Tooltip>
@@ -376,7 +376,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 <TooltipTrigger asChild>
                                     <Activity className="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
+                                <TooltipContent className="max-w-[120px] whitespace-normal text-center">
                                     <p>Percentage of visitors who interacted with the feedback form.</p>
                                 </TooltipContent>
                             </Tooltip>
@@ -397,7 +397,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 <TooltipTrigger asChild>
                                     <TrendingUp className="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
+                                <TooltipContent className="max-w-[120px] whitespace-normal text-center">
                                     <p>Simulated monthly visitor trend over the last 6 months.</p>
                                 </TooltipContent>
                             </Tooltip>
@@ -444,7 +444,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 <TooltipTrigger asChild>
                                     <Target className="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
+                                <TooltipContent className="max-w-[120px] whitespace-normal text-center">
                                     <p>Frequency of skills mentioned in feedback/needs.</p>
                                 </TooltipContent>
                             </Tooltip>
@@ -480,7 +480,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                                 <TooltipTrigger asChild>
                                     <Zap className="h-4 w-4 text-muted-foreground cursor-help" />
                                 </TooltipTrigger>
-                                <TooltipContent>
+                                <TooltipContent className="max-w-[120px] whitespace-normal text-center">
                                     <p>Most frequently mentioned domain in feedback/needs.</p>
                                 </TooltipContent>
                             </Tooltip>
@@ -519,16 +519,7 @@ const AnalyticsDashboardSection: React.FC = () => {
                         <CardContent className="p-6 pt-4 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10 flex-grow">
                             <div className="col-span-1 flex flex-col space-y-3">
                                 <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Building2 className="h-4 w-4 mr-1.5 cursor-help"/>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Simulated distribution of interest by company name.</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <Building2 className="h-4 w-4 mr-1.5"/>
                                     Companies Showing Interest
                                 </h4>
                                 <div className={`flex-grow w-full ${chartHeight}`}>
@@ -556,16 +547,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                             <div className="col-span-1 flex flex-col space-y-3">
                                 <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <UsersRound className="h-4 w-4 mr-1.5 cursor-help"/>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Breakdown of visitor company sizes (simulated).</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <UsersRound className="h-4 w-4 mr-1.5"/>
                                     Company Size
                                 </h4>
                                 <div className={`flex-grow w-full ${chartHeight}`}>
@@ -586,16 +568,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                             <div className="col-span-1 flex flex-col space-y-3">
                                 <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Briefcase className="h-4 w-4 mr-1.5 cursor-help"/>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Common roles of visitors (simulated).</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <Briefcase className="h-4 w-4 mr-1.5"/>
                                     Common Visitor Roles
                                 </h4>
                                 <div className={`flex-grow w-full flex items-center justify-center ${chartHeight}`}>
@@ -616,16 +589,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                             <div className="col-span-1 flex flex-col space-y-3">
                                 <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Factory className="h-4 w-4 mr-1.5 cursor-help"/>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Industries visitors commonly belong to (simulated).</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <Factory className="h-4 w-4 mr-1.5"/>
                                     Industry
                                 </h4>
                                 <div className={`flex-grow w-full ${chartHeight}`}>
@@ -646,16 +610,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                             <div className="col-span-1 flex flex-col space-y-3">
                                 <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Search className="h-4 w-4 mr-1.5 cursor-help"/>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Primary reasons visitors connect or roles they are looking to fill (simulated).</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                   <Search className="h-4 w-4 mr-1.5"/>
                                     Major Requirement
                                 </h4>
                                 <div className={cn("flex-grow w-full", chartHeight)}>
@@ -676,16 +631,7 @@ const AnalyticsDashboardSection: React.FC = () => {
 
                             <div className="col-span-1 flex flex-col space-y-3">
                                 <h4 className="text-sm font-medium text-muted-foreground flex items-center justify-start">
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Target className="h-4 w-4 mr-1.5 cursor-help"/>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Specific skills mentioned by visitors (simulated).</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <Target className="h-4 w-4 mr-1.5"/>
                                     Specific Skills Mentioned
                                 </h4>
                                 <div className={cn("flex-grow w-full", chartHeight)}>
