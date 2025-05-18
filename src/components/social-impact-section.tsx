@@ -72,22 +72,17 @@ const SocialImpactSection: React.FC = () => {
                   className="group w-full [perspective:1000px] cursor-pointer"
                   onClick={() => handleFlip(item.id)}
                 >
-                  <div // Main flipping container - will have card styles
+                  <div 
                     className={cn(
                       "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
                       "rounded-lg border bg-card text-card-foreground shadow-sm", 
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
                   >
-                    {/* Front Face */}
-                    <div className={cn(
-                        "absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg flex flex-col",
-                         // Ensures the front determines the height when not flipped
-                        flippedCardId !== item.id ? "z-10" : "z-0" 
-                      )}
-                    >
+                    {/* Front Face - Determines the height */}
+                    <div className="[backface-visibility:hidden] rounded-lg overflow-hidden flex flex-col">
                       {/* Image Container */}
-                      <div className="relative h-48 md:h-56 lg:h-64 w-full overflow-hidden">
+                      <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
                         <Image
                           src={item.imageUrl}
                           alt={`Image related to ${item.title}`}
@@ -97,13 +92,13 @@ const SocialImpactSection: React.FC = () => {
                           data-ai-hint={item.aiHint}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-300"></div>
-                        <CardTitle className="tracking-tight absolute bottom-4 left-4 text-lg font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
+                        <CardTitle className="tracking-tight absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
                            {React.cloneElement(item.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
                           {item.title}
                         </CardTitle>
                       </div>
                        {/* Keywords Box */}
-                      <div className="px-4 pt-3 pb-4 border-t border-border/40 bg-card">
+                      <div className="border-t border-border/40 p-4 bg-card">
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
@@ -115,11 +110,7 @@ const SocialImpactSection: React.FC = () => {
                     </div>
 
                     {/* Back Face */}
-                    <div className={cn(
-                        "absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col",
-                        flippedCardId === item.id ? "z-10" : "z-0" 
-                      )}
-                    >
+                    <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col">
                       <CardHeader className="pb-3 pt-4 px-4 border-b border-border/40">
                         <CardTitle className="text-xl font-medium text-accent flex items-center">
                           {React.cloneElement(item.icon, { className: "inline-block h-5 w-5 mr-2" })}
