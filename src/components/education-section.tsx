@@ -33,36 +33,14 @@ const educationDegreesData = [
 ];
 
 const certificationsData = [
-  {
-    name: "Certified Business Analysis Professional (CBAP)",
-    issuingBody: "IIBA (International Institute of Business Analysis)",
-    year: "2022",
-  },
-  {
-    name: "Digital Strategy and Innovation",
-    issuingBody: "Harvard Business School Online",
-    year: "2021",
-  },
-  {
-    name: "Enterprise Architecture Professional",
-    issuingBody: "The Open Group",
-    year: "2020",
-  },
-  {
-    name: "Certified Scrum Product Owner (CSPO)",
-    issuingBody: "Scrum Alliance",
-    year: "2019",
-  },
-  {
-    name: "Google Project Management: Professional Certificate",
-    issuingBody: "Coursera & Google",
-    year: "2023",
-  },
-  {
-    name: "Salesforce Certified Administrator",
-    issuingBody: "Salesforce",
-    year: "2024",
-  },
+  { name: "Data Analyst", issuingBody: "Google" },
+  { name: "Cybersecurity Analyst", issuingBody: "IBM" },
+  { name: "SAS Visual Business Analytics", issuingBody: "SAS" },
+  { name: "AWS Fundamentals", issuingBody: "AWS" },
+  { name: "Marketing Analytics", issuingBody: "University of Virginia" },
+  { name: "Six Sigma Principles", issuingBody: "Kennesaw State University" },
+  { name: "Agile Software Development", issuingBody: "University of Minnesota" },
+  { name: "Business Analytics & Digital Media", issuingBody: "Indian School of Business" },
 ];
 
 const EducationSection: React.FC = () => {
@@ -117,8 +95,8 @@ const EducationSection: React.FC = () => {
               </h3>
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
                 <CardContent className={cn(
-                  "p-0 overflow-hidden relative", // Base classes
-                  certificationsData.length > 4 ? "h-[30rem]" : "flex-grow" // Conditional height or flex-grow
+                  "p-0 overflow-hidden relative", 
+                  certificationsData.length > 4 ? "h-[30rem]" : "flex-grow" 
                 )}>
                   <ScrollArea className="absolute inset-0">
                     <div className="p-4 space-y-4">
@@ -128,7 +106,6 @@ const EducationSection: React.FC = () => {
                             <CardHeader className="p-0">
                               <CardTitle className="text-lg font-medium text-foreground group-hover:text-accent transition-colors">{cert.name}</CardTitle>
                               <p className="text-sm text-muted-foreground group-hover:text-accent/80 transition-colors font-medium mt-0.5">{cert.issuingBody}</p>
-                              <p className="text-xs text-muted-foreground mt-1">{cert.year}</p>
                             </CardHeader>
                           </Card>
                         </AnimatedSection>
