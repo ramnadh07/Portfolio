@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
             {/* Main Footer Content - Added top border */}
             <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row px-4 border-t border-border/30">
                 <p className="text-sm text-muted-foreground text-center sm:text-left">
-                    &copy; {currentYear} Ramalingeswara Nadh | Business Analyst & Strategist. Built with Next.js & Tailwind CSS.
+                    &copy; {currentYear} Ramalingeswara Nadh | Business Analyst & Strategist.
                 </p>
                 <div className="flex space-x-2">
                      <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
                     </Button>
                     {/* Added Mail icon/link */}
                     <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
-                        <Link href="mailto:your.email@example.com" aria-label="Email">
+                        <Link href="mailto:brucewyn09@gmail.com" aria-label="Email">
                            <Mail className="h-5 w-5" />
                         </Link>
                     </Button>
@@ -72,3 +72,4 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+
