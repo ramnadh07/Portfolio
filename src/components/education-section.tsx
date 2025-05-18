@@ -57,7 +57,7 @@ const EducationSection: React.FC = () => {
         </CardHeader>
         <CardContent className="p-0">
           {/* Grid for Degrees and Certifications */}
-          <div className="grid md:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-10 mb-12"> {/* Increased bottom margin */}
+          <div className="grid md:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-10 mb-12">
             {/* Left Column: Education Degrees */}
             <AnimatedSection animationClass="animate-fade-in-up" delay="delay-100" className="space-y-6">
               <h3 className="flex items-center text-2xl font-semibold text-primary mb-4">
@@ -95,8 +95,7 @@ const EducationSection: React.FC = () => {
               </h3>
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
                 <CardContent className={cn(
-                  "p-0 overflow-hidden relative",
-                  certificationsData.length > 6 ? "h-[28rem]" : "flex-grow" // Show 6, scroll if > 6
+                  "p-0 overflow-hidden relative flex-grow" 
                 )}>
                   <ScrollArea className="absolute inset-0">
                     <div className="p-4 space-y-4">
@@ -143,3 +142,4 @@ const EducationSection: React.FC = () => {
 
 export default EducationSection;
 
+    
