@@ -18,7 +18,6 @@ const educationDegreesData = [
       "President, Data & Business Analytics Club.",
       "Delivered workshops and developed functional AI/ML projects.",
       "Formulated marketing & design thinking strategy for a large-scale restaurant/bar.",
-      "Applied analytical skills to social impact projects, fostering community development.",
     ],
   },
   {
