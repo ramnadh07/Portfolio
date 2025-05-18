@@ -7,7 +7,7 @@ import { Card, CardDescription, CardHeader, CardTitle, CardContent, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
-import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink } from "lucide-react"; // Removed RotateCcw, Info
+import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ const projectsData = [
     tags: ["AgriTech", "IoT", "Data Analytics", "Supply Chain", "Solution Design", "Sustainable Farming"],
     liveUrl: "#",
     aiHint: "modern agriculture technology",
-    icon: <Sprout className="inline-block h-4 w-4 mr-1.5 text-current" />,
+    icon: <Sprout className="inline-block h-5 w-5 mr-2 text-current" />,
   },
   {
     id: "project-platform",
@@ -30,7 +30,7 @@ const projectsData = [
     tags: ["Platform Engineering", "Modernization", "Cloud Migration", "Microservices", "DevOps", "Scalability"],
     liveUrl: "#",
     aiHint: "futuristic automation abstract",
-    icon: <Layers3 className="inline-block h-4 w-4 mr-1.5 text-current" />,
+    icon: <Layers3 className="inline-block h-5 w-5 mr-2 text-current" />,
   },
   {
     id: "project-market-strategy",
@@ -40,7 +40,7 @@ const projectsData = [
     tags: ["Market Research", "Competitive Analysis", "GTM Strategy", "Product Positioning", "Strategic Planning"],
     liveUrl: "#",
     aiHint: "innovative strategy team",
-    icon: <Target className="inline-block h-4 w-4 mr-1.5 text-current" />,
+    icon: <Target className="inline-block h-5 w-5 mr-2 text-current" />,
   },
   {
     id: "project-gtm-pursuits",
@@ -50,7 +50,7 @@ const projectsData = [
     tags: ["GTM Strategy", "Sales Pursuits", "Solutioning", "Proposal Development", "Client Engagement"],
     liveUrl: "#",
     aiHint: "professional business meeting",
-    icon: <BriefcaseBusiness className="inline-block h-4 w-4 mr-1.5 text-current" />,
+    icon: <BriefcaseBusiness className="inline-block h-5 w-5 mr-2 text-current" />,
   },
 ];
 
@@ -74,19 +74,20 @@ const ProjectsSection: React.FC = () => {
         {projectsData.map((project, index) => (
           <AnimatedSection key={project.id} delay={`delay-${index * 100}`}>
             <div
-              className="group w-full h-[450px] [perspective:1000px] cursor-pointer"
+              className="group w-full [perspective:1000px] cursor-pointer" // Removed fixed height h-[450px]
               onClick={() => handleFlip(project.id)}
             >
               <Card
                 className={cn(
                   "relative w-full h-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
+                  "flex flex-col", // Ensure card itself uses flex-col to adapt height
                   flippedCardId === project.id && "[transform:rotateY(180deg)]"
                 )}
               >
                 {/* Front Face */}
                 <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col">
-                  {/* Image Box - takes roughly top 3/5 of card height */}
-                  <div className="relative h-3/5 w-full overflow-hidden">
+                  {/* Image Box */}
+                  <div className="relative h-48 md:h-56 w-full overflow-hidden"> {/* Fixed height for image area */}
                     <Image
                       src={project.imageUrl}
                       alt={`Visual representing ${project.title}`}
@@ -95,22 +96,18 @@ const ProjectsSection: React.FC = () => {
                       className="transition-transform duration-500 ease-out group-hover:scale-105"
                       data-ai-hint={project.aiHint}
                     />
-                    <CardTitle className="absolute bottom-3 left-3 text-lg font-semibold text-white drop-shadow-md z-10 p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-md backdrop-blur-sm flex items-center">
-                      {React.cloneElement(project.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
-                      {project.title}
-                    </CardTitle>
+                    {/* Title overlay removed from here */}
+                    {/* Info icon removed from here */}
                   </div>
-                  {/* Keywords Box - takes roughly bottom 2/5 of card height */}
-                  <div className="h-2/5 p-3 border-t border-border/30 bg-background flex flex-col justify-center">
-                     <ScrollArea className="h-full">
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.tags.map((tag) => (
-                            <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                    </ScrollArea>
+                  {/* Keywords Box */}
+                  <div className="p-3 border-t border-border/30 bg-background"> {/* Removed flex-grow, height determined by content */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -122,7 +119,7 @@ const ProjectsSection: React.FC = () => {
                        {project.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="flex-grow px-4 py-3 overflow-hidden"> {/* Changed to overflow-hidden for ScrollArea */}
+                  <CardContent className="flex-grow px-4 py-3 overflow-hidden">
                     <ScrollArea className="h-full pr-3">
                       <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                         {project.description}
