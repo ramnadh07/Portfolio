@@ -24,7 +24,7 @@ const impactData = [
   },
   {
     id: "impact-environmental-stewardship",
-    title: "Environmental Stewardship", // Updated Title
+    title: "Environmental Stewardship",
     organization: "Green Earth Foundation",
     role: "Campaign Coordinator & Educator",
     duration: "Various Campaigns",
@@ -78,10 +78,13 @@ const SocialImpactSection: React.FC = () => {
                       "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden",
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
-                    style={{ minHeight: '350px' }} // Ensure consistent height for flip
+                    // Dynamic height based on front face content
                   >
                     {/* Front Face */}
-                    <div className="[backface-visibility:hidden] absolute inset-0 flex flex-col">
+                    <div className={cn(
+                      "absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg",
+                      "shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col" // Added bg-card to front face wrapper
+                    )}>
                       <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
                         <Image
                           src={item.imageUrl}
@@ -97,7 +100,8 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                       <div className="px-4 pt-2 pb-4 mt-auto border-t border-border/40 bg-card">
+                      {/* Tags/Keywords Box below image */}
+                       <div className="px-4 pt-3 pb-4 border-t border-border/40 bg-card mt-auto"> {/* Ensures it's at the bottom of the flex col */}
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
