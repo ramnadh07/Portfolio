@@ -72,7 +72,7 @@ const FloatingActions: React.FC = () => {
 
   // Function to handle opening mail client for freelance inquiry
   const handleFreelanceInquiry = () => {
-    const email = "your.email@example.com"; // Replace with your actual email
+    const email = "brucewyn09@gmail.com"; // Updated email
     const subject = "Freelance/Contract Inquiry";
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
   };
@@ -164,7 +164,7 @@ const FloatingActions: React.FC = () => {
               </Link>
             </Button>
             <Button variant="ghost" asChild className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50">
-              <Link href="mailto:your.email@example.com">
+              <Link href="mailto:brucewyn09@gmail.com">
                 <Mail className="mr-2 h-4 w-4 text-accent" />
                 Send an Email
               </Link>

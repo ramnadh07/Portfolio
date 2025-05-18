@@ -45,24 +45,26 @@ const Header: React.FC = () => {
               </Button>
             </DropdownMenuTrigger>
             {/* Adjusted Dropdown Width and Transparency */}
-            <DropdownMenuContent align="start" className="w-40 bg-popover/90 backdrop-blur-sm"> {/* Reduced width, added transparency */}
-              <DropdownMenuLabel className="text-sm font-medium">Rate this Portfolio</DropdownMenuLabel>
+            <DropdownMenuContent align="start" className="w-auto bg-popover/90 backdrop-blur-sm min-w-[100px]"> {/* Adjusted width */}
+              <DropdownMenuLabel className="text-xs font-medium px-2 py-1.5">Rate Portfolio</DropdownMenuLabel> {/* Adjusted padding and text size */}
               <DropdownMenuSeparator />
               {/* Radio group for rating */}
               <DropdownMenuRadioGroup value={rating ?? ""} onValueChange={setRating} className="px-1 py-1">
-                {Array.from({ length: 10 }, (_, i) => i + 1).map((value) => (
+                {Array.from({ length: 10 }, (_, i) => i + 1).reverse().map((value) => ( /* Reversed order */
                   <DropdownMenuRadioItem
                     key={value}
                     value={String(value)}
                     className={
-                        `flex justify-between items-center cursor-pointer text-xs py-1 px-2 rounded-sm
-                         ${rating === String(value) ? 'bg-accent/20 text-accent-foreground' : 'hover:bg-accent/10'}` // Highlight selected, adjusted padding/text size
+                        `flex justify-between items-center cursor-pointer text-xs py-1 px-2 rounded-sm transition-all duration-200 ease-out
+                         ${rating === String(value) ? 
+                            (value >= 7 ? 'bg-accent/30 text-accent-foreground scale-105 shadow-md' : 'bg-accent/20 text-accent-foreground') : 
+                            'hover:bg-accent/10 hover:text-accent-foreground'}`
                     }
                   >
                     <span>{value}</span>
                     {/* Icons for Low/High */}
-                    {value <= 3 && <TrendingDown className="h-3 w-3 text-muted-foreground ml-2" />}
-                    {value >= 8 && <TrendingUp className="h-3 w-3 text-muted-foreground ml-2" />}
+                    {value === 1 && <TrendingDown className="h-3 w-3 text-destructive ml-2" />}
+                    {value === 10 && <TrendingUp className="h-3 w-3 text-green-500 ml-2" />}
                   </DropdownMenuRadioItem>
                 ))}
               </DropdownMenuRadioGroup>
@@ -139,7 +141,7 @@ const Header: React.FC = () => {
 
             {/* Contact Button */}
             <Button variant="outline" size="sm" asChild className="border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group">
-                <Link href="mailto:your.email@example.com">
+                <Link href="mailto:brucewyn09@gmail.com">
                 <>
                     <Mail className="h-4 w-4 sm:mr-1.5 transition-transform duration-200 group-hover:scale-110" />
                     <span className="hidden sm:inline">Contact</span>
