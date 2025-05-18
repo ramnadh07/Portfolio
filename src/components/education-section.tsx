@@ -95,7 +95,8 @@ const EducationSection: React.FC = () => {
               </h3>
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
                 <CardContent className={cn(
-                  "p-0 overflow-hidden relative flex-grow" 
+                  "p-0 overflow-hidden relative",
+                  "h-[28rem]" // Fixed height to show approx 6 certs, adjust as needed
                 )}>
                   <ScrollArea className="absolute inset-0">
                     <div className="p-4 space-y-4">
@@ -141,5 +142,4 @@ const EducationSection: React.FC = () => {
 };
 
 export default EducationSection;
-
     
