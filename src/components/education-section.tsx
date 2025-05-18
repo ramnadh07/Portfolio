@@ -19,7 +19,7 @@ const educationDegreesData = [
       "Delivered workshops on AI/ML applications and advanced analytics techniques.",
       "Led capstone project developing an AI/ML-driven functional solution with predictive capabilities.",
       "Formulated a comprehensive marketing & design thinking strategy for a large-scale restaurant/bar.",
-      "Applied analytical acumen to pro-bono consulting for social enterprises, fostering community impact.",
+      "Applied analytical skills to social impact projects, fostering community development.",
     ],
   },
   {
