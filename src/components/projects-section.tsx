@@ -73,21 +73,21 @@ const ProjectsSection: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projectsData.map((project, index) => (
           <AnimatedSection key={project.id} delay={`delay-${index * 100}`}>
-            <div
+            <div // Perspective container
               className="group w-full [perspective:1000px] cursor-pointer"
               onClick={() => handleFlip(project.id)}
             >
-              <Card
+              <div // Flipping element - this will have card styles and manage its own height based on front face
                 className={cn(
                   "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
-                  "flex flex-col",
-                  "rounded-lg border bg-card text-card-foreground shadow-sm", // Ensure card base styles are here
+                  "rounded-lg border bg-card text-card-foreground shadow-sm", // Card base styles
                   flippedCardId === project.id && "[transform:rotateY(180deg)]"
                 )}
               >
-                {/* Front Face */}
-                <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col">
-                  <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden"> {/* Responsive image height */}
+                {/* Front Face - Determines the height of the card */}
+                <div className="[backface-visibility:hidden] rounded-lg overflow-hidden flex flex-col"> {/* Added overflow-hidden & flex-col here */}
+                  {/* Image Container */}
+                  <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
                     <Image
                       src={project.imageUrl}
                       alt={`Visual representing ${project.title}`}
@@ -97,12 +97,14 @@ const ProjectsSection: React.FC = () => {
                       data-ai-hint={project.aiHint}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-60 group-hover:opacity-75 transition-opacity duration-300"></div>
+                    {/* Title Overlay on Image */}
                     <CardTitle className="tracking-tight absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
                       {React.cloneElement(project.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
                       {project.title}
                     </CardTitle>
                   </div>
-                  <div className="p-4 border-t border-border/40"> {/* Keywords box */}
+                  {/* Keywords Box - Bordered, below image */}
+                  <div className="border-t border-border/40 p-4 bg-card"> {/* Ensure bg-card or similar for consistency */}
                     <div className="flex flex-wrap gap-1.5">
                       {project.tags.map((tag) => (
                         <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
@@ -113,8 +115,8 @@ const ProjectsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Back Face */}
-                <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col">
+                {/* Back Face - Absolute, covers the front face */}
+                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col">
                   <CardHeader className="pb-3 pt-4 px-4 border-b border-border/40">
                     <CardTitle className="text-xl font-medium text-accent flex items-center">
                        {React.cloneElement(project.icon, { className: "inline-block h-5 w-5 mr-2" })}
@@ -122,13 +124,13 @@ const ProjectsSection: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow px-4 py-3 overflow-hidden">
-                    <ScrollArea className="h-full pr-3"> {/* Ensure ScrollArea takes full height of this content block */}
+                    <ScrollArea className="h-full pr-3">
                       <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                         {project.description}
                       </CardDescription>
                     </ScrollArea>
                   </CardContent>
-                  {project.liveUrl && project.liveUrl !== "#" && (
+                  {(project.liveUrl && project.liveUrl !== "#") && (
                        <div className="px-4 pb-4 pt-3 border-t border-border/40 bg-muted/30">
                          <Button variant="default" size="sm" asChild className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors group/btn w-full">
                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
@@ -138,7 +140,7 @@ const ProjectsSection: React.FC = () => {
                        </div>
                   )}
                 </div>
-              </Card>
+              </div>
             </div>
           </AnimatedSection>
         ))}
@@ -148,4 +150,3 @@ const ProjectsSection: React.FC = () => {
 };
 
 export default ProjectsSection;
-    
