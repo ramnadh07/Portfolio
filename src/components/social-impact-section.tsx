@@ -75,17 +75,17 @@ const SocialImpactSection: React.FC = () => {
                   <div
                     className={cn(
                       "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
-                      "rounded-lg border bg-card text-card-foreground shadow-sm", // Main card styling on the flip container
+                      "rounded-lg border bg-card text-card-foreground shadow-sm",
+                      "h-64 md:h-72 lg:h-80", // Responsive height to match project cards
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
-                    // Dynamically adjust height based on front face content
                   >
                     {/* Front Face */}
                     <div className={cn(
-                      "w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg",
-                      "shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col" // Ensure bg-card for consistency
+                      "absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg",
+                      "shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col"
                     )}>
-                      <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
+                      <div className="relative h-3/5 w-full overflow-hidden"> {/* Image takes ~60% */}
                         <Image
                           src={item.imageUrl}
                           alt={`Image related to ${item.title}`}
@@ -100,7 +100,7 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                      <div className="px-4 pb-4 pt-2 mt-auto border-t border-border/40 bg-card">
+                      <div className="px-4 pb-4 pt-2 mt-auto border-t border-border/40 bg-card"> {/* Keywords Box */}
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
@@ -118,11 +118,7 @@ const SocialImpactSection: React.FC = () => {
                           {React.cloneElement(item.icon, { className: "inline-block h-5 w-5 mr-2" })}
                           {item.title}
                         </CardTitle>
-                        <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
-                            <p><span className="font-medium text-foreground/80">Organization:</span> {item.organization}</p>
-                            <p><span className="font-medium text-foreground/80">Role:</span> {item.role}</p>
-                            <p><span className="font-medium text-foreground/80">Duration:</span> {item.duration}</p>
-                        </div>
+                        {/* Removed Organization, Role, and Duration from here */}
                       </CardHeader>
                       <CardContent className="flex-grow p-4 overflow-hidden">
                         <ScrollArea className="h-full pr-3">
@@ -144,5 +140,3 @@ const SocialImpactSection: React.FC = () => {
 };
 
 export default SocialImpactSection;
-
-    
