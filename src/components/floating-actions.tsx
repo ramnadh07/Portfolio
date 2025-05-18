@@ -103,29 +103,24 @@ const FloatingActions: React.FC = () => {
                  <PopoverContent side="left" align="start" className="w-auto p-2 rounded-md shadow-lg bg-popover border border-border/40 ml-2">
                     <div className="flex flex-col space-y-1">
                         <Button variant="ghost" size="sm" asChild className="w-full justify-start text-xs px-2 py-1 hover:bg-accent/40">
-                            {/* Replace with your actual Calendly mentoring link if different */}
                             <Link href="https://calendly.com/ramnadh_/30min" target="_blank" rel="noopener noreferrer">
                                 <Users className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                                 Mentoring Session
                             </Link>
                         </Button>
                          <Button variant="ghost" size="sm" asChild className="w-full justify-start text-xs px-2 py-1 hover:bg-accent/40">
-                            {/* Replace with your actual Calendly consulting link if different */}
                             <Link href="https://calendly.com/ramnadh_/30min" target="_blank" rel="noopener noreferrer">
                                 <Briefcase className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                                 Consulting Inquiry
                             </Link>
                         </Button>
                         <Button variant="ghost" size="sm" asChild className="w-full justify-start text-xs px-2 py-1 hover:bg-accent/40">
-                            {/* Replace with your actual Calendly general discussion link if different */}
                             <Link href="https://calendly.com/ramnadh_/30min" target="_blank" rel="noopener noreferrer">
                                 <Lightbulb className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                                 General Discussion
                             </Link>
                         </Button>
-                         <Button variant="ghost" size="sm" disabled className="w-full justify-start text-xs px-2 py-1 text-muted-foreground italic opacity-75">
-                           (Payment may be required for some sessions)
-                         </Button>
+                         {/* Removed the payment may be required note */}
                     </div>
                  </PopoverContent>
              </Popover>
