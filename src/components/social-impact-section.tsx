@@ -5,46 +5,46 @@ import Image from "next/image";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BarChartBig, Handshake, Wrench } from "lucide-react";
+import { UsersRound, Leaf, Rocket } from "lucide-react"; // Updated icon imports
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const impactData = [
   {
-    id: "impact-1",
-    title: "Pro Bono Analysis for Local Food Bank",
-    organization: "Community Harvest",
-    role: "Volunteer Analyst",
-    duration: "Summer 2023",
-    description: "Analyzed donation patterns and distribution logistics to identify opportunities for improving efficiency, helping reach 15% more families. Conducted stakeholder interviews, mapped current state processes, and recommended data-driven changes to optimize inventory management and volunteer scheduling.",
-    imageUrl: "https://picsum.photos/seed/impact-ba1/600/400",
-    tags: ["Data Analysis", "Process Improvement", "Non-Profit", "Logistics", "Stakeholder Management"],
-    icon: <BarChartBig className="inline-block h-4 w-4 mr-1.5 text-current" />,
-    aiHint: "food bank logistics charts",
+    id: "impact-skills-mentorship",
+    title: "Empowering Futures: Skills Incubation & Mentorship",
+    organization: "Community Development Initiatives",
+    role: "Lead Mentor & Program Facilitator",
+    duration: "Ongoing",
+    description: "Orchestrated a comprehensive program focused on community training and mentorship. This initiative empowered individuals by fostering essential skills, guiding them in building professional portfolios, and assisting them in exploring and securing opportunities, particularly within the analytics field. The program aimed to expand their knowledge base and cultivate a strong interest in data-driven careers.",
+    imageUrl: "https://picsum.photos/seed/community-empowerment/600/400",
+    tags: ["Mentorship", "Skill Development", "Career Coaching", "Portfolio Building", "Analytics Training", "Community Empowerment"],
+    icon: <UsersRound className="inline-block h-4 w-4 mr-1.5 text-current" />,
+    aiHint: "diverse group learning workshop",
   },
   {
-    id: "impact-2",
-    title: "Mentoring Aspiring Analysts",
-    organization: "Future Leaders Initiative",
-    role: "Mentor",
-    duration: "Ongoing (2022 - Present)",
-    description: "Provide guidance and career advice to university students interested in business analysis. This includes resume reviews, mock interviews, sharing industry insights, and helping them develop a foundational understanding of BA roles and responsibilities.",
-    imageUrl: "https://picsum.photos/seed/impact-ba2/600/400",
-    tags: ["Mentorship", "Community", "Career Development", "Education", "Business Analysis"],
-    icon: <Handshake className="inline-block h-4 w-4 mr-1.5 text-current" />,
-    aiHint: "professional mentorship meeting students",
+    id: "impact-environmental-stewardship",
+    title: "Eco-Warriors: Environmental & Social Stewardship",
+    organization: "Green Earth Foundation",
+    role: "Campaign Coordinator & Educator",
+    duration: "Various Campaigns",
+    description: "Actively participated in and coordinated environmental cleaning drives and awareness campaigns. Key activities included educating children on ecological values, engaging in thoughtful activities to promote social responsibility, organizing plantation drives to support nature, and advocating for sustainable practices for equitable growth and environmental preservation.",
+    imageUrl: "https://picsum.photos/seed/eco-volunteers/600/400",
+    tags: ["Environmental Activism", "Community Engagement", "Youth Education", "Sustainability", "Plantation Drives", "Social Responsibility"],
+    icon: <Leaf className="inline-block h-4 w-4 mr-1.5 text-current" />,
+    aiHint: "volunteers planting trees group",
   },
   {
-    id: "impact-3",
-    title: "Workshop Facilitation: Intro to Agile",
-    organization: "Tech For Good Network",
-    role: "Volunteer Facilitator",
-    duration: "Q1 2022",
-    description: "Designed and facilitated an introductory workshop on Agile principles and Scrum practices for staff at several small non-profit organizations. The goal was to help them adopt more iterative and flexible approaches to their project management and operational tasks.",
-    imageUrl: "https://picsum.photos/seed/impact-ba3/600/400",
-    tags: ["Agile", "Workshop Facilitation", "Training", "Non-Profit Support", "Scrum"],
-    icon: <Wrench className="inline-block h-4 w-4 mr-1.5 text-current" />,
-    aiHint: "agile workshop presentation group",
+    id: "impact-startup-innovation",
+    title: "Igniting Innovation: Startup Enablement & Youth Mentorship",
+    organization: "Innovate Forward Hub",
+    role: "Founding Member & Mentor",
+    duration: "Strategic Engagements",
+    description: "Contributed as a core member in establishing and venturing with startup foundations. This role involved motivating students by presenting innovative opportunities, broadening their career paths through dedicated mentorship, facilitating access to relevant resources, and driving their purpose by instilling an entrepreneurial mindset and problem-solving skills.",
+    imageUrl: "https://picsum.photos/seed/startup-mentorship/600/400",
+    tags: ["Startup Incubation", "Innovation", "Youth Mentorship", "Entrepreneurship", "Venture Building", "Strategic Facilitation"],
+    icon: <Rocket className="inline-block h-4 w-4 mr-1.5 text-current" />,
+    aiHint: "students brainstorming startup ideas",
   },
 ];
 
@@ -75,12 +75,12 @@ const SocialImpactSection: React.FC = () => {
                   <div 
                     className={cn(
                       "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
-                      "rounded-lg border bg-card text-card-foreground shadow-sm", 
+                      "rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden", // Base Card styles
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
                   >
-                    {/* Front Face - Determines the height */}
-                    <div className="[backface-visibility:hidden] rounded-lg overflow-hidden flex flex-col">
+                    {/* Front Face - Determines the height based on content */}
+                    <div className="[backface-visibility:hidden] flex flex-col h-full"> {/* Ensure flex-col and h-full for proper layout */}
                       {/* Image Container */}
                       <div className="relative h-64 md:h-72 lg:h-80 w-full overflow-hidden">
                         <Image
@@ -97,8 +97,8 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                       {/* Keywords Box */}
-                      <div className="border-t border-border/40 p-4 bg-card">
+                       {/* Keywords Box - Bordered, below image */}
+                       <div className="px-4 pb-4 pt-2 mt-auto border-t border-border/40 bg-card"> 
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
@@ -142,3 +142,4 @@ const SocialImpactSection: React.FC = () => {
 };
 
 export default SocialImpactSection;
+
