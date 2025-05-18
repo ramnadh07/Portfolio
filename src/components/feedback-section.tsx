@@ -82,20 +82,20 @@ const FeedbackSection: React.FC = () => {
       toast({
         title: "Message Sent!",
         description: "Thank you for sharing your interest. I'll be in touch soon.",
-        variant: "default", // Ensure default variant or a success-themed one
+        variant: "default", 
       });
 
       // Further delay before resetting form and returning to idle state
       setTimeout(() => {
         form.reset();
         setSubmissionStatus("idle");
-      }, 2500); // Display success message for 2.5 seconds
-    }, 1500); // Simulate 1.5 seconds submission time
+      }, 2500); 
+    }, 1500); 
   }
 
   const handleClearForm = () => {
     form.reset();
-    setSubmissionStatus("idle"); // Reset submission status as well
+    setSubmissionStatus("idle"); 
   };
 
   return (
@@ -109,7 +109,7 @@ const FeedbackSection: React.FC = () => {
             Let's explore opportunities. Tell me about your business needs or interests.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-0 min-h-[300px] flex flex-col justify-center"> {/* Added min-height and flex for centering success/loading */}
+        <CardContent className="p-0 min-h-[560px] flex flex-col justify-center"> {/* Increased min-height */}
           {submissionStatus === "submitting" && (
             <div className="flex flex-col items-center justify-center text-center space-y-3 py-10">
               <Loader2 className="h-12 w-12 text-accent animate-spin" />
@@ -330,5 +330,3 @@ const FeedbackSection: React.FC = () => {
 };
 
 export default FeedbackSection;
-
-    
