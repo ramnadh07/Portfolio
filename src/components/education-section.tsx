@@ -14,11 +14,12 @@ const educationDegreesData = [
     duration: "2022 - 2024",
     focus: "Specialized in Business Analytics",
     achievements: [
-      "Dean's List for Academic Excellence",
+      "Dean's List for Academic Excellence.",
       "President, Data & Business Analytics Club; organized key workshops & industry events.",
       "Delivered workshops on AI/ML applications and advanced analytics techniques.",
       "Led capstone project developing an AI/ML-driven functional solution with predictive capabilities.",
       "Formulated a comprehensive marketing & design thinking strategy for a large-scale restaurant/bar.",
+      "Applied analytical acumen to pro-bono consulting for social enterprises, fostering community impact.",
     ],
   },
   {
