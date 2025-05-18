@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import AnimatedSection from "./animated-section";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BarChartBig, Handshake, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,7 @@ const impactData = [
     description: "Analyzed donation patterns and distribution logistics to identify opportunities for improving efficiency, helping reach 15% more families. Conducted stakeholder interviews, mapped current state processes, and recommended data-driven changes to optimize inventory management and volunteer scheduling.",
     imageUrl: "https://picsum.photos/seed/impact-ba1/600/400",
     tags: ["Data Analysis", "Process Improvement", "Non-Profit", "Logistics", "Stakeholder Management"],
-    icon: <BarChartBig className="inline-block h-4 w-4 mr-1.5" />,
+    icon: <BarChartBig className="inline-block h-4 w-4 mr-1.5 text-current" />,
     aiHint: "food bank logistics charts",
   },
   {
@@ -31,7 +31,7 @@ const impactData = [
     description: "Provide guidance and career advice to university students interested in business analysis. This includes resume reviews, mock interviews, sharing industry insights, and helping them develop a foundational understanding of BA roles and responsibilities.",
     imageUrl: "https://picsum.photos/seed/impact-ba2/600/400",
     tags: ["Mentorship", "Community", "Career Development", "Education", "Business Analysis"],
-    icon: <Handshake className="inline-block h-4 w-4 mr-1.5" />,
+    icon: <Handshake className="inline-block h-4 w-4 mr-1.5 text-current" />,
     aiHint: "professional mentorship meeting students",
   },
   {
@@ -43,7 +43,7 @@ const impactData = [
     description: "Designed and facilitated an introductory workshop on Agile principles and Scrum practices for staff at several small non-profit organizations. The goal was to help them adopt more iterative and flexible approaches to their project management and operational tasks.",
     imageUrl: "https://picsum.photos/seed/impact-ba3/600/400",
     tags: ["Agile", "Workshop Facilitation", "Training", "Non-Profit Support", "Scrum"],
-    icon: <Wrench className="inline-block h-4 w-4 mr-1.5" />,
+    icon: <Wrench className="inline-block h-4 w-4 mr-1.5 text-current" />,
     aiHint: "agile workshop presentation group",
   },
 ];
@@ -69,18 +69,20 @@ const SocialImpactSection: React.FC = () => {
             {impactData.map((item, index) => (
               <AnimatedSection key={item.id} delay={`delay-${index * 100}`}>
                 <div
-                  className="group w-full h-[480px] [perspective:1000px] cursor-pointer"
+                  className="group w-full [perspective:1000px] cursor-pointer"
                   onClick={() => handleFlip(item.id)}
                 >
-                  <Card
+                  <div // Main flipping container - this will have card styles
                     className={cn(
-                      "relative w-full h-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
+                      "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
+                      "rounded-lg border bg-card text-card-foreground shadow-sm", 
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
                   >
-                    {/* Front Face */}
-                    <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg shadow-md hover:shadow-xl border border-border/50 bg-background flex flex-col">
-                      <div className="relative h-48 w-full overflow-hidden">
+                    {/* Front Face - Determines the height */}
+                    <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg flex flex-col">
+                      {/* Image Container */}
+                      <div className="relative h-48 md:h-56 lg:h-64 w-full overflow-hidden">
                         <Image
                           src={item.imageUrl}
                           alt={`Image related to ${item.title}`}
@@ -90,16 +92,13 @@ const SocialImpactSection: React.FC = () => {
                           data-ai-hint={item.aiHint}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-300"></div>
-                        <CardTitle className="absolute bottom-4 left-4 text-lg font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
-                          {React.cloneElement(item.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
+                        <CardTitle className="tracking-tight absolute bottom-4 left-4 text-lg font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
+                           {React.cloneElement(item.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
                           {item.title}
                         </CardTitle>
                       </div>
-                      <CardContent className="p-4 flex-grow flex flex-col"> {/* Use CardContent for text below image */}
-                        <p className="text-sm font-medium text-muted-foreground">{item.organization} ({item.duration})</p>
-                        <p className="text-sm text-foreground font-medium mt-1">{item.role}</p>
-                      </CardContent>
-                      <CardFooter className="p-4 pt-2 mt-auto border-t border-border/30 bg-muted/10">
+                      {/* Keywords Box */}
+                      <div className="border-t border-border/40 p-4 bg-card">
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="outline" className="text-xs cursor-default">
@@ -107,27 +106,31 @@ const SocialImpactSection: React.FC = () => {
                             </Badge>
                           ))}
                         </div>
-                      </CardFooter>
+                      </div>
                     </div>
 
-                    {/* Back Face */}
-                    <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col">
+                    {/* Back Face - Absolute, covers the front face */}
+                    <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] overflow-hidden rounded-lg shadow-xl border border-accent/70 bg-card flex flex-col">
                       <CardHeader className="pb-3 pt-4 px-4 border-b border-border/40">
                         <CardTitle className="text-xl font-medium text-accent flex items-center">
                           {React.cloneElement(item.icon, { className: "inline-block h-5 w-5 mr-2" })}
                           {item.title}
                         </CardTitle>
+                        <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
+                            <p><span className="font-medium text-foreground/80">Organization:</span> {item.organization}</p>
+                            <p><span className="font-medium text-foreground/80">Role:</span> {item.role}</p>
+                            <p><span className="font-medium text-foreground/80">Duration:</span> {item.duration}</p>
+                        </div>
                       </CardHeader>
-                      <CardContent className="flex-grow px-4 py-3 overflow-y-auto">
-                        <ScrollArea className="h-full pr-3"> {/* Ensure ScrollArea takes full height of this content block */}
+                      <CardContent className="flex-grow p-4 overflow-hidden">
+                        <ScrollArea className="h-full pr-3"> 
                           <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                             {item.description}
                           </CardDescription>
                         </ScrollArea>
                       </CardContent>
-                      {/* No specific button to flip back, clicking card flips */}
                     </div>
-                  </Card>
+                  </div>
                 </div>
               </AnimatedSection>
             ))}
