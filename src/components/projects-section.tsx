@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "./animated-section";
-import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink, RotateCcw, Info } from "lucide-react";
+import { Sprout, Layers3, Target, BriefcaseBusiness, ExternalLink } from "lucide-react"; // Removed RotateCcw, Info
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
@@ -84,8 +84,9 @@ const ProjectsSection: React.FC = () => {
                 )}
               >
                 {/* Front Face */}
-                <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg shadow-md hover:shadow-xl border border-border/50 bg-background flex flex-col">
-                  <div className="relative h-48 md:h-56 w-full overflow-hidden">
+                <div className="absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col">
+                  {/* Image Box - takes roughly top 3/5 of card height */}
+                  <div className="relative h-3/5 w-full overflow-hidden">
                     <Image
                       src={project.imageUrl}
                       alt={`Visual representing ${project.title}`}
@@ -94,22 +95,23 @@ const ProjectsSection: React.FC = () => {
                       className="transition-transform duration-500 ease-out group-hover:scale-105"
                       data-ai-hint={project.aiHint}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-60 group-hover:opacity-75 transition-opacity duration-300"></div>
-                    <CardTitle className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-md z-10 transition-all duration-300 flex items-center p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-lg backdrop-blur-sm">
+                    <CardTitle className="absolute bottom-3 left-3 text-lg font-semibold text-white drop-shadow-md z-10 p-2 bg-black/60 group-hover:bg-muted/70 group-hover:text-white rounded-md backdrop-blur-sm flex items-center">
                       {React.cloneElement(project.icon, { className: "inline-block h-4 w-4 mr-1.5" })}
                       {project.title}
                     </CardTitle>
                   </div>
-                  <CardHeader className="pt-4 px-4 pb-4 flex-grow">
-                    <div className="flex flex-wrap gap-1.5 mt-1">
-                      {project.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardHeader>
-                  <Info className="absolute top-3 right-3 h-4 w-4 text-white/70 group-hover:text-white transition-colors" />
+                  {/* Keywords Box - takes roughly bottom 2/5 of card height */}
+                  <div className="h-2/5 p-3 border-t border-border/30 bg-background flex flex-col justify-center">
+                     <ScrollArea className="h-full">
+                        <div className="flex flex-wrap gap-1.5">
+                          {project.tags.map((tag) => (
+                            <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                    </ScrollArea>
+                  </div>
                 </div>
 
                 {/* Back Face */}
@@ -120,27 +122,22 @@ const ProjectsSection: React.FC = () => {
                        {project.title}
                     </CardTitle>
                   </CardHeader>
-                  <div className="flex-grow px-4 py-3 overflow-y-auto">
-                    <ScrollArea className="h-[200px] pr-3">
+                  <CardContent className="flex-grow px-4 py-3 overflow-hidden"> {/* Changed to overflow-hidden for ScrollArea */}
+                    <ScrollArea className="h-full pr-3">
                       <CardDescription className="text-muted-foreground text-sm leading-relaxed">
                         {project.description}
                       </CardDescription>
                     </ScrollArea>
-                  </div>
-                  <div className="px-4 pb-4 pt-3 flex justify-between items-center border-t border-border/40 bg-muted/30">
-                    <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); handleFlip(project.id); }} className="text-accent border-accent hover:bg-accent/10 hover:text-accent transition-colors group/btn">
-                      <RotateCcw className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:rotate-[-45deg]" /> View Image
-                    </Button>
-                    {project.liveUrl && project.liveUrl !== "#" && (
-                         <Button variant="default" size="sm" asChild className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors group/btn">
+                  </CardContent>
+                  {project.liveUrl && project.liveUrl !== "#" && (
+                       <CardFooter className="px-4 pb-4 pt-3 border-t border-border/40 bg-muted/30">
+                         <Button variant="default" size="sm" asChild className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors group/btn w-full">
                            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                             <>
-                               <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> View Live
-                             </>
+                             <ExternalLink className="h-4 w-4 mr-1.5 transition-transform duration-200 group-hover/btn:scale-110" /> View Live
                            </Link>
                          </Button>
-                    )}
-                  </div>
+                       </CardFooter>
+                  )}
                 </div>
               </Card>
             </div>
@@ -152,4 +149,3 @@ const ProjectsSection: React.FC = () => {
 };
 
 export default ProjectsSection;
-
