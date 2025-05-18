@@ -16,7 +16,6 @@ const educationDegreesData = [
     achievements: [
       "Dean's List for Academic Excellence.",
       "President, Data & Business Analytics Club.",
-      "Delivered workshops and developed functional AI/ML projects.",
       "Formulated marketing & design thinking strategy for a large-scale restaurant/bar.",
     ],
   },
@@ -166,3 +165,4 @@ const EducationSection: React.FC = () => {
 };
 
 export default EducationSection;
+
