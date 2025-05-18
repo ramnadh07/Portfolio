@@ -15,9 +15,10 @@ const educationDegreesData = [
     focus: "Specialized in Business Analytics",
     achievements: [
       "Dean's List for Academic Excellence",
-      "Led a capstone project on predictive analytics for market segmentation",
-      "Vice President, Data Analytics Club",
-      "Published paper on 'AI in Strategic Decision Making'",
+      "President, Data & Business Analytics Club; organized key workshops & industry events.",
+      "Delivered workshops on AI/ML applications and advanced analytics techniques.",
+      "Led capstone project developing an AI/ML-driven functional solution with predictive capabilities.",
+      "Formulated a comprehensive marketing & design thinking strategy for a large-scale restaurant/bar.",
     ],
   },
   {
@@ -26,10 +27,11 @@ const educationDegreesData = [
     duration: "2019 - 2022",
     focus: "Specialized in Business Analytics",
     achievements: [
-      "Graduated with Distinction (CGPA: 9.2/10)",
-      "Developed a data visualization dashboard for university admissions trends",
-      "Active member of the Entrepreneurship Cell",
-      "Awarded Best Project for 'Data-Driven Business Strategy'",
+      "Active contributor in Management and Technical Clubs, participating in diverse initiatives.",
+      "Developed data dashboards visualizing consumer behavior insights for the Hospitality & Tourism sectors.",
+      "Volunteered for social causes, driving impactful community growth initiatives.",
+      "Key member of an entrepreneurship community venture, applying business strategies for a social cause.",
+      "Authored research reports on financial market dynamics & telecommunications network trends.",
     ],
   },
 ];
