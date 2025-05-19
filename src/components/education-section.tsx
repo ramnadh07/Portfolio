@@ -37,7 +37,6 @@ const certificationsData = [
   { name: "SAS Visual Business Analytics", issuingBody: "SAS" },
   { name: "Marketing Analytics", issuingBody: "University of Virginia" },
   { name: "Six Sigma Principles", issuingBody: "Kennesaw State University" },
-  { name: "Agile Software Development", issuingBody: "University of Minnesota" },
   { name: "Business Analytics & Digital Media", issuingBody: "Indian School of Business" },
 ];
 
