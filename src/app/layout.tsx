@@ -1,7 +1,6 @@
 
 import type { Metadata } from "next";
 // Removed Geist font imports as the package is not listed in dependencies
-// import { GeistSans } from "geist/font/sans";
 // import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -14,8 +13,11 @@ import { ThemeProvider } from "@/components/theme-provider";
 // Removed Chatbot import
 
 export const metadata: Metadata = {
-  title: "Elegant Folio",
-  description: "Showcasing skills and experiences elegantly.",
+  title: "Ram Nadh | Portfolio",
+  description: "Professional portfolio of Ram Nadh",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
