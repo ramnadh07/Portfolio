@@ -17,8 +17,8 @@ const impactData = [
     role: "Lead Mentor & Program Facilitator",
     duration: "Ongoing",
     description: "Orchestrated a comprehensive program focused on community training and mentorship. This initiative empowered individuals by fostering essential skills, guiding them in building professional portfolios, and assisting them in exploring and securing opportunities, particularly within the analytics field. The program aimed to expand their knowledge base and cultivate a strong interest in data-driven careers.",
-    imageUrl: "https://picsum.photos/seed/community-dev/600/400",
-    tags: ["Mentorship", "Skill Development", "Career Coaching", "Portfolio Building", "Analytics Training", "Community Empowerment"],
+    imageUrl: "https://picsum.photos/seed/community-learn/600/400",
+    tags: ["Mentorship", "Skill Development", "Career Coaching", "Analytics Training", "Community Empowerment"],
     icon: <UsersRound className="inline-block h-4 w-4 mr-1.5 text-current" />,
     aiHint: "community workshop learning",
   },
@@ -29,8 +29,8 @@ const impactData = [
     role: "Campaign Coordinator & Educator",
     duration: "Various Campaigns",
     description: "Actively participated in and coordinated environmental cleaning drives and awareness campaigns. Key activities included educating children on ecological values, engaging in thoughtful activities to promote social responsibility, organizing plantation drives to support nature, and advocating for sustainable practices for equitable growth and environmental preservation.",
-    imageUrl: "https://picsum.photos/seed/eco-action/600/400",
-    tags: ["Environmental Activism", "Community Engagement", "Youth Education", "Sustainability", "Plantation Drives", "Social Responsibility"],
+    imageUrl: "https://picsum.photos/seed/green-planet/600/400",
+    tags: ["Environmental Activism", "Community Engagement", "Sustainability", "Youth Education"],
     icon: <Leaf className="inline-block h-4 w-4 mr-1.5 text-current" />,
     aiHint: "environmental education children",
   },
@@ -41,8 +41,8 @@ const impactData = [
     role: "Founding Member & Mentor",
     duration: "Strategic Engagements",
     description: "Contributed as a core member in establishing and venturing with startup foundations. This role involved motivating students by presenting innovative opportunities, broadening their career paths through dedicated mentorship, facilitating access to relevant resources, and driving their purpose by instilling an entrepreneurial mindset and problem-solving skills.",
-    imageUrl: "https://picsum.photos/seed/startup-ideas/600/400",
-    tags: ["Startup Incubation", "Innovation", "Youth Mentorship", "Entrepreneurship", "Venture Building", "Strategic Facilitation"],
+    imageUrl: "https://picsum.photos/seed/startup-mentor/600/400",
+    tags: ["Startup Incubation", "Innovation", "Youth Mentorship", "Entrepreneurship", "Venture Building"],
     icon: <Rocket className="inline-block h-4 w-4 mr-1.5 text-current" />,
     aiHint: "students collaboration startup",
   },
@@ -62,7 +62,9 @@ const SocialImpactSection: React.FC = () => {
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
             Applying Skills for Good
           </CardTitle>
-          <p className="text-muted-foreground mt-2 text-lg">Using analytical skills to support community initiatives.</p>
+          <p className="text-muted-foreground mt-2 text-lg">
+            Leveraging professional skills to contribute to meaningful community projects and social causes.
+          </p>
         </CardHeader>
         <CardContent className="p-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -83,9 +85,9 @@ const SocialImpactSection: React.FC = () => {
                     {/* Front Face */}
                     <div className={cn(
                       "absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg",
-                      "shadow-md hover:shadow-xl border border-border/50 bg-card flex flex-col"
+                      "shadow-md hover:shadow-xl border border-border/50 bg-background flex flex-col" // Changed to bg-background from bg-card
                     )}>
-                      <div className="relative flex-grow w-full overflow-hidden"> {/* Changed h-3/5 to flex-grow */}
+                      <div className="relative flex-grow w-full overflow-hidden">
                         <Image
                           src={item.imageUrl}
                           alt={`Image related to ${item.title}`}
@@ -100,11 +102,10 @@ const SocialImpactSection: React.FC = () => {
                           {item.title}
                         </CardTitle>
                       </div>
-                      {/* Keywords Box */}
-                      <div className="px-4 pb-4 pt-2 mt-auto border-t border-border/40 bg-card">
+                      <div className="px-4 pt-2 pb-4 mt-auto border-t border-border/40 bg-card">
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
-                            <Badge key={tag} variant="outline" className="text-xs cursor-default">
+                            <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
                               {tag}
                             </Badge>
                           ))}
@@ -119,6 +120,12 @@ const SocialImpactSection: React.FC = () => {
                           {React.cloneElement(item.icon, { className: "inline-block h-5 w-5 mr-2" })}
                           {item.title}
                         </CardTitle>
+                         {/* Organization, Role, Duration moved here for better context on back */}
+                        <div className="mt-1.5 text-xs text-muted-foreground">
+                            <p><span className="font-semibold">Organization:</span> {item.organization}</p>
+                            <p><span className="font-semibold">Role:</span> {item.role}</p>
+                            <p><span className="font-semibold">Duration:</span> {item.duration}</p>
+                        </div>
                       </CardHeader>
                       <CardContent className="flex-grow p-4 overflow-hidden">
                         <ScrollArea className="h-full pr-3">
@@ -140,3 +147,4 @@ const SocialImpactSection: React.FC = () => {
 };
 
 export default SocialImpactSection;
+
