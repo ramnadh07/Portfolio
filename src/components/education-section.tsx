@@ -34,9 +34,7 @@ const educationDegreesData = [
 
 const certificationsData = [
   { name: "Data Analyst", issuingBody: "Google" },
-  { name: "Cybersecurity Analyst", issuingBody: "IBM" },
   { name: "SAS Visual Business Analytics", issuingBody: "SAS" },
-  { name: "AWS Fundamentals", issuingBody: "AWS" },
   { name: "Marketing Analytics", issuingBody: "University of Virginia" },
   { name: "Six Sigma Principles", issuingBody: "Kennesaw State University" },
   { name: "Agile Software Development", issuingBody: "University of Minnesota" },
@@ -94,8 +92,7 @@ const EducationSection: React.FC = () => {
                 Certifications
               </h3>
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
-                {/* Removed ScrollArea and fixed height class from CardContent */}
-                <CardContent className="p-0">
+                <CardContent className={cn("p-0 flex-grow")}>
                     <div className="p-4 space-y-4">
                       {certificationsData.map((cert, index) => (
                         <AnimatedSection key={cert.name} delay={`delay-${index * 75 + 250}`}>
@@ -138,3 +135,4 @@ const EducationSection: React.FC = () => {
 };
 
 export default EducationSection;
+
