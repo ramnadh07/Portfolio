@@ -11,8 +11,6 @@ import ProjectsSection from "@/components/projects-section";
 import EducationSection from "@/components/education-section";
 import SocialImpactSection from "@/components/social-impact-section";
 import FeedbackSection from "@/components/feedback-section"; // Keep FeedbackSection for now, will rename if needed elsewhere
-import AnalyticsDashboardSection from "@/components/analytics-dashboard-section";
-
 export default function Home() {
   return (
     <div className="space-y-20 md:space-y-28 lg:space-y-36"> {/* Increased spacing between sections */}
@@ -24,8 +22,7 @@ export default function Home() {
       <EducationSection />
       <ProjectsSection />
       <SocialImpactSection />
-      <FeedbackSection /> {/* Add FeedbackSection */}
-      <AnalyticsDashboardSection />
+      <FeedbackSection />
     </div>
   );
 }
