@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
                 </p>
                 <div className="flex space-x-2">
                      <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
-                        <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <Link href="https://www.linkedin.com/in/ramnadh2002" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                              <Linkedin className="h-5 w-5" />
                         </Link>
                     </Button>
@@ -72,4 +72,3 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
-
