@@ -69,7 +69,7 @@ const SocialImpactSection: React.FC = () => {
                     className={cn(
                       "relative w-full transition-all duration-700 ease-in-out [transform-style:preserve-3d]",
                       "rounded-lg border bg-card text-card-foreground shadow-sm",
-                      "h-64 md:h-72 lg:h-80",
+                      "h-64 md:h-72 lg:h-80", // Consistent overall card height
                       flippedCardId === item.id && "[transform:rotateY(180deg)]"
                     )}
                   >
@@ -79,7 +79,7 @@ const SocialImpactSection: React.FC = () => {
                       "shadow-md hover:shadow-xl border border-border/50 bg-background flex flex-col"
                     )}>
                       {/* Image Container */}
-                      <div className="relative h-44 md:h-48 lg:h-56 w-full overflow-hidden"> {/* Updated height, removed flex-grow */}
+                      <div className="relative h-44 md:h-48 lg:h-56 w-full overflow-hidden flex-shrink-0">
                         <Image
                           src={item.imageUrl}
                           alt={`Image related to ${item.title}`}
@@ -94,7 +94,7 @@ const SocialImpactSection: React.FC = () => {
                         </CardTitle>
                       </div>
                       {/* Tags Container */}
-                      <div className="px-4 pt-2 pb-4 mt-auto border-t border-border/40 bg-card">
+                      <div className="border-t border-border/40 px-4 pt-2 pb-4 bg-card flex-grow flex flex-col justify-center"> {/* Changed p-4 to px-4 pt-2 pb-4 */}
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <Badge key={tag} variant="secondary" className="text-xs cursor-default transition-colors duration-200 hover:bg-accent/20 hover:text-accent border border-transparent hover:border-accent/30">
@@ -133,4 +133,3 @@ const SocialImpactSection: React.FC = () => {
 };
 
 export default SocialImpactSection;
-
