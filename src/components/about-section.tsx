@@ -13,8 +13,8 @@ const AboutSection: React.FC = () => {
           {/* Image Column */}
           <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
             <Image
-              src="/RN1.jpg"
-              alt="Abstract futuristic and optimistic visual representing Ramalingeswara Nadh's profile"
+              src="/images/about/RN1.jpg"
+              alt="Professional profile picture of Ramalingeswara Nadh"
               layout="fill"
               objectFit="cover"
               className="transition-all duration-700 ease-in-out group-hover:scale-110 filter group-hover:brightness-110 group-hover:saturate-150"
