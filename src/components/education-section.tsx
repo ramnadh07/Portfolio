@@ -4,7 +4,6 @@ import React from "react";
 import AnimatedSection from "./animated-section";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, Award, Calendar } from "lucide-react";
-// Removed ScrollArea import
 import { cn } from "@/lib/utils";
 
 const educationDegreesData = [
@@ -92,7 +91,7 @@ const EducationSection: React.FC = () => {
               </h3>
               <Card className="bg-background border border-border/30 rounded-md flex-grow flex flex-col overflow-hidden">
                 <CardContent className={cn("p-0 flex-grow")}>
-                    <div className="p-4 space-y-4">
+                    <div className="p-4 flex flex-col justify-between h-full">
                       {certificationsData.map((cert, index) => (
                         <AnimatedSection key={cert.name} delay={`delay-${index * 75 + 250}`}>
                           <Card className="bg-muted/40 border border-border/20 p-3 hover:shadow-md hover:border-accent/40 transform hover:-translate-y-0.5 transition-all duration-300 ease-out group">
