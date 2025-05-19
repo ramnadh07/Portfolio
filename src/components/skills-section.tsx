@@ -22,7 +22,7 @@ const skillsData = [
       "Business Capability Modeling",
       "Value Stream Mapping",
       "Product-Feature Mapping",
-      "Modernization & Digital Transformation Frameworks"
+      "Digital Transformation Frameworks"
     ],
   },
   {
@@ -103,3 +103,4 @@ const SkillsSection: React.FC = () => {
 };
 
 export default SkillsSection;
+
