@@ -85,9 +85,9 @@ const SocialImpactSection: React.FC = () => {
                     {/* Front Face */}
                     <div className={cn(
                       "absolute w-full h-full [backface-visibility:hidden] overflow-hidden rounded-lg",
-                      "shadow-md hover:shadow-xl border border-border/50 bg-background flex flex-col" // Changed to bg-background from bg-card
+                      "shadow-md hover:shadow-xl border border-border/50 bg-background flex flex-col" 
                     )}>
-                      <div className="relative flex-grow w-full overflow-hidden">
+                      <div className="relative flex-grow w-full overflow-hidden"> {/* Changed from h-3/5 */}
                         <Image
                           src={item.imageUrl}
                           alt={`Image related to ${item.title}`}
@@ -120,12 +120,6 @@ const SocialImpactSection: React.FC = () => {
                           {React.cloneElement(item.icon, { className: "inline-block h-5 w-5 mr-2" })}
                           {item.title}
                         </CardTitle>
-                         {/* Organization, Role, Duration moved here for better context on back */}
-                        <div className="mt-1.5 text-xs text-muted-foreground">
-                            <p><span className="font-semibold">Organization:</span> {item.organization}</p>
-                            <p><span className="font-semibold">Role:</span> {item.role}</p>
-                            <p><span className="font-semibold">Duration:</span> {item.duration}</p>
-                        </div>
                       </CardHeader>
                       <CardContent className="flex-grow p-4 overflow-hidden">
                         <ScrollArea className="h-full pr-3">
@@ -147,4 +141,3 @@ const SocialImpactSection: React.FC = () => {
 };
 
 export default SocialImpactSection;
-
