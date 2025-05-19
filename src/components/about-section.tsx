@@ -13,7 +13,7 @@ const AboutSection: React.FC = () => {
           {/* Image Column */}
           <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
             <Image
-              src="https://placehold.co/600x800.png"
+              src="/RN1.jpg"
               alt="Abstract futuristic and optimistic visual representing Ramalingeswara Nadh's profile"
               layout="fill"
               objectFit="cover"
