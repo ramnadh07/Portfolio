@@ -2,22 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import * as Brevo from '@getbrevo/brevo'; // Import the Brevo library
 
 export async function POST(req: NextRequest) {
-  // --- Environment Variable Checks ---
-  const apiKey = process.env.EMAIL_API_KEY;
-  const senderEmail = process.env.EMAIL_FROM;
-  const recipientEmail = process.env.EMAIL_TO;
-
-  if (!apiKey) {
-    throw new Error('EMAIL_API_KEY environment variable is not set.');
-  }
-  if (!senderEmail) {
-    throw new Error('EMAIL_FROM environment variable is not set.');
-  }
-  if (!recipientEmail) {
-    throw new Error('EMAIL_TO environment variable is not set.');
-  }
-
   try {
+    // --- Environment Variable Checks ---
+    const apiKey = process.env.EMAIL_API_KEY;
+    const senderEmail = process.env.EMAIL_FROM;
+    const recipientEmail = process.env.EMAIL_TO;
+
+    if (!apiKey) {
+      throw new Error('EMAIL_API_KEY environment variable is not set.');
+    }
+    if (!senderEmail) {
+      throw new Error('EMAIL_FROM environment variable is not set.');
+    }
+    if (!recipientEmail) {
+      throw new Error('EMAIL_TO environment variable is not set.');
+    }
+
     const feedbackData = await req.json(); // Assign value to feedbackData inside try block
 
     const htmlBody = `
@@ -84,10 +84,10 @@ export async function POST(req: NextRequest) {
     console.log('Email sent successfully (using Brevo)');
 
     return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) { // Explicitly type error as any for now to avoid TS issues with checking instanceof Error
     console.error('Error sending email (Brevo):', error);
- if (process.env.NODE_ENV === 'development' && error instanceof Error) {
- return NextResponse.json({ message: `Error processing feedback: ${error.message}` }, { status: 500 });
+    if (process.env.NODE_ENV === 'development' && error instanceof Error) {
+      return NextResponse.json({ message: `Error processing feedback: ${error.message}` }, { status: 500 });
     }
     return NextResponse.json({ message: 'Error processing feedback.' }, { status: 500 });
   }

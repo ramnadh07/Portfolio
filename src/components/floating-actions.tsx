@@ -29,7 +29,7 @@ const FloatingActions: React.FC = () => {
   }, []);
 
   const handleReferProfile = async () => {
-    const profileLink = "ramnadh.vercel.app";
+    const profileLink = "https://ramnadh.vercel.app/";
     try {
       if (navigator.share) {
         await navigator.share({
