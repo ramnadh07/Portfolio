@@ -11,7 +11,7 @@ const AboutSection: React.FC = () => {
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ease-out bg-card border border-border/50 rounded-lg group transform hover:-translate-y-1">
         <div className="grid md:grid-cols-3 items-center">
           {/* Image Column */}
-          <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
+          <div className="md:col-span-1 relative h-96 md:h-full w-full overflow-hidden">
  <Image
               src="/images/about/rn.jpg" // Make sure this path is correct and the image exists
               alt="Professional portrait of Ram Nadh" // Add alt text for accessibility
