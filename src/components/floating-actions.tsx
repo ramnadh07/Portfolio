@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -89,8 +88,8 @@ const FloatingActions: React.FC = () => {
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       )}
     >
-      <Popover>
-        <PopoverTrigger asChild>
+ <Popover>
+ <PopoverTrigger asChild>
           <Button
             size="lg"
             className="rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 w-16 h-16 flex items-center justify-center animate-pulse hover:animate-none"
@@ -99,7 +98,7 @@ const FloatingActions: React.FC = () => {
             <Sparkles className="h-6 w-6" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-2 rounded-lg shadow-xl bg-popover border border-border/50 mr-4 mb-1">
+ <PopoverContent className="w-auto p-2 rounded-lg shadow-xl bg-popover border border-border/50 mr-4 mb-1">
           <div className="flex flex-col space-y-2">
              <Popover>
                  <PopoverTrigger asChild>
@@ -123,7 +122,7 @@ const FloatingActions: React.FC = () => {
                             </Link>
                         </Button>
                         <Button variant="ghost" size="sm" asChild className="w-full justify-start text-xs px-2 py-1 hover:bg-accent/40">
-                            <Link href={`https://calendly.com/ramnadh_/30min?a1=${encodeURIComponent("General Discussion")}`} target="_blank" rel="noopener noreferrer">
+                            <Link href={`https://calendly.com/ramnadh_/30min?a1=${encodeURIComponent("General Discussion")}`} target="_blank" rel="noopener noreferrer">\
                                 <Lightbulb className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                                 General Discussion
                             </Link>
@@ -141,31 +140,30 @@ const FloatingActions: React.FC = () => {
                 Refer Profile
              </Button>
 
-             <Button
-                variant="ghost"
-                className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50"
-                onClick={handleFreelanceInquiry}
-             >
+            <Button variant="ghost" className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50" onClick={handleFreelanceInquiry}>
                 <FileText className="mr-2 h-4 w-4 text-accent" />
                 Freelance/Contract Inquiry
-             </Button>
+            </Button>
 
-            <Button variant="ghost" asChild className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50">
-              <Link href="https://www.linkedin.com/in/ramnadh2002" target="_blank" rel="noopener noreferrer">
+ {/* Corrected LinkedIn Button */}
+            <Button variant="ghost" className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50" asChild>
+              <a href="https://www.linkedin.com/in/ramnadh2002" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="mr-2 h-4 w-4 text-accent" />
                 Connect on LinkedIn
-              </Link>
+              </a>
             </Button>
-            <Button variant="ghost" asChild className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50">
-              <Link href="mailto:ramnadh2002@gmail.com">
+            <Button
+                variant="ghost"
+                className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50"
+                onClick={() => window.location.href = 'mailto:ramnadh2002@gmail.com'}
+            >
                 <Mail className="mr-2 h-4 w-4 text-accent" />
                 Send an Email
-              </Link>
             </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
+         </div>
+ </PopoverContent>
+ </Popover>
+ </div>
   );
 };
 

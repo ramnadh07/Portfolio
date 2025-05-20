@@ -126,7 +126,7 @@ const FeedbackSection: React.FC = (): React.ReactNode => {
   };
 
   return (
-    <AnimatedSection id="connect" className="scroll-mt-20 md:scroll-mt-24" delay="delay-500">
+    <AnimatedSection id="feedback" className="scroll-mt-20 md:scroll-mt-24" delay="delay-500">
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
         <CardHeader className="p-0 mb-8 text-center">
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-2">

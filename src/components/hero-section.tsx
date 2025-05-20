@@ -39,14 +39,14 @@ const HeroSection: React.FC = () => {
       </p>
       <div className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up delay-200">
         <Button
-          size="lg"
-          asChild
-          className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-300 ease-out shadow-lg hover:shadow-xl transform hover:-translate-y-1 group"
+ size="lg"
+ asChild
+ className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-300 ease-out shadow-lg hover:shadow-xl transform hover:-translate-y-1 group"
         >
           <Link href="#experience">
             <>
               Explore My Experience
-              <span className="ml-2 transform transition-transform duration-300 group-hover:rotate-[-5deg]">
+ <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1">
                 &#10140;
               </span>
             </>
@@ -55,32 +55,31 @@ const HeroSection: React.FC = () => {
         <Button
           variant="outline"
           size="lg"
-          asChild
           className="border-accent text-accent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-out group backdrop-blur-sm transform hover:-translate-y-0.5 shadow-md hover:shadow-lg"
+          asChild
         >
-          <Link href="#connect" aria-label="Connect">
-            <>
-              Connect
-              <MessageSquareQuote className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5" />
-            </>
-          </Link>
+          <Link href="#feedback" aria-label="Connect">
+          <>
+            Connect
+ <MessageSquareQuote className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5"/>
+          </>
+ </Link>
         </Button>
         <Button
           variant="outline"
           size="lg"
-          asChild
-          className="bg-background/70 backdrop-blur-sm text-foreground hover:text-accent-foreground hover:bg-accent/80 hover:border-accent/80 transition-all duration-300 ease-out group border-border/70 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg"
+          className="border-primary text-primary hover:bg-primary/10 hover:text-primary transition-all duration-300 ease-out group backdrop-blur-sm transform hover:-translate-y-0.5 shadow-md hover:shadow-lg"
+          onClick={() => window.location.href = 'mailto:ramnadh2002@gmail.com'}
         >
-          <Link href="mailto:ramnadh2002@gmail.com" aria-label="Contact Me">
-            <>
-              Contact Me
-              <ArrowDown className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5" />
-            </>
-          </Link>
+ <Link href="mailto:ramnadh2002@gmail.com" aria-label="Contact Me">
+          <span className="flex items-center justify-center">
+            Contact Me
+ <ArrowDown className="ml-2 h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-y-0.5"/>
+          </span>
+ </Link>
         </Button>
       </div>
     </AnimatedSection>
   );
 };
-
 export default HeroSection;

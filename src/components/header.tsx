@@ -101,14 +101,17 @@ const Header: React.FC = () => {
                 </Link>
             </Button>
 
-            {/* Contact Button */}
-            <Button variant="outline" size="sm" asChild className="border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group">
-                <Link href="mailto:ramnadh2002@gmail.com">
+            {/* Contact Button - Modified to use onClick for reliable mailto */}
+            <Button
+                variant="outline"
+                size="sm"
+                className="border-accent text-accent hover:bg-accent/10 hover:text-accent transition-colors duration-200 px-3 group"
+                onClick={() => window.location.href = 'mailto:ramnadh2002@gmail.com'}
+            >
                 <>
                     <Mail className="h-4 w-4 sm:mr-1.5 transition-transform duration-200 group-hover:scale-110" />
                     <span className="hidden sm:inline">Contact</span>
                 </>
-                </Link>
             </Button>
             </nav>
              <ThemeToggleButton />
