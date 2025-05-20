@@ -24,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     // Removed Geist font variables from html class
-    <html lang="en" className={cn("scroll-smooth")} suppressHydrationWarning>
+    <html lang="en" className={cn("scroll-smooth")} suppressHydrationWarning> {/* Removed Geist font variables from html class */}
+      <head>
+ <link rel="icon" href="/images/rhombus_favicon.png" type="image/png" />
+ </head>
       <body
         className="antialiased min-h-screen flex flex-col font-sans" // Removed bg-background
       >

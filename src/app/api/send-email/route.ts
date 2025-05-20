@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as Brevo from '@getbrevo/brevo'; // Import the Brevo library
+import * as Brevo from '@getbrevo/brevo'; // Import the Brevo library, ContactsApi and CreateContact
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,48 +22,63 @@ export async function POST(req: NextRequest) {
 
     const htmlBody = `
       <h1>New Business Interest Submission</h1>
-      <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse;">
+      <table cellpadding="10" style="border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #dddddd;">
  <tr>
-          <td><strong>Name:</strong></td>
-          <td>${feedbackData.name}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Name:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.name}</td>
         </tr>
         <tr>
-          <td><strong>Email:</strong></td>
-          <td>${feedbackData.email}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Email:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.email}</td>
         </tr>
         <tr>
-          <td><strong>Company:</strong></td>
-          <td>${feedbackData.company}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Company:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.company}</td>
         </tr>
         <tr>
-          <td><strong>Your Role:</strong></td>
-          <td>${feedbackData.role}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Your Role:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.role}</td>
         </tr>
         <tr>
-          <td><strong>Your Industry:</strong></td>
-          <td>${feedbackData.industry}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Your Industry:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.industry}</td>
         </tr>
         <tr>
-          <td><strong>Company Size:</strong></td>
-          <td>${feedbackData.companySize}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Company Size:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.companySize}</td>
         </tr>
         <tr>
-          <td><strong>What they are primarily looking for:</strong></td>
-          <td>${feedbackData.lookingFor}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>What they are primarily looking for:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.lookingFor}</td>
         </tr>
         <tr>
-          <td><strong>Specific Skills/Domains of Interest:</strong></td>
-          <td>${feedbackData.skillsOfInterest}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Specific Skills/Domains of Interest:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.skillsOfInterest}</td>
         </tr>
         <tr>
-          <td><strong>General Comments:</strong></td>
-          <td>${feedbackData.generalComments}</td>
+          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>General Comments:</strong></td>
+          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.generalComments}</td>
         </tr>
       </table>
 
       <hr>
       <p>This email was sent from your website's feedback form.</p>
     `;
+
+    // --- Add Contact to Brevo ---
+    const contactsApiInstance = new Brevo.ContactsApi();
+    contactsApiInstance.setApiKey(Brevo.ContactsApiApiKeys.apiKey, apiKey); // Use the same API key
+
+    const createContact = new Brevo.CreateContact();
+    createContact.email = feedbackData.email;
+
+    try {
+        await contactsApiInstance.createContact(createContact);
+        console.log('Contact added to Brevo successfully:', feedbackData.email);
+    } catch (contactError: any) {
+        console.error('Error adding contact to Brevo:', contactError);
+    }
+    // --- End Add Contact to Brevo ---
 
     const apiInstance = new Brevo.TransactionalEmailsApi();
     
