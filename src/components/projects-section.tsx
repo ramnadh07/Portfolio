@@ -15,7 +15,7 @@ const projectsData = [
   {
     id: "project-agritech",
     title: "Smart Farms & AgriTech Solutions",
-    description: "This initiative involves designing and developing technology solutions for modern agriculture. It includes IoT integration for farm monitoring, data analytics for crop optimization, and supply chain improvements for better market access. The core focus is on leveraging cutting-edge tech to create more efficient, sustainable, and productive agricultural practices, ultimately benefiting farmers and the food ecosystem.",
+    description: "Driving digital innovation in agriculture through a multitude of tech-enabled solutions—focused on transforming traditional farming practices into data-driven, intelligent systems. These initiatives span across IoT-based farm monitoring, advanced analytics for crop optimization, and supply chain modernization to enhance transparency and market access. The overarching mission is to build scalable, sustainable, and high-impact AgriTech solutions that empower farmers, streamline operations, and strengthen the global food ecosystem.",
     imageUrl: "/images/projects/smart_farm.png",
     tags: ["AgriTech", "IoT", "Data Analytics", "Supply Chain", "Solution Design", "Sustainable Farming"],
     liveUrl: "#",
@@ -25,7 +25,7 @@ const projectsData = [
   {
     id: "project-platform",
     title: "Platform Engineering & Modernization",
-    description: "This project focuses on re-architecting and modernizing existing enterprise platforms to enhance scalability, performance, and maintainability. It involves strategies for cloud migration, adoption of microservices architecture, and enablement of DevOps practices to accelerate development cycles and improve system reliability. The goal is to transform legacy systems into agile, future-proof platforms.",
+    description: "This catalogue of enterprise modernization initiatives is focused on transforming legacy systems into agile, cloud-native platforms built for composability, API-first integration, and continuous innovation. These efforts span cloud migration, microservices adoption, DevOps enablement, and the strategic embedding of emerging technologies such as Agentic AI—driving enhanced automation, intelligence, and contextual adaptability across business workflows.",
     imageUrl: "/images/projects/plat_eng.png",
     tags: ["Platform Engineering", "Modernization", "Cloud Migration", "Microservices", "DevOps", "Scalability"],
     liveUrl: "#",
