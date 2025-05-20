@@ -17,7 +17,7 @@ const AboutSection: React.FC = () => {
               alt="Professional portrait of Ram Nadh" // Add alt text for accessibility
               layout="fill"
               objectFit="cover"
-              className="transition-all duration-700 ease-in-out group-hover:scale-110 filter group-hover:brightness-110 group-hover:saturate-150"
+              className="object-top md:object-cover transition-all duration-700 ease-in-out group-hover:scale-110 filter group-hover:brightness-110 group-hover:saturate-150"
               data-ai-hint="abstract futuristic"
             />
 

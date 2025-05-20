@@ -60,8 +60,13 @@ const Footer: React.FC = () => {
                     </Button>
                     {/* Added Mail icon/link */}
                     <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-out hover:scale-110 hover:bg-muted/50">
-                        <Link href="mailto:brucewyn09@gmail.com" aria-label="Email">
-                           <Mail className="h-5 w-5" />
+                        <Link
+                            href="mailto:ramnadh2002@gmail.com"
+                            aria-label="Email"
+                            onClick={() => window.location.href = 'mailto:ramnadh2002@gmail.com'}
+
+                        >
+ <Mail className="h-5 w-5" />
                         </Link>
                     </Button>
                     {/* Removed GitHub and Twitter icons */}
