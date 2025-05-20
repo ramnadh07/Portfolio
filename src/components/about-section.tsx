@@ -12,9 +12,9 @@ const AboutSection: React.FC = () => {
         <div className="grid md:grid-cols-3 items-center">
           {/* Image Column */}
           <div className="md:col-span-1 relative h-64 md:h-full w-full overflow-hidden">
-            <Image
-              src="/images/about/rn.jpg"
-              alt="Professional portrait of Ram Nadh"
+ <Image
+              src="/images/about/rn.jpg" // Make sure this path is correct and the image exists
+              alt="Professional portrait of Ram Nadh" // Add alt text for accessibility
               layout="fill"
               objectFit="cover"
               className="transition-all duration-700 ease-in-out group-hover:scale-110 filter group-hover:brightness-110 group-hover:saturate-150"
@@ -26,9 +26,9 @@ const AboutSection: React.FC = () => {
           {/* Content Column */}
           <div className="md:col-span-2 p-6 md:p-10 lg:p-12">
             <CardHeader className="p-0 mb-6"> {/* Increased bottom margin */}
-              {/* Enhanced Title Styling */}
-              <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block transition-colors duration-300 group-hover:border-accent/60">
-                About Me
+              {/* Section Title with consistent styling */}
+              <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-2"> {/* Applied consistent heading styles */}
+                About <span className="text-accent">Me</span> {/* Split heading and applied accent color to the second part */}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0 space-y-4 text-base md:text-lg text-foreground leading-relaxed">

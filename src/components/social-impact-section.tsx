@@ -50,8 +50,8 @@ const SocialImpactSection: React.FC = () => {
     <AnimatedSection id="social-impact" className="scroll-mt-20 md:scroll-mt-24" delay="delay-450">
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
         <CardHeader className="p-0 mb-8 text-center">
-          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Applying Skills for Good
+          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-2">
+            Applying Skills <span className="text-accent">for Good</span>
           </CardTitle>
           <p className="text-muted-foreground mt-2 text-lg">
             Leveraging professional skills to contribute to meaningful community projects and social causes.

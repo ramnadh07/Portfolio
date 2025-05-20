@@ -68,7 +68,7 @@ const SkillsSection: React.FC = () => {
         <CardHeader className="p-0 mb-8 text-center"> {/* Increased bottom margin and centered */}
           {/* Enhanced Title Styling */}
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Strategic & Analytical Toolkit
+            Strategic & Analytical <span className="text-accent">Toolkit</span>
           </CardTitle>
            <p className="text-muted-foreground mt-2 text-lg">My core competencies across analysis, consulting, and strategy.</p>
         </CardHeader>

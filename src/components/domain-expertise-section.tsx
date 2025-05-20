@@ -44,7 +44,7 @@ const DomainExpertiseSection: React.FC = () => {
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
         <CardHeader className="p-0 mb-8 text-center">
           <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Domain Expertise
+            Domain <span className="text-accent">Expertise</span>
           </CardTitle>
           <p className="text-muted-foreground mt-2 text-lg">Industry knowledge applied to technology challenges.</p>
         </CardHeader>

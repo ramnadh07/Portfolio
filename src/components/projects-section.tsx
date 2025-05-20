@@ -64,8 +64,8 @@ const ProjectsSection: React.FC = () => {
   return (
     <AnimatedSection id="projects" className="scroll-mt-20 md:scroll-mt-24" delay="delay-400">
       <div className="text-center mb-10 md:mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-          Key Initiatives & Projects
+        <h2 className="text-4xl md:text-5xl font-bold text-primary mb-2">
+          Key Initiatives <span className="text-accent">& Projects</span>
         </h2>
         <p className="text-muted-foreground mt-2 text-lg">Demonstrating impact across analysis, consulting, and strategy.</p>
       </div>

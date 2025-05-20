@@ -20,49 +20,80 @@ export async function POST(req: NextRequest) {
 
     const feedbackData = await req.json(); // Assign value to feedbackData inside try block
 
+    // Generate a more concise and professional subject line
+    const subjectLine = `New Business Interest Submission - ${feedbackData.name || feedbackData.company}`;
+
+    // Create the HTML body as a well-structured table
     const htmlBody = `
-      <h1>New Business Interest Submission</h1>
-      <table cellpadding="10" style="border-collapse: collapse; width: 100%; max-width: 600px; border: 1px solid #dddddd;">
- <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Name:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.name}</td>
-        </tr>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: sans-serif; background-color: #f4f4f4;">
         <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Email:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.email}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Company:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.company}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Your Role:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.role}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Your Industry:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.industry}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Company Size:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.companySize}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>What they are primarily looking for:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.lookingFor}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>Specific Skills/Domains of Interest:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.skillsOfInterest}</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px; border: 1px solid #dddddd;"><strong>General Comments:</strong></td>
-          <td style="padding: 8px; border: 1px solid #dddddd;">${feedbackData.generalComments}</td>
+          <td align="center" style="padding: 20px 0;">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              <tr>
+                <td align="center" bgcolor="#1a202c" style="padding: 30px 20px; color: #ffffff; font-size: 28px; font-weight: bold;">
+                  Business Interest Submission
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 20px 30px;">
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Name:</strong> ${feedbackData.name}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Email:</strong> ${feedbackData.email}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Company:</strong> ${feedbackData.company}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Role:</strong> ${feedbackData.role}
+                      </td>
+                    </tr>
+                     <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Industry:</strong> ${feedbackData.industry}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Company Size:</strong> ${feedbackData.companySize || 'Not specified'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Looking For:</strong><br>${feedbackData.lookingFor}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 15px; font-size: 16px;">
+                        <strong style="color: #4a5568;">Skills/Domains of Interest:</strong><br>${feedbackData.skillsInterest || 'Not specified'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 0; font-size: 16px;">
+                        <strong style="color: #4a5568;">General Feedback:</strong><br>${feedbackData.generalFeedback || 'Not specified'}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td bgcolor="#e2e8f0" style="padding: 20px 30px; text-align: center; font-size: 12px; color: #4a5568;">
+                  This email was sent from your website's feedback form.
+                </td>
+              </tr>
+            </table>
+          </td>
         </tr>
       </table>
-
-      <hr>
-      <p>This email was sent from your website's feedback form.</p>
     `;
 
     // --- Add Contact to Brevo ---
@@ -90,7 +121,7 @@ export async function POST(req: NextRequest) {
 
     sendSmtpEmail.sender = { email: senderEmail };
     sendSmtpEmail.to = [{ email: recipientEmail }];
-    sendSmtpEmail.subject = 'New Business Interest Submission';
+    sendSmtpEmail.subject = subjectLine;
     sendSmtpEmail.htmlContent = htmlBody;
 
     // Send the email using Brevo

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -50,10 +49,9 @@ const companySizeOptions = [
 
 type SubmissionStatus = "idle" | "submitting" | "success";
 
-const FeedbackSection: React.FC = () => {
+const FeedbackSection: React.FC = (): React.ReactNode => {
   const { toast } = useToast();
-  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
-
+  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");  
   const form = useForm<FeedbackFormValues>({
     resolver: zodResolver(feedbackFormSchema),
     defaultValues: {
@@ -70,60 +68,75 @@ const FeedbackSection: React.FC = () => {
     mode: "onChange",
   });
 
-  function onSubmit(data: FeedbackFormValues) {
- setSubmissionStatus("submitting");
+  // Helper function to handle successful submission
+  const handleSuccessfulSubmission = async (data: FeedbackFormValues, formElement: HTMLElement | null) => {
+    // Extract first 1-3 words from lookingFor for subject    
+    const lookingForWords = data.lookingFor.trim().split(/\s+/);
+    const keyword = lookingForWords.slice(0, 3).join(" ");
+    const subject = `Business Inquiry - ${data.company} - ${keyword}`;
 
-    fetch('/api/send-email', {
- method: 'POST',
- headers: {
- 'Content-Type': 'application/json',
-      },
- body: JSON.stringify(data),
-    })
- .then(async (response) => {
- if (!response.ok) {
- const error = await response.json();
- throw new Error(error.message || 'Failed to send message.');
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...data, subject }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to send message.');
       }
- setSubmissionStatus("success");
+
+      // Email sent successfully
+      setSubmissionStatus("success");
       toast({
         title: "Message Sent!",
         description: "Thank you for sharing your interest. I'll be in touch soon.",
- variant: "default",
+        variant: "default",
       });
+
       setTimeout(() => {
         form.reset();
         setSubmissionStatus("idle");
-      }, 2500); 
-    })
- .catch((error) => {
- console.error("Error sending business interest:", error);
- setSubmissionStatus("idle"); // Reset state even on error
+      }, 2500); // Keep timeout for success message visibility
+
+    } catch (error: any) {
+      console.error("Error sending business interest:", error);
+      setSubmissionStatus("idle");
       toast({
         title: "Submission Failed",
         description: error.message || "There was an error sending your message. Please try again later.",
- variant: "destructive",
+        variant: "destructive",
       });
-    });
+    }
+  };
+
+
+  function onSubmit(data: FeedbackFormValues) {
+    setSubmissionStatus("submitting");
+    // Call the helper function
+    handleSuccessfulSubmission(data, null); // Removed formElement as it's not used in the handler
   }
 
   const handleClearForm = () => {
     form.reset();
-    setSubmissionStatus("idle"); 
+    setSubmissionStatus("idle");
   };
 
   return (
     <AnimatedSection id="connect" className="scroll-mt-20 md:scroll-mt-24" delay="delay-500">
       <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
         <CardHeader className="p-0 mb-8 text-center">
-          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Connect & Business Interest
+          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-2">
+            Connect <span className="text-accent">& Business Interest</span>
           </CardTitle>
           <CardDescription className="text-muted-foreground mt-2 text-lg">
             Let's explore opportunities. Tell me about your business needs or interests.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-0 min-h-[560px] flex flex-col justify-center"> {/* Increased min-height */}
+        <CardContent className="p-0 min-h-[560px] flex flex-col justify-center">
           {submissionStatus === "submitting" && (
             <div className="flex flex-col items-center justify-center text-center space-y-3 py-10">
               <Loader2 className="h-12 w-12 text-accent animate-spin" />
@@ -134,7 +147,7 @@ const FeedbackSection: React.FC = () => {
           {submissionStatus === "success" && (
             <div className="flex flex-col items-center justify-center text-center space-y-4 py-10 animate-fade-in">
               <MailCheck className="h-16 w-16 text-green-500 animate-bounce" style={{ animationIterationCount: 3, animationDuration: '0.7s' }} />
-              <p className="text-2xl font-semibold text-primary">Message Sent!</p>
+              <p className="text-2xl font-semibold text-primary">Message Sent!</p> {/* Reverted message */}
               <p className="text-muted-foreground">Thank you for reaching out. I'll be in touch soon.</p>
             </div>
           )}
@@ -316,9 +329,9 @@ const FeedbackSection: React.FC = () => {
                     Clear Form
                     <RotateCcw className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:rotate-[-45deg]" />
                   </Button>
-                  <Button 
-                    type="submit" 
-                    className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors duration-300 group" 
+                  <Button
+                    type="submit"
+                    className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors duration-300 group"
                     disabled={form.formState.isSubmitting}
                   >
                     {form.formState.isSubmitting ? (

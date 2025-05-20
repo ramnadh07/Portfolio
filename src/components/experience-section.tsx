@@ -68,8 +68,8 @@ const ExperienceSection: React.FC = () => {
     <AnimatedSection id="experience" className="scroll-mt-20 md:scroll-mt-24" delay="delay-350">
        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-out bg-card border border-border/50 rounded-lg p-6 md:p-10">
          <CardHeader className="p-0 mb-8 text-center">
-          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-3 pb-2 border-b-2 border-accent/30 inline-block">
-            Professional Journey & Impact
+          <CardTitle className="text-4xl md:text-5xl font-bold text-primary mb-2">
+            Professional Journey <span className="text-accent">& Impact</span>
           </CardTitle>
           <p className="text-muted-foreground mt-2 text-lg">Driving business value through analysis, consulting, and strategy.</p>
         </CardHeader>
