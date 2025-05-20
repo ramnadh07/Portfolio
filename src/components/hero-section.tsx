@@ -2,15 +2,11 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, MessageSquareQuote } from "lucide-react"; // Removed QrCode
+import { ArrowDown, MessageSquareQuote } from "lucide-react";
 import AnimatedSection from "./animated-section";
 import Link from "next/link";
-// Removed Image, Tooltip components, and useToast as they are no longer needed here
 
 const HeroSection: React.FC = () => {
-  // Removed state variables: aiVisualSrc, isLoadingVisual, errorLoadingVisual, and toast
-  // Removed useEffect hook for fetching AI visual
-
   return (
     <AnimatedSection
       id="hero"
@@ -83,13 +79,6 @@ const HeroSection: React.FC = () => {
           </Link>
         </Button>
       </div>
-
-      {/* Removed AI Generated Visual Element / QR Code Placeholder */}
-
-      {/* Animated Scroll Down Indicator */}
-       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce opacity-70 hover:opacity-100 transition-opacity">
-          <ArrowDown className="h-6 w-6 text-foreground" />
-        </div>
     </AnimatedSection>
   );
 };
