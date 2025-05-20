@@ -1,19 +1,10 @@
 
-'use client'; // Required for useState, useEffect and DropdownMenu interaction
+'use client'; // Required for other potential client-side interactions
 
 import React, { useState, useEffect } from 'react'; // Import useState and useEffect
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'; // Import Dropdown components
-import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond, TrendingDown, TrendingUp } from 'lucide-react'; // Removed Calendar, Clock icons
+import { User, Briefcase, Layers3, Mail, Shapes, GraduationCap, HeartHandshake, Diamond } from 'lucide-react';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
 
 
@@ -29,48 +20,19 @@ const Header: React.FC = () => {
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
         {/* Logo and Name Section */}
         <div className="flex items-center space-x-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              {/* Using a button as the trigger area around the icon */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full focus-visible:ring-1 focus-visible:ring-ring hover:bg-accent/10 p-0 border border-transparent hover:border-accent/30 transition-all duration-300" // Adjusted size and added padding 0
-                aria-label="Rate Portfolio"
-              >
-                {/* Blue Circle Outline */}
-                <div className="h-7 w-7 rounded-full border-2 border-accent/50 group-hover:border-accent flex items-center justify-center transition-colors">
-                    <Diamond className="h-4 w-4 text-primary transition-all duration-300 group-hover:text-accent group-hover:scale-110 group-hover:rotate-[10deg]" />
-                </div>
-              </Button>
-            </DropdownMenuTrigger>
-            {/* Adjusted Dropdown Width and Transparency */}
-            <DropdownMenuContent align="start" className="w-auto bg-popover/90 backdrop-blur-sm min-w-[100px]"> {/* Adjusted width */}
-              <DropdownMenuLabel className="text-xs font-medium px-2 py-1.5">Rate Portfolio</DropdownMenuLabel> {/* Adjusted padding and text size */}
-              <DropdownMenuSeparator />
-              {/* Radio group for rating */}
-              <DropdownMenuRadioGroup value={rating ?? ""} onValueChange={setRating} className="px-1 py-1">
-                {Array.from({ length: 10 }, (_, i) => i + 1).reverse().map((value) => ( /* Reversed order */
-                  <DropdownMenuRadioItem
-                    key={value}
-                    value={String(value)}
-                    className={
-                        `flex justify-between items-center cursor-pointer text-xs py-1 px-2 rounded-sm transition-all duration-200 ease-out
-                         ${rating === String(value) ? 
-                            (value >= 7 ? 'bg-accent/30 text-accent-foreground scale-105 shadow-md' : 'bg-accent/20 text-accent-foreground') : 
-                            'hover:bg-accent/10 hover:text-accent-foreground'}`
-                    }
-                  >
-                    <span>{value}</span>
-                    {/* Icons for Low/High */}
-                    {value === 1 && <TrendingDown className="h-3 w-3 text-destructive ml-2" />}
-                    {value === 10 && <TrendingUp className="h-3 w-3 text-green-500 ml-2" />}
-                  </DropdownMenuRadioItem>
-                ))}
-              </DropdownMenuRadioGroup>
-              {/* Optional: Add a submit button or handle rating state */}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Link href="/" className="group">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full focus-visible:ring-1 focus-visible:ring-ring hover:bg-accent/10 p-0 border border-transparent hover:border-accent/30 transition-all duration-300" // Adjusted size and added padding 0
+              aria-label="Home"
+            >
+              {/* Blue Circle Outline */}
+              <div className="h-7 w-7 rounded-full border-2 border-accent/50 group-hover:border-accent flex items-center justify-center transition-colors">
+                  <Diamond className="h-4 w-4 text-primary transition-all duration-300 group-hover:text-accent group-hover:scale-110 group-hover:rotate-[10deg]" />
+              </div>
+            </Button>
+          </Link>
           {/* Name - Not part of the dropdown */}
           <Link href="/" className="group">
             <span className="font-bold text-foreground hidden sm:inline-block transition-colors duration-300 group-hover:text-accent">
@@ -150,7 +112,6 @@ const Header: React.FC = () => {
             </Button>
             </nav>
              <ThemeToggleButton />
-             {/* Removed Date and Time Display */}
         </div>
       </div>
     </header>

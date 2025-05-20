@@ -29,28 +29,36 @@ const FloatingActions: React.FC = () => {
   }, []);
 
   const handleReferProfile = async () => {
+    const profileLink = "ramnadh.vercel.app";
     try {
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(window.location.href);
+      if (navigator.share) {
+        await navigator.share({
+          title: "Check out this portfolio!",
+          text: "Take a look at this amazing portfolio.",
+          url: profileLink,
+        });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(profileLink);
         toast({
           title: "Link Copied!",
           description: "Profile link copied to clipboard.",
         });
       } else {
-          const textArea = document.createElement("textarea");
-          textArea.value = window.location.href;
-          document.body.appendChild(textArea);
-          textArea.focus();
-          textArea.select();
-          try {
-            document.execCommand('copy');
-             toast({
-              title: "Link Copied!",
-              description: "Profile link copied to clipboard.",
-            });
-          } catch (err) {
-             toast({
-              title: "Copy Failed",
+        // Fallback for older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = profileLink;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          toast({
+            title: "Link Copied!",
+            description: "Profile link copied to clipboard.",
+          });
+        } catch (err) {
+          toast({
+            title: "Copy Failed",
               description: "Could not copy link automatically. Please copy it manually.",
               variant: "destructive",
             });
@@ -59,8 +67,8 @@ const FloatingActions: React.FC = () => {
       }
     } catch (err) {
        toast({
-        title: "Copy Failed",
-        description: "Could not copy link. Please try again or copy manually.",
+        title: "Share Failed",
+        description: "Could not share or copy link.",
         variant: "destructive",
       });
       console.error("Failed to copy text: ", err);
@@ -68,7 +76,7 @@ const FloatingActions: React.FC = () => {
   };
 
   const handleFreelanceInquiry = () => {
-    const email = "brucewyn09@gmail.com";
+    const email = "ramnadh2002@gmail.com";
     const subject = "Freelance/Contract Inquiry";
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
   };
@@ -149,7 +157,7 @@ const FloatingActions: React.FC = () => {
               </Link>
             </Button>
             <Button variant="ghost" asChild className="w-full justify-start px-3 py-2 text-sm hover:bg-accent/50">
-              <Link href="mailto:brucewyn09@gmail.com">
+              <Link href="mailto:ramnadh2002@gmail.com">
                 <Mail className="mr-2 h-4 w-4 text-accent" />
                 Send an Email
               </Link>

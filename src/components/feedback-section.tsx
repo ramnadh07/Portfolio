@@ -44,10 +44,8 @@ const companySizeOptions = [
   "11-50 employees",
   "51-200 employees",
   "201-1000 employees",
-  "1001-5000 employees",
   "5001+ employees",
-  "Solo / Freelancer",
-  "Other / Prefer not to say",
+  "Individual / Freelancer",
 ];
 
 type SubmissionStatus = "idle" | "submitting" | "success";
@@ -73,24 +71,40 @@ const FeedbackSection: React.FC = () => {
   });
 
   function onSubmit(data: FeedbackFormValues) {
-    setSubmissionStatus("submitting");
-    console.log("Business interest submitted:", data);
+ setSubmissionStatus("submitting");
 
-    // Simulate API call
-    setTimeout(() => {
-      setSubmissionStatus("success");
+    fetch('/api/send-email', {
+ method: 'POST',
+ headers: {
+ 'Content-Type': 'application/json',
+      },
+ body: JSON.stringify(data),
+    })
+ .then(async (response) => {
+ if (!response.ok) {
+ const error = await response.json();
+ throw new Error(error.message || 'Failed to send message.');
+      }
+ setSubmissionStatus("success");
       toast({
         title: "Message Sent!",
         description: "Thank you for sharing your interest. I'll be in touch soon.",
-        variant: "default", 
+ variant: "default",
       });
-
-      // Further delay before resetting form and returning to idle state
       setTimeout(() => {
         form.reset();
         setSubmissionStatus("idle");
       }, 2500); 
-    }, 1500); 
+    })
+ .catch((error) => {
+ console.error("Error sending business interest:", error);
+ setSubmissionStatus("idle"); // Reset state even on error
+      toast({
+        title: "Submission Failed",
+        description: error.message || "There was an error sending your message. Please try again later.",
+ variant: "destructive",
+      });
+    });
   }
 
   const handleClearForm = () => {

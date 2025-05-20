@@ -15,9 +15,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
   title: "Ram Nadh | Portfolio",
   description: "Professional portfolio of Ram Nadh",
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({
