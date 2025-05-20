@@ -12,7 +12,7 @@ const AboutSection: React.FC = () => {
         <div className="grid md:grid-cols-3 items-center">
           {/* Image Column */}
           <div className="md:col-span-1 relative h-96 md:h-full w-full overflow-hidden">
- <Image
+            <Image
               src="/images/about/rn.jpg" // Make sure this path is correct and the image exists
               alt="Professional portrait of Ram Nadh" // Add alt text for accessibility
               layout="fill"
@@ -20,6 +20,7 @@ const AboutSection: React.FC = () => {
               className="transition-all duration-700 ease-in-out group-hover:scale-110 filter group-hover:brightness-110 group-hover:saturate-150"
               data-ai-hint="abstract futuristic"
             />
+
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent md:bg-gradient-to-r md:from-card md:via-card/30 md:to-transparent"></div>
           </div>
