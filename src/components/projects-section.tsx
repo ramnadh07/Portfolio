@@ -35,7 +35,7 @@ const projectsData = [
   {
     id: "project-market-strategy",
     title: "Market Strategy Analysis",
-    description: "This initiative involves conducting in-depth market research and comprehensive competitive analysis. The aim is to identify emerging market opportunities, define robust product positioning, and inform effective go-to-market strategies for new and existing products or services. It includes analyzing market trends, customer segments, and competitive landscapes to drive strategic decision-making.",
+    description: "An innovation hub driving a plethora of strategic opportunities, this stream of initiatives centers around identifying untapped market potential, analyzing emerging trends, and predicting business and technology trajectories. It encompasses opportunity mapping, scalability assessments, and strategic foresight to shape high-impact marketing strategies. From crafting product roadmaps and channeling business models to productizing services and building value-driven narratives.",
     imageUrl: "/images/projects/marketing_strategy.png",
     tags: ["Market Research", "Competitive Analysis", "GTM Strategy", "Product Positioning", "Strategic Planning"],
     liveUrl: null,
@@ -45,7 +45,7 @@ const projectsData = [
   {
     id: "project-gtm-pursuits",
     title: "GTM Pursuits",
-    description: "This project focuses on supporting high-value sales pursuits and complex go-to-market initiatives. Key activities include deeply understanding client needs and pain points, architecting tailored solutions, developing compelling and persuasive proposals, and creating impactful presentations designed to win new business and foster strong client relationships.",
+    description: "This pursuit stream caters to high-impact sales enablement and strategic business expansion, playing a pivotal role in strengthening core competencies and unlocking new growth pathways. It involves deeply aligning with client contexts, architecting customized solution narratives, and crafting persuasive, high-value proposals and presentations. With a clear strategic vision, this initiative drives the development of scalable capabilities, broadens business opportunity pipelines, and enhances the organization’s scope to consistently achieve the next mile in value delivery.",
     imageUrl: "/images/projects/gtm.png",
     tags: ["GTM Strategy", "Sales Pursuits", "Solutioning", "Proposal Development", "Client Engagement"],
     liveUrl: "#",
