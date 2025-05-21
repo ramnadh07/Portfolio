@@ -13,7 +13,7 @@ const impactData = [
   {
     id: "impact-community-training",
     title: "Community Training & Mentorship",
-    description: "A collaborative community-driven ecosystem dedicated to fostering analytical talent and accelerating career readiness in the data space. This initiative brings together mentorship, skill-building, and portfolio curation under one roof—empowering individuals to gain hands-on exposure, refine their problem-solving capabilities, and align with real-world industry trends. Through consistent engagement, knowledge-sharing, and access to practical guidance, the community has enabled aspiring professionals to unlock meaningful opportunities and confidently pursue bright career paths.",
+    description: "A collaborative community-driven ecosystem dedicated to fostering analytical talent and accelerating career readiness in the data space, bringing together mentorship, skill-building, and portfolio curation under one roof to gain hands-on exposure, & build problem-solving capabilities, aligning with real-world industry trends. Through consistent engagement, knowledge-sharing, and access to practical guidance, the community has enabled aspiring professionals with bright opportunities.",
     imageUrl: "/images/Social/workshop.png",
     tags: ["Mentorship", "Skill Development", "Career Coaching", "Analytics Training", "Community Empowerment"],
     icon: <UsersRound className="inline-block h-4 w-4 mr-1.5 text-current" />,

@@ -119,7 +119,7 @@ const EducationSection: React.FC = () => {
                 <CardContent className="p-0 text-center">
                 <blockquote className="relative">
                     <p className="text-lg md:text-xl italic text-muted-foreground leading-relaxed max-w-3xl mx-auto group-hover:text-accent/90 transition-colors duration-300 group-hover:drop-shadow-[0_0_5px_hsl(var(--accent))]">
-                    &ldquo;You learn by Doing and sometimes, it is wise to Pause and  look UP&rdquo;
+                    &ldquo;You learn by doing, and sometimes it is wise to pause and look up.&rdquo;
                     </p>
                     <footer className="mt-3 text-sm text-foreground group-hover:text-accent/80 transition-colors duration-300">— Ramalingeswara Nadh</footer>
                 </blockquote>
