@@ -13,7 +13,7 @@ const impactData = [
   {
     id: "impact-community-training",
     title: "Community Training & Mentorship",
-    description: "Orchestrated a comprehensive program focused on community training and mentorship. This initiative empowered individuals by fostering essential skills, guiding them in building professional portfolios, and assisting them in exploring and securing opportunities, particularly within the analytics field. The program aimed to expand their knowledge base and cultivate a strong interest in data-driven careers.",
+    description: "A collaborative community-driven ecosystem dedicated to fostering analytical talent and accelerating career readiness in the data space. This initiative brings together mentorship, skill-building, and portfolio curation under one roof—empowering individuals to gain hands-on exposure, refine their problem-solving capabilities, and align with real-world industry trends. Through consistent engagement, knowledge-sharing, and access to practical guidance, the community has enabled aspiring professionals to unlock meaningful opportunities and confidently pursue bright career paths.",
     imageUrl: "/images/Social/workshop.png",
     tags: ["Mentorship", "Skill Development", "Career Coaching", "Analytics Training", "Community Empowerment"],
     icon: <UsersRound className="inline-block h-4 w-4 mr-1.5 text-current" />,
@@ -22,7 +22,7 @@ const impactData = [
   {
     id: "impact-environmental-stewardship",
     title: "Environmental Stewardship",
-    description: "Actively participated in and coordinated environmental cleaning drives and awareness campaigns. Key activities included educating children on ecological values, engaging in thoughtful activities to promote social responsibility, organizing plantation drives to support nature, and advocating for sustainable practices for equitable growth and environmental preservation.",
+    description: "A purpose-driven collective designed to promote environmental sustainability and community awareness. Enabled through grassroots coordination and volunteer-led engagement, this initiative brought together diverse groups for a shared mission: to champion ecological responsibility, including cleaning drives, plantation efforts, and awareness sessions focused on instilling sustainable values—particularly among children and youth-nurturing a culture of accountability, and laid the foundation for long-term, community-led ecological impact.",
     imageUrl: "/images/Social/env.png",
     tags: ["Environmental Activism", "Community Engagement", "Sustainability", "Youth Education", "Advocacy"],
     icon: <Leaf className="inline-block h-4 w-4 mr-1.5 text-current" />,
@@ -31,7 +31,7 @@ const impactData = [
   {
     id: "impact-startup-enablement",
     title: "Startup Enablement & Mentorship",
-    description: "Contributed as a core member in establishing and venturing with startup foundations. This role involved motivating students by presenting innovative opportunities, broadening their career paths through dedicated mentorship, facilitating access to relevant resources, and driving their purpose by instilling an entrepreneurial mindset and problem-solving skills.",
+    description: "This ecosystem supported the early foundation of startup ventures by providing access to structured mentorship, resource curation, and real-world exposure. It served as a catalyst for students and early professionals—equipping them with the mindset, problem-solving orientation, and strategic thinking required to pursue impactful ideas. Through motivational engagements, collaborative ideation, and opportunity mapping, it helped shape future-ready individuals capable of navigating complex challenges and converting vision into scalable ventures.",
     imageUrl: "/images/Social/startup.png",
     tags: ["Startup Incubation", "Innovation", "Youth Mentorship", "Entrepreneurship", "Venture Building"],
     icon: <Rocket className="inline-block h-4 w-4 mr-1.5 text-current" />,
