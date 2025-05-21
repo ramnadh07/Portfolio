@@ -9,6 +9,7 @@ import DateTimeDisplay from "@/components/date-time-display"; // Import the new 
 import Footer from "@/components/footer";
 import FloatingActions from "@/components/floating-actions"; // Import FloatingActions
 import { cn } from "@/lib/utils"; // Import cn utility
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
 // Removed Chatbot import
 
@@ -47,6 +48,7 @@ export default function RootLayout({
           {/* Removed AnimatedSection wrapper from Footer */}
           <FloatingActions /> {/* Add FloatingActions component */}
           <Footer />
+ <Analytics />
           <Toaster />
         </ThemeProvider>
       </body>
